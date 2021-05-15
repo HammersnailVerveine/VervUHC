@@ -1,0 +1,9 @@
+main: me.Verveine.LGUHC.Main
+name: VervUHC
+version: 0.1
+author: Verveine
+
+commands:
+   lgtest:
+      description: Coucou carnage
+      usage: /lgtest
