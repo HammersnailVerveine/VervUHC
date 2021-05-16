@@ -5,5 +5,8 @@ author: Verveine
 
 commands:
    lgtest:
-      description: Coucou carnage
+      description: Commandes test temporaires VervUHC (Coucou carnage)
       usage: /lgtest
+   alg:
+      description: Commandes admin VervUHC
+      usage: /alg

@@ -37,6 +37,11 @@ public class TestCommands implements CommandExecutor, TabCompleter {
 					return true;
 				}
 				
+				if (plugin.getGame() == null) {
+					sender.sendMessage(ChatColor.RED + "Aucune partie trouvée");
+					return true;
+				}
+				
 				if (args.length != 1) {
 					sender.sendMessage(ChatColor.RED + "needs 1 arg");
 					return true;
