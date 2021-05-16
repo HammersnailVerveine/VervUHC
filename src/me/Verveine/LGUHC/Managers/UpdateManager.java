@@ -10,9 +10,9 @@ public class UpdateManager {
 	private GameLG game;
 	private boolean isNight;
 	
-	public UpdateManager(Main main, GameLG game) {
+	public UpdateManager(Main main) {
 		this.plugin = main;
-		this.game = game;
+		this.game = main.getGame();
 	}
 
 	public void update() {
