@@ -11,9 +11,9 @@ public class RunnableUpdate extends BukkitRunnable {
 	Main plugin;
 	GameLG game;
 	
-	public RunnableUpdate(Main main) {
-		plugin = main;
-		game = plugin.getGame();
+	public RunnableUpdate(Main main, GameLG game) {
+		this.plugin = main;
+		this.game = game;
 	}
 	
 	@Override

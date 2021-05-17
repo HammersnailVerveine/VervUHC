@@ -10,9 +10,9 @@ public class UpdateManager {
 	private GameLG game;
 	private boolean isNight;
 	
-	public UpdateManager(Main main) {
+	public UpdateManager(Main main, GameLG game) {
 		this.plugin = main;
-		this.game = main.getGame();
+		this.game = game;
 	}
 
 	public void update() {
@@ -26,7 +26,7 @@ public class UpdateManager {
 		if (!isNight && time > 12000) {
 			isNight = true;
 			game.getChatManager().sendSystemMessage("C'est la nuit.");
-			for (Profile p : game.getProfiles()) {
+			for (Profile p : game.getProfilesManager().getProfiles()) {
 				p.getRole().resetNight(p.getPlayer());
 			}
 			return;
@@ -35,7 +35,7 @@ public class UpdateManager {
 		if (isNight && time < 12000) {
 			isNight = false;
 			game.getChatManager().sendSystemMessage("C'est le jour.");
-			for (Profile p : game.getProfiles()) {
+			for (Profile p : game.getProfilesManager().getProfiles()) {
 				p.getRole().resetDay(p.getPlayer());
 			}
 			return;
@@ -47,7 +47,7 @@ public class UpdateManager {
 	}
 
 	public void updateProfiles() {
-		for (Profile p : game.getProfiles()) {
+		for (Profile p : game.getProfilesManager().getProfiles()) {
 			if (isNight) {
 				p.getRole().updateNight(p.getPlayer());
 			} else {

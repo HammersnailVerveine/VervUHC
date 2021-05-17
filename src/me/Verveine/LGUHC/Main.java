@@ -9,13 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.Verveine.LGUHC.Commands.AdminCommands;
 import me.Verveine.LGUHC.Commands.TestCommands;
-import me.Verveine.LGUHC.Game.GameLG;
-import me.Verveine.LGUHC.Runnables.RunnableUpdate;
+import me.Verveine.LGUHC.Managers.GameManager;
 
 public class Main extends JavaPlugin implements Listener {
 	
-	private GameLG game;
-	private RunnableUpdate gameRunnable;
+	private GameManager gameManager; // Code can be arranged to potentially host multiple games at once ?
 	
 	@Override
 	public void onEnable() {
@@ -34,27 +32,19 @@ public class Main extends JavaPlugin implements Listener {
 		this.getCommand("alg").setExecutor(new AdminCommands(this));
 	}
 
-	public GameLG getGame() {
-		return game;
+	public GameManager getGameManager() {
+		return gameManager;
 	}
 
-	public void setGame(GameLG game) {
-		this.game = game;
-	}
-
-	public RunnableUpdate getGameRunnable() {
-		return gameRunnable;
-	}
-
-	public void setGameRunnable(RunnableUpdate gameRunnable) {
-		this.gameRunnable = gameRunnable;
+	public void setGameManager(GameManager gameManager) {
+		this.gameManager = gameManager;
 	}
 	
 	// Handlers (temp)
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		if (game != null) {
-			game.updateProfiles(event.getPlayer());
+		if (gameManager != null) {
+			gameManager.getGame().getProfilesManager().updateProfiles(event.getPlayer());
 		}
 	}
 }

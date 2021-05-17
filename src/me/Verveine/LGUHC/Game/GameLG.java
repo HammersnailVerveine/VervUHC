@@ -8,6 +8,7 @@ import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.GameState;
 import me.Verveine.LGUHC.Managers.ChatManager;
+import me.Verveine.LGUHC.Managers.GameObjectManager;
 import me.Verveine.LGUHC.Managers.ProfilesManager;
 import me.Verveine.LGUHC.Managers.UpdateManager;
 import me.Verveine.LGUHC.Managers.WorldManager;
@@ -18,35 +19,23 @@ public class GameLG {
 	private UpdateManager updateManager;
 	private WorldManager worldManager;
 	private ProfilesManager profilesManager;
-	private ArrayList<Profile> profiles;
+	private GameObjectManager gameObjectManager;
 	private GameState gameState;
 	private String hostName;
 	private int time;
 	
 	public GameLG(Main main, Player player) {
 		this.setPlugin(main);
-		this.setChatManager(new ChatManager(main));
-		this.setUpdateManager(new UpdateManager(main));
-		this.setWorldManager(new WorldManager(main, player.getWorld()));
-		this.setProfilesManager(new ProfilesManager(main));
+		this.setChatManager(new ChatManager(main, this));
+		this.setUpdateManager(new UpdateManager(main, this));
+		this.setWorldManager(new WorldManager(main, this, player.getWorld()));
+		this.setProfilesManager(new ProfilesManager(main, this));
+		this.setGameObjectManager(new GameObjectManager(main, this));
 		this.setHostName(player.getName());
 		this.setGameState(GameState.LOBBY);
 		this.setTime(0);
-		profiles = new ArrayList<Profile>();
-	}
-
-	public ArrayList<Profile> getProfiles() {
-		return profiles;
-	}
-
-	public void setProfiles(ArrayList<Profile> profiles) {
-		this.profiles = profiles;
 	}
 	
-	public void updateProfiles(Player player) {
-		this.profilesManager.updateProfiles(player);
-	}
-
 	public void update() {
 		this.updateManager.update();
 	}
@@ -115,5 +104,13 @@ public class GameLG {
 
 	public void setProfilesManager(ProfilesManager profilesManager) {
 		this.profilesManager = profilesManager;
+	}
+
+	public GameObjectManager getGameObjectManager() {
+		return gameObjectManager;
+	}
+
+	public void setGameObjectManager(GameObjectManager gameObjectManager) {
+		this.gameObjectManager = gameObjectManager;
 	}
 }

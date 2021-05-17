@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
+import me.Verveine.LGUHC.Managers.GameManager;
 import me.Verveine.LGUHC.Runnables.RunnableUpdate;
 import net.md_5.bungee.api.ChatColor;
 
@@ -43,14 +44,16 @@ public class AdminCommands implements CommandExecutor, TabCompleter {
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
 				GameLG game = new GameLG(plugin, player);
+				RunnableUpdate runnable = new RunnableUpdate(plugin, game);
+				plugin.setGameManager(new GameManager(plugin, game, runnable));
+				game.getWorldManager().setSpawnLocation(player.getLocation());
+				game.getGameObjectManager().getSpawnBox().CreateFromPlayer(player);
+				Bukkit.broadcastMessage("test 6");
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					game.getProfilesManager().updateProfiles(p);
+				}
 				game.getChatManager().sendSystemMessage("New game successfully created.\n ");
 				game.getChatManager().sendSystemMessage(sender.getName() + " was set as te host");
-				game.getWorldManager().setWorld(player.getWorld());
-				game.getWorldManager().setSpawnLocation(player.getLocation());
-				for (Player p : Bukkit.getOnlinePlayers()) {
-					game.updateProfiles(p);
-				}
-				plugin.setGame(game);
 				return true;
 			} else {
 				sender.sendMessage(ChatColor.RED + "Non utilisable depuis la console (requiert d'être utilisé par l'host).");
@@ -58,16 +61,14 @@ public class AdminCommands implements CommandExecutor, TabCompleter {
 			}
 		}
 		
-		if (plugin.getGame() == null) {
+		if (plugin.getGameManager() == null) {
 			sender.sendMessage(ChatColor.RED + "Aucune partie trouvée");
 			return true;
 		}
 		
 		if (args[0].equalsIgnoreCase("start")) {
-			RunnableUpdate runnable = new RunnableUpdate(plugin);
-			runnable.runTaskTimer(plugin, 0, 20);
-			plugin.setGameRunnable(runnable);
-			plugin.getGame().getChatManager().sendSystemMessage(sender.getName() + " started the game!");
+			plugin.getGameManager().getGameRunnable().runTaskTimer(plugin, 0, 20);
+			plugin.getGameManager().getGame().getChatManager().sendSystemMessage(sender.getName() + " started the game!");
 		}
 
 		sender.sendMessage(ChatColor.RED + "Commande invalide");

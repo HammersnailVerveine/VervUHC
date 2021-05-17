@@ -37,7 +37,7 @@ public class TestCommands implements CommandExecutor, TabCompleter {
 					return true;
 				}
 				
-				if (plugin.getGame() == null) {
+				if (plugin.getGameManager() == null) {
 					sender.sendMessage(ChatColor.RED + "Aucune partie trouvée");
 					return true;
 				}
@@ -94,8 +94,8 @@ public class TestCommands implements CommandExecutor, TabCompleter {
 	}
 	
 	private Profile getProfileFromName(String name) {
-		GameLG game = plugin.getGame();
-		ArrayList<Profile> profiles = game.getProfiles();
+		GameLG game = plugin.getGameManager().getGame();
+		ArrayList<Profile> profiles = game.getProfilesManager().getProfiles();
 		Profile profile = null;
 		
 		for (Profile p : profiles) {

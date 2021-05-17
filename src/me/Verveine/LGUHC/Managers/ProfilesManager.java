@@ -15,10 +15,10 @@ public class ProfilesManager {
 	private GameLG game;
 	private Main plugin;
 	
-	public ProfilesManager(Main main) {
-		setPlugin(main);
-		setGame(main.getGame());
-		setProfiles(main.getGame().getProfiles());
+	public ProfilesManager(Main main, GameLG game) {
+		this.plugin = main;
+		this.game = game;
+		this.profiles = new ArrayList<Profile>();
 	}
 	
 	private Profile getProfileFromName(String name) {
