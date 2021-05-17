@@ -16,7 +16,7 @@ public class SpawnBox {
 	
 	public void CreateFromPlayer(Player player) {
 		Location location = player.getLocation();
-		location.setY(location.getY() + 103);
+		location.setY(150);
 		this.location = location;
 		this.Create();
 	}
