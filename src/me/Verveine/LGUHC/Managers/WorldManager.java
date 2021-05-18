@@ -6,26 +6,14 @@ import org.bukkit.World;
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 
-public class WorldManager {
-	
-	private Main plugin;
-	private GameLG game;
+public class WorldManager extends InternalManager {
+
 	private World world;
 	private Location spawnLocation; 
-
-	public WorldManager(Main main, GameLG game, World world) {
-		this.plugin = main;
-		this.setGame(game);
-		this.world = world;
-		this.spawnLocation = world.getSpawnLocation();
-	}
-
-	public Main getPlugin() {
-		return plugin;
-	}
-
-	public void setPlugin(Main plugin) {
-		this.plugin = plugin;
+	
+	public WorldManager(Main main, GameLG game) {
+		super(main, game);
+		this.world = game.getWorld();
 	}
 
 	public World getWorld() {
@@ -43,13 +31,4 @@ public class WorldManager {
 	public void setSpawnLocation(Location spawnLocation) {
 		this.spawnLocation = spawnLocation;
 	}
-
-	public GameLG getGame() {
-		return game;
-	}
-
-	public void setGame(GameLG game) {
-		this.game = game;
-	}
-
 }

@@ -10,14 +10,11 @@ import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Players.Statistics;
 import me.Verveine.LGUHC.Players.Roles.RoleBlank;
 
-public class ProfilesManager {
+public class ProfilesManager extends InternalManager {
 	private ArrayList<Profile> profiles;
-	private GameLG game;
-	private Main plugin;
 	
 	public ProfilesManager(Main main, GameLG game) {
-		this.plugin = main;
-		this.game = game;
+		super(main, game);
 		this.profiles = new ArrayList<Profile>();
 	}
 	
@@ -59,21 +56,5 @@ public class ProfilesManager {
 
 	public void setProfiles(ArrayList<Profile> profiles) {
 		this.profiles = profiles;
-	}
-
-	public GameLG getGame() {
-		return game;
-	}
-
-	public void setGame(GameLG game) {
-		this.game = game;
-	}
-
-	public Main getPlugin() {
-		return plugin;
-	}
-
-	public void setPlugin(Main plugin) {
-		this.plugin = plugin;
 	}
 }

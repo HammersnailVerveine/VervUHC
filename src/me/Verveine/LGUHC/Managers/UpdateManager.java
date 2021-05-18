@@ -1,22 +1,18 @@
 package me.Verveine.LGUHC.Managers;
 
+import java.util.ArrayList;
+
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.GameState;
 import me.Verveine.LGUHC.Game.GameLG;
-import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimers;
+import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
 import me.Verveine.LGUHC.Players.Profile;
 
-public class UpdateManager {
-	
-	private Main plugin;
-	private GameLG game;
-	private ConfigurationTimers configurationTimers;
+public class UpdateManager extends InternalManager {
 	private boolean isNight;
 	
-	public UpdateManager(Main main, GameLG game, ConfigurationTimers configurationTimers) {
-		this.plugin = main;
-		this.game = game;
-		this.configurationTimers = configurationTimers;
+	public UpdateManager(Main main, GameLG game) {
+		super(main, game);
 	}
 
 	public void update() {
@@ -52,24 +48,11 @@ public class UpdateManager {
 		int time = game.getTime();
 		game.setTime(time + 1);
 		
-		if (time == configurationTimers.getTimerRoles()) {
-			// TODO
-		}
-		
-		if (time == configurationTimers.getTimerLoups()) {
-			// TODO
-		}
-		
-		if (time == configurationTimers.getTimerPvP()) {
-			// TODO
-		}
-		
-		if (time == configurationTimers.getTimerBorder()) {
-			// TODO
-		}
-		
-		if (time == configurationTimers.getTimerMinage()) {
-			// TODO
+		ArrayList<ConfigurationTimer> configurationTimers = game.getConfigurationsManager().getConfigurationTimers();
+		for (ConfigurationTimer configurationTimer : configurationTimers) {
+			if (time == configurationTimer.getTimer() && !configurationTimer.isActive()) {
+				configurationTimer.activate(game);
+			}
 		}
 	}
 
@@ -81,13 +64,5 @@ public class UpdateManager {
 				p.getRole().updateDay(p.getPlayer());
 			}
 		}
-	}
-
-	public Main getPlugin() {
-		return plugin;
-	}
-
-	public void setPlugin(Main plugin) {
-		this.plugin = plugin;
 	}
 }

@@ -31,7 +31,7 @@ public class RoleLoupGarou extends Role {
 
 	@Override
 	public void updateNight(Player player) {
-		player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, 0, false, false));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 40, 0, false, false));
 	}
 
 	@Override
