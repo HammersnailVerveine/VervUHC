@@ -18,6 +18,7 @@ public class RoleLoupGarou extends Role {
 		this.camps.add(Camps.WOLF);	
 		this.tags.add(Tags.WOLF);
 		this.appearsOnWolfList = true;
+		this.description = "Votre but est de gagner avec les autres joueurs du camp des loups. Pour cela, vous disposez d'un effet force I la nuit, et aurez accès à la liste des loups avec la commande /lg lg.";
 	}
 
 	@Override

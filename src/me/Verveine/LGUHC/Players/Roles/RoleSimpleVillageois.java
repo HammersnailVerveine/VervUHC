@@ -13,6 +13,7 @@ public class RoleSimpleVillageois extends Role {
 		this.setColor(ChatColor.GREEN);
 		this.setName("Simple Villageois");
 		this.camps.add(Camps.VILLAGE);		
+		this.description = "Vous n'avez pas de pouvoir particulier. Votre but est de gagner avec le village, pour cela, vous devez éliminer les joueurs du camp des loups, et les solitaires.";
 	}
 
 	@Override

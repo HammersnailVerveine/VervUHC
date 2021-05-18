@@ -46,6 +46,10 @@ public class ProfilesManager {
 			profile = new Profile(player, new RoleBlank(), new Statistics());
 			this.profiles.add(profile);
 			chatManager.sendSystemMessage("Profil " + playerName + " ajouté");
+			
+			if (!game.started()) {
+				player.teleport(game.getGameObjectManager().getSpawnBox().getLocation());
+			}
 		}
 	}
 

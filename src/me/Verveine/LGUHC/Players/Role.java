@@ -66,6 +66,14 @@ public abstract class Role {
 		this.name = name;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public ChatColor getColor() {
 		return color;
 	}

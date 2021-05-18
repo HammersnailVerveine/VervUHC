@@ -20,6 +20,7 @@ public class Main extends JavaPlugin implements Listener {
 		registerCmds();
 		PluginManager pluginManager = this.getServer().getPluginManager();
 		pluginManager.registerEvents(this, this);
+		gameManager = new GameManager(this);
 	}
 	
 	@Override
@@ -43,7 +44,7 @@ public class Main extends JavaPlugin implements Listener {
 	// Handlers (temp)
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		if (gameManager != null) {
+		if (gameManager.hasGame()) {
 			gameManager.getGame().getProfilesManager().updateProfiles(event.getPlayer());
 		}
 	}
