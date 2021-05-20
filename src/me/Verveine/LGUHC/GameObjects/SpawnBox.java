@@ -21,7 +21,7 @@ public class SpawnBox {
 		this.Create();
 	}
 	
-	public boolean Create() {
+	public boolean Create() { //TODO : supprimer l'ancienne box
 		if (location == null) {
 			return false;
 		} else {

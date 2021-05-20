@@ -5,11 +5,9 @@ import me.Verveine.LGUHC.Game.GameLG;
 
 public abstract class InternalManager {
 	protected Main plugin;
-	protected GameLG game;
 	
-	public InternalManager(Main main, GameLG game) {
+	public InternalManager(Main main) {
 		this.plugin = main;
-		this.game = game;
 	}
 
 	public Main getPlugin() {
@@ -21,10 +19,6 @@ public abstract class InternalManager {
 	}
 
 	public GameLG getGame() {
-		return game;
-	}
-
-	public void setGame(GameLG game) {
-		this.game = game;
+		return plugin.getGameManager().getGame();
 	}
 }

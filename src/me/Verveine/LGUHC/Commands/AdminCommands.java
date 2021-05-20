@@ -38,7 +38,7 @@ public class AdminCommands implements CommandExecutor, TabCompleter {
 			return true;
 		}
 		
-		if (args[0].equalsIgnoreCase("new")) {
+		if (args[0].equalsIgnoreCase("new")) { // COMMANDE NEW
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
 				plugin.getGameManager().createGame(player);
@@ -46,7 +46,7 @@ public class AdminCommands implements CommandExecutor, TabCompleter {
 			} else {
 				sender.sendMessage(ChatColor.RED + "Non utilisable depuis la console (requiert d'être utilisé par l'host).");
 				return true;
-			}
+			} // FIN COMMANDE NEW
 		}
 		
 		if (!plugin.getGameManager().hasGame()) {
@@ -54,12 +54,30 @@ public class AdminCommands implements CommandExecutor, TabCompleter {
 			return true;
 		}
 		
-		if (args[0].equalsIgnoreCase("start")) {
+		if (args[0].equalsIgnoreCase("start")) { // COMMANDE START
 			GameLG game = plugin.getGameManager().getGame();
 			game.setGameState(GameState.STARTED);
 			game.getChatManager().sendSystemMessage(sender.getName() + " started the game!");
 			return true;
-		}
+		} // FIN COMMANDE START
+		
+		if (args[0].equalsIgnoreCase("config") || args[0].equalsIgnoreCase("configuration")) { // COMMANDE CONFIG
+			
+			if (args.length != 1) {
+				sender.sendMessage(ChatColor.RED + "Usage : /alg config");
+				return true;
+			}
+			
+			if (sender instanceof Player) {
+				Player playerTarget = (Player) sender;
+				GameLG game = plugin.getGameManager().getGame();
+				playerTarget.openInventory(game.getMenusManager().getMainMenuManager().getInventory());
+				return true;
+			} else {
+				sender.sendMessage(ChatColor.RED + "Vous n'etes pas un joueur");
+				return true;
+			}
+		}		// FIN COMMANDE CONFIG
 
 		sender.sendMessage(ChatColor.RED + "Commande invalide");
 		return false;

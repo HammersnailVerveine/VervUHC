@@ -9,7 +9,8 @@ import net.md_5.bungee.api.ChatColor;
 public class ChatManager extends InternalManager {
 
 	public ChatManager(Main main, GameLG game) {
-		super(main, game);
+		super(main);
+		game.setChatManager(this);
 	}
 	
 	public void sendSystemMessage(String message) {

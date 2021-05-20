@@ -1,5 +1,6 @@
 package me.Verveine.LGUHC.Managers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -12,8 +13,9 @@ public class WorldManager extends InternalManager {
 	private Location spawnLocation; 
 	
 	public WorldManager(Main main, GameLG game) {
-		super(main, game);
-		this.world = game.getWorld();
+		super(main);
+		game.setWorldManager(this);
+		this.world = Bukkit.getWorlds().get(0);
 	}
 
 	public World getWorld() {

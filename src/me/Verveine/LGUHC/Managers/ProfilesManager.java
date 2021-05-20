@@ -14,7 +14,8 @@ public class ProfilesManager extends InternalManager {
 	private ArrayList<Profile> profiles;
 	
 	public ProfilesManager(Main main, GameLG game) {
-		super(main, game);
+		super(main);
+		game.setProfilesManager(this);
 		this.profiles = new ArrayList<Profile>();
 	}
 	
@@ -32,6 +33,7 @@ public class ProfilesManager extends InternalManager {
 	}
 	
 	public void updateProfiles(Player player) {
+		GameLG game = this.getGame();
 		String playerName = player.getName();
 		Profile profile = getProfileFromName(playerName);
 		ChatManager chatManager = game.getChatManager();

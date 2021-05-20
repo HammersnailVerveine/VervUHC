@@ -3,6 +3,7 @@ package me.Verveine.LGUHC;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -48,4 +49,11 @@ public class Main extends JavaPlugin implements Listener {
 			gameManager.getGame().getProfilesManager().updateProfiles(event.getPlayer());
 		}
 	}
+	
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onClick(InventoryClickEvent clickEvent) {
+		this.getGameManager().getGame().getMenusManager().onClick(clickEvent);
+	}
+	
 }

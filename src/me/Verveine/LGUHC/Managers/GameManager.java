@@ -20,9 +20,10 @@ public class GameManager {
 	public void createGame(Player host) {
 		GameLG game = new GameLG(plugin, host);
 		RunnableUpdate runnable = new RunnableUpdate(plugin, game);
+		this.game = game;
+		this.gameRunnable = runnable;
 		
 		runnable.runTaskTimer(plugin, 0, 20);
-		
 		game.getWorldManager().setSpawnLocation(host.getLocation());
 		game.getGameObjectManager().getSpawnBox().CreateFromPlayer(host);
 		game.getChatManager().sendSystemMessage("New game successfully created.\n ");
@@ -30,9 +31,6 @@ public class GameManager {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			game.getProfilesManager().updateProfiles(p);
 		}
-		
-		this.game = game;
-		this.gameRunnable = runnable;
 	}
 
 	public boolean hasGame() {

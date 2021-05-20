@@ -14,7 +14,8 @@ public class ConfigurationsManager extends InternalManager {
 	private ArrayList<ConfigurationRole> configurationRoles;
 	
 	public ConfigurationsManager(Main main, GameLG game) {
-		super(main, game);
+		super(main);
+		game.setConfigurationsManager(this);
 		configurationTimers = generateConfigurationTimers();
 		configurationRoles = generateConfigurationRoles();
 	}

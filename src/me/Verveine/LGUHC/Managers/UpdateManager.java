@@ -12,11 +12,12 @@ public class UpdateManager extends InternalManager {
 	private boolean isNight;
 	
 	public UpdateManager(Main main, GameLG game) {
-		super(main, game);
+		super(main);
+		game.setUpdateManager(this);
 	}
 
 	public void update() {
-		if (game.getGameState().equals(GameState.STARTED)) {
+		if (this.getGame().getGameState().equals(GameState.STARTED)) {
 			this.updateTimer();
 			this.updateProfiles();
 			this.updateNight();
@@ -24,6 +25,7 @@ public class UpdateManager extends InternalManager {
 	}
 	
 	private void updateNight() {
+		GameLG game = this.getGame();
 		long time = game.getWorldManager().getWorld().getTime();
 		if (!isNight && time > 12000) {
 			isNight = true;
@@ -45,6 +47,7 @@ public class UpdateManager extends InternalManager {
 	}
 
 	private void updateTimer() {
+		GameLG game = this.getGame();
 		int time = game.getTime();
 		game.setTime(time + 1);
 		
@@ -57,7 +60,7 @@ public class UpdateManager extends InternalManager {
 	}
 
 	public void updateProfiles() {
-		for (Profile p : game.getProfilesManager().getProfiles()) {
+		for (Profile p : this.getGame().getProfilesManager().getProfiles()) {
 			if (isNight) {
 				p.getRole().updateNight(p.getPlayer());
 			} else {

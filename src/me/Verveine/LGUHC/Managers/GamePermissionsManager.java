@@ -9,7 +9,8 @@ public class GamePermissionsManager extends InternalManager {
 	private boolean pvpHit;
 	
 	public GamePermissionsManager(Main main, GameLG game) {
-		super(main, game);
+		super(main);
+		game.setGamePermissionsManager(this);
 		this.setWolfList(false);
 		this.setPvpHit(false);
 		this.setMineBlocks(false);

@@ -8,7 +8,8 @@ public class GameObjectManager extends InternalManager {
 	private SpawnBox spawnBox;
 	
 	public GameObjectManager(Main main, GameLG game) {
-		super(main, game);
+		super(main);
+		game.setGameObjectManager(this);
 		this.spawnBox = new SpawnBox(game.getWorldManager().getSpawnLocation(), false);
 	}
 	
