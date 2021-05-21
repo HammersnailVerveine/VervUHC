@@ -11,10 +11,11 @@ public class TimerRoles extends ConfigurationTimer {
 	public void setDefaults() {
 		this.name = "Distribution des Rôles";
 		this.material = Material.APPLE;
-		this.timer = 20 * 60; // TODO : edit default with config
+		this.timer = 5; // TODO : edit default with config
 	}
 
 	@Override
 	public void run(GameLG game) {
+		game.getProfilesManager().giveRoles();
 	}
 }

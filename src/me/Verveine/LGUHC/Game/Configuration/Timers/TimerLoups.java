@@ -16,7 +16,6 @@ public class TimerLoups extends ConfigurationTimer {
 
 	@Override
 	public void run(GameLG game) {
-		game.getChatManager().sendSystemMessage("Test Liste Loups");
 		game.getGamePermissionsManager().setWolfList(true);
 	}
 }

@@ -33,6 +33,17 @@ public class ConfigurationsManager extends InternalManager {
 		configuration.add(new TimerLoups());
 		return configuration;
 	}
+	
+	public int countRoles() {
+		int count = 0;
+		for (ConfigurationRole configurationRole : this.getConfigurationRoles()) {
+			int amount = configurationRole.getAmount();
+			if (amount > 0) {
+				count += amount;
+			}
+		}
+		return count;
+	}
 
 	public ArrayList<ConfigurationTimer> getConfigurationTimers() {
 		return configurationTimers;

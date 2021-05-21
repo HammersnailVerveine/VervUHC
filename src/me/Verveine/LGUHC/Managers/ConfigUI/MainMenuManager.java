@@ -14,11 +14,11 @@ public class MainMenuManager extends InternalMenuManager {
 
 	@Override
 	public void setDefaults() {
-		this.setItem(this.getInventory(), 0, Material.BARRIER, ChatColor.RED + "Retour");
-		this.setItem(this.getInventory(), 3, Material.BOOK, ChatColor.BLUE + "Configuration Rôles");
-		this.setItem(this.getInventory(), 4, Material.CLAY_BRICK, ChatColor.BLUE + "Configuration Bordure");
-		this.setItem(this.getInventory(), 5, Material.WATCH, ChatColor.BLUE + "Configuration Timers");
-		this.setItem(this.getInventory(), 6, Material.APPLE, ChatColor.BLUE + "Configuration Règles");
+		this.setItem(this.getInventory(), 0, Material.BARRIER, ChatColor.RED + "Retour", 1);
+		this.setItem(this.getInventory(), 3, Material.BOOK, ChatColor.BLUE + "Configuration Rôles", 1);
+		this.setItem(this.getInventory(), 4, Material.CLAY_BRICK, ChatColor.BLUE + "Configuration Bordure", 1);
+		this.setItem(this.getInventory(), 5, Material.WATCH, ChatColor.BLUE + "Configuration Timers", 1);
+		this.setItem(this.getInventory(), 6, Material.APPLE, ChatColor.BLUE + "Configuration Règles", 1);
 	}
 
 	@Override
@@ -26,6 +26,9 @@ public class MainMenuManager extends InternalMenuManager {
 		switch(clickEvent.getCurrentItem().getType()) {
 			case BARRIER:
 				clickEvent.getWhoClicked().closeInventory();
+				break;
+			case BOOK:
+				clickEvent.getWhoClicked().openInventory(this.getGame().getMenusManager().getRolesMenuManager().getInventory());
 				break;
 			default:
 				break;

@@ -3,6 +3,7 @@ package me.Verveine.LGUHC.Managers.ConfigUI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import me.Verveine.LGUHC.Main;
@@ -17,12 +18,24 @@ public class MenusManager extends InternalManager {
 		super(main);
 		game.setMenusManager(this);
 		new MainMenuManager(main, this);
+		Bukkit.broadcastMessage("1");
+		new RolesMenuManager(main, this);
+		Bukkit.broadcastMessage("2");
 	}
 
-	public InternalMenuManager getMainMenuManager() {
+	public MainMenuManager getMainMenuManager() {
 		for (InternalMenuManager menu : menus) {
 			if (menu instanceof MainMenuManager) {
-				return  menu;
+				return (MainMenuManager) menu;
+			}
+		}
+		return null;
+	}
+
+	public InternalMenuManager getRolesMenuManager() {
+		for (InternalMenuManager menu : menus) {
+			if (menu instanceof RolesMenuManager) {
+				return (RolesMenuManager) menu;
 			}
 		}
 		return null;
@@ -36,15 +49,23 @@ public class MenusManager extends InternalManager {
 		}		
 		this.menus.add(mainMenuManager);
 	}
+
+	public void setRolesMenuManager(RolesMenuManager rolesMenuManager) {
+		for (InternalMenuManager menu : menus) {
+			if (menu instanceof RolesMenuManager) {
+				menus.remove(menu);
+			}
+		}		
+		this.menus.add(rolesMenuManager);
+	}
 	
 	public void onClick(InventoryClickEvent clickEvent) {
 		for (InternalMenuManager menu : this.getMenus()) {
-			if (clickEvent.getCurrentItem() == null || clickEvent.getCurrentItem().getItemMeta() == null || clickEvent.getCurrentItem().getItemMeta().getDisplayName() == null) {
-				return;
-			} else {
-				if (menu.getInventory().equals(clickEvent.getInventory())) {
+			if (menu.getInventory().equals(clickEvent.getInventory())) {
+				if (clickEvent.getCurrentItem() != null && clickEvent.getCurrentItem().getItemMeta() != null && clickEvent.getCurrentItem().getItemMeta().getDisplayName() != null) {
 					menu.onClick(clickEvent);
 				}
+				clickEvent.setCancelled(true);
 			}
 		}
 	}

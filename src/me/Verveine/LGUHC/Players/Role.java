@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import me.Verveine.LGUHC.Enums.Camps;
 import me.Verveine.LGUHC.Enums.Tags;
 
-public abstract class Role {
+public abstract class Role implements Cloneable {
 	protected ArrayList<Camps> camps;
 	protected ArrayList<Tags> tags;
 	protected boolean appearsOnWolfList;
@@ -33,6 +33,10 @@ public abstract class Role {
 	public abstract void resetDay(Player player);
 	public abstract void resetNight(Player player);
 	public abstract void useCommand(Player player);
+	
+	public Role clone() {
+		return this.clone();
+	}
 
 	public ArrayList<Camps> getCamps() {
 		return camps;

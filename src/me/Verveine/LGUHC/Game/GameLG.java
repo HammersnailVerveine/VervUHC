@@ -6,6 +6,7 @@ import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.GameState;
 import me.Verveine.LGUHC.Managers.ChatManager;
 import me.Verveine.LGUHC.Managers.ConfigurationsManager;
+import me.Verveine.LGUHC.Managers.GameManager;
 import me.Verveine.LGUHC.Managers.GameObjectManager;
 import me.Verveine.LGUHC.Managers.GamePermissionsManager;
 import me.Verveine.LGUHC.Managers.ProfilesManager;
@@ -27,7 +28,8 @@ public class GameLG {
 	private String hostName;
 	private int time;
 	
-	public GameLG(Main main, Player player) {
+	public GameLG(Main main, Player player, GameManager gameManager) {
+		gameManager.setGame(this);
 		this.setPlugin(main);
 		this.setHostName(player.getName()); // TODO : Retirer dépendance à un player
 		this.setGameState(GameState.LOBBY);
@@ -45,9 +47,6 @@ public class GameLG {
 	
 	public boolean started() {
 		return this.time > 0;
-	}
-	
-	public void update() {
 	}
 	
 	// Getters & Setters //

@@ -10,7 +10,9 @@ import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.GameState;
+import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Game.GameLG;
+import me.Verveine.LGUHC.Players.Profile;
 import net.md_5.bungee.api.ChatColor;
 
 public class AdminCommands implements CommandExecutor, TabCompleter {
@@ -57,6 +59,9 @@ public class AdminCommands implements CommandExecutor, TabCompleter {
 		if (args[0].equalsIgnoreCase("start")) { // COMMANDE START
 			GameLG game = plugin.getGameManager().getGame();
 			game.setGameState(GameState.STARTED);
+			for (Profile p : game.getProfilesManager().getProfiles()) {
+				if (p.getPlayerState().equals(PlayerState.LOBBY)) p.setPlayerState(PlayerState.ALIVE);
+			}
 			game.getChatManager().sendSystemMessage(sender.getName() + " started the game!");
 			return true;
 		} // FIN COMMANDE START

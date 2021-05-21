@@ -27,13 +27,13 @@ public abstract class InternalMenuManager extends InternalManager {
 	public void initializeInventory(int size, String name) {
 		Inventory inventory = Bukkit.createInventory(null, size, name);
 		for (int i = 0 ; i < inventory.getSize() ; i++) {
-			this.setItem(inventory, i, Material.IRON_FENCE, ChatColor.BLUE + "");
+			this.setItem(inventory, i, Material.IRON_FENCE, ChatColor.BLUE + "", 1);
 		}
 		this.setInventory(inventory);
 	}
 	
-	public void setItem(Inventory menu, int slot, Material material, String name) {
-		ItemStack item = new ItemStack(material);
+	public void setItem(Inventory menu, int slot, Material material, String name, int amount) {
+		ItemStack item = new ItemStack(material, amount);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(name);
 		item.setItemMeta(meta);

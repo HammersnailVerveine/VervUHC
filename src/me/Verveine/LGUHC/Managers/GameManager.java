@@ -18,16 +18,14 @@ public class GameManager {
 	}
 	
 	public void createGame(Player host) {
-		GameLG game = new GameLG(plugin, host);
-		RunnableUpdate runnable = new RunnableUpdate(plugin, game);
-		this.game = game;
-		this.gameRunnable = runnable;
+		new GameLG(plugin, host, this);
+		this.gameRunnable = new RunnableUpdate(plugin);
 		
-		runnable.runTaskTimer(plugin, 0, 20);
-		game.getWorldManager().setSpawnLocation(host.getLocation());
-		game.getGameObjectManager().getSpawnBox().CreateFromPlayer(host);
-		game.getChatManager().sendSystemMessage("New game successfully created.\n ");
-		game.getChatManager().sendSystemMessage(host.getName() + " was set as te host");
+		this.gameRunnable .runTaskTimer(plugin, 0, 20);
+		this.game.getWorldManager().setSpawnLocation(host.getLocation());
+		this.game.getGameObjectManager().getSpawnBox().CreateFromPlayer(host);
+		this.game.getChatManager().sendSystemMessage("New game successfully created.\n ");
+		this.game.getChatManager().sendSystemMessage(host.getName() + " was set as te host");
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			game.getProfilesManager().updateProfiles(p);
 		}

@@ -1,14 +1,19 @@
 package me.Verveine.LGUHC.Managers;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
+import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Game.GameLG;
+import me.Verveine.LGUHC.Game.Configuration.ConfigurationRole;
 import me.Verveine.LGUHC.Players.Profile;
+import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Players.Statistics;
 import me.Verveine.LGUHC.Players.Roles.RoleBlank;
+import me.Verveine.LGUHC.Players.Roles.RoleSimpleVillageois;
 
 public class ProfilesManager extends InternalManager {
 	private ArrayList<Profile> profiles;
@@ -42,7 +47,7 @@ public class ProfilesManager extends InternalManager {
 			profile.setPlayer(player);
 			chatManager.sendSystemMessage("Profil " + playerName + " actualisé");
 		} else {
-			profile = new Profile(player, new RoleBlank(), new Statistics());
+			profile = new Profile(plugin, player, new RoleBlank(), new Statistics());
 			this.profiles.add(profile);
 			chatManager.sendSystemMessage("Profil " + playerName + " ajouté");
 			
@@ -50,6 +55,46 @@ public class ProfilesManager extends InternalManager {
 				player.teleport(game.getGameObjectManager().getSpawnBox().getLocation());
 			}
 		}
+	}
+	
+	public void giveRoles() {
+		GameLG game = this.getGame();
+		ArrayList<Role> roles = new ArrayList<Role>();
+		ConfigurationsManager configurationsManager = this.getGame().getConfigurationsManager();
+		
+		int nbProfils = 0;
+		int nbConfigRoles = configurationsManager.countRoles();
+
+		for (Profile profile : this.getProfiles()) {
+			if (!profile.getPlayerState().equals(PlayerState.SPECTATOR)) {
+				nbProfils ++;
+			}
+		}
+		
+		if (nbConfigRoles < nbProfils) {
+			game.getChatManager().sendSystemMessage("Pas assez de Rôles, " + (nbProfils - nbConfigRoles) + " Villageois a/ont été ajouté(s) à la pool de rôles.");
+			for (int i = 0 ; i < nbProfils - nbConfigRoles ; i ++) {
+				roles.add(new RoleSimpleVillageois());
+			}
+		}
+		
+		for (ConfigurationRole configRole : configurationsManager.getConfigurationRoles()) {
+			for (int i = 0 ; i < configRole.getAmount() ; i ++) {
+				Role role = configRole.getRole();
+				roles.add(role.clone());
+				
+			}
+		}
+		
+		for (Profile profile : this.getProfiles()) {
+		    Random rand = new Random();
+			Role role = roles.get(rand.nextInt(roles.size()));
+			profile.setRole(role);
+			profile.getPlayer().sendMessage("Vous êtes " + role.getColor() + role.getName());
+			roles.remove(role);
+		}
+		
+		game.getChatManager().sendSystemMessage("Rôles distribués");
 	}
 
 	public ArrayList<Profile> getProfiles() {

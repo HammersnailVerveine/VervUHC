@@ -11,7 +11,7 @@ public abstract class InternalManager {
 	}
 
 	public Main getPlugin() {
-		return plugin;
+		return this.plugin;
 	}
 
 	public void setPlugin(Main plugin) {
@@ -19,6 +19,6 @@ public abstract class InternalManager {
 	}
 
 	public GameLG getGame() {
-		return plugin.getGameManager().getGame();
+		return this.plugin.getGameManager().getGame();
 	}
 }
