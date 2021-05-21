@@ -1,6 +1,8 @@
 package me.Verveine.LGUHC.Players.Roles;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -43,6 +45,6 @@ public class RoleLoupGarou extends Role {
 	}
 
 	@Override
-	public void useCommand(Player player) {
+	public void useCommand(CommandSender sender, Command cmd, String label, String[] args) {
 	}
 }

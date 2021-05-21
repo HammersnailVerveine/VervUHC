@@ -24,7 +24,7 @@ public class ProfilesManager extends InternalManager {
 		this.profiles = new ArrayList<Profile>();
 	}
 	
-	private Profile getProfileFromName(String name) {
+	public Profile getProfileFromName(String name) {
 		Profile profile = null;
 		
 		for (Profile p : this.profiles) {

@@ -10,3 +10,6 @@ commands:
    alg:
       description: Commandes admin VervUHC
       usage: /alg
+   lg:
+      description: Commandes joueur VervUHC
+      usage: /lg

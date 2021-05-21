@@ -1,6 +1,8 @@
 package me.Verveine.LGUHC.Players.Roles;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Enums.Camps;
@@ -37,7 +39,8 @@ public class RoleSimpleVillageois extends Role {
 	}
 
 	@Override
-	public void useCommand(Player player) {
+	public void useCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		sender.sendMessage("test");
 	}
 
 }

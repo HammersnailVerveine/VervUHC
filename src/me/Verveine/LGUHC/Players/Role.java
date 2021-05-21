@@ -3,6 +3,8 @@ package me.Verveine.LGUHC.Players;
 import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Enums.Camps;
@@ -32,7 +34,7 @@ public abstract class Role implements Cloneable {
 	public abstract void updateNight(Player player);
 	public abstract void resetDay(Player player);
 	public abstract void resetNight(Player player);
-	public abstract void useCommand(Player player);
+	public abstract void useCommand(CommandSender sender, Command cmd, String label, String[] args);
 	
 	public Role clone() {
 		return this.clone();

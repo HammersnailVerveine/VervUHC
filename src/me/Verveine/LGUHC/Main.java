@@ -8,8 +8,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.Verveine.LGUHC.Commands.AdminCommands;
-import me.Verveine.LGUHC.Commands.TestCommands;
+import me.Verveine.LGUHC.Commands.*;
 import me.Verveine.LGUHC.Managers.GameManager;
 
 public class Main extends JavaPlugin implements Listener {
@@ -32,6 +31,7 @@ public class Main extends JavaPlugin implements Listener {
 	public void registerCmds() {
 		this.getCommand("lgtest").setExecutor(new TestCommands(this));
 		this.getCommand("alg").setExecutor(new AdminCommands(this));
+		this.getCommand("lg").setExecutor(new PlayerCommands(this));
 	}
 
 	public GameManager getGameManager() {
