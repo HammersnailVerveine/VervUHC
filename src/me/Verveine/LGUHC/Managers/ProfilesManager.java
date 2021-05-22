@@ -13,7 +13,7 @@ import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Players.Statistics;
 import me.Verveine.LGUHC.Players.Roles.RoleBlank;
-import me.Verveine.LGUHC.Players.Roles.RoleSimpleVillageois;
+import me.Verveine.LGUHC.Players.Roles.Village.RoleSimpleVillageois;
 
 public class ProfilesManager extends InternalManager {
 	private ArrayList<Profile> profiles;
