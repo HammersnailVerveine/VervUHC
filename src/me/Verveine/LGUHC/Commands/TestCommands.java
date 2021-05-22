@@ -13,7 +13,8 @@ import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Players.Role;
-import me.Verveine.LGUHC.Players.Roles.*;
+import me.Verveine.LGUHC.Players.Roles.LG.RoleLoupGarou;
+import me.Verveine.LGUHC.Players.Roles.Village.RoleSimpleVillageois;
 import net.md_5.bungee.api.ChatColor;
 
 public class TestCommands implements CommandExecutor, TabCompleter {

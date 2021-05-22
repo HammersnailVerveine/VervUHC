@@ -6,8 +6,10 @@ import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationRole;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
-import me.Verveine.LGUHC.Game.Configuration.Timers.*;
-import me.Verveine.LGUHC.Players.Roles.*;
+import me.Verveine.LGUHC.Game.Configuration.Timers.TimerLoups;
+import me.Verveine.LGUHC.Game.Configuration.Timers.TimerRoles;
+import me.Verveine.LGUHC.Players.Roles.LG.RoleLoupGarou;
+import me.Verveine.LGUHC.Players.Roles.Village.RoleSimpleVillageois;
 
 public class ConfigurationsManager extends InternalManager {
 	private ArrayList<ConfigurationTimer> configurationTimers;

@@ -1,4 +1,4 @@
-package me.Verveine.LGUHC.Players.Roles;
+package me.Verveine.LGUHC.Players.Roles.LG;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,17 +11,18 @@ import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Camps;
 import me.Verveine.LGUHC.Enums.Tags;
 import me.Verveine.LGUHC.Players.Role;
+import me.Verveine.LGUHC.Translations.FR;
 
 public class RoleLoupGarou extends Role {
 
 	public RoleLoupGarou(Main main) {
 		super(main);
 		this.setColor(ChatColor.RED);
-		this.setName("Loup Garou");
+		this.setName(FR.LG_ROLE);
 		this.camps.add(Camps.WOLF);	
 		this.tags.add(Tags.WOLF);
 		this.appearsOnWolfList = true;
-		this.description = "Votre but est de gagner avec les autres joueurs du camp des loups. Pour cela, vous disposez d'un effet force I la nuit, et aurez accès à la liste des loups avec la commande /lg lg.";
+		this.description = FR.LG_DESC;
 	}
 	
 	@Override
