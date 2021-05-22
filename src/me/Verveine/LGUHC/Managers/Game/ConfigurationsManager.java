@@ -1,4 +1,4 @@
-package me.Verveine.LGUHC.Managers;
+package me.Verveine.LGUHC.Managers.Game;
 
 import java.util.ArrayList;
 
@@ -6,10 +6,10 @@ import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationRole;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
-import me.Verveine.LGUHC.Game.Configuration.Timers.TimerLoups;
-import me.Verveine.LGUHC.Game.Configuration.Timers.TimerRoles;
-import me.Verveine.LGUHC.Players.Roles.LG.RoleLoupGarou;
-import me.Verveine.LGUHC.Players.Roles.Village.RoleSimpleVillageois;
+import me.Verveine.LGUHC.Game.Configuration.Timers.*;
+import me.Verveine.LGUHC.Players.Roles.LG.*;
+import me.Verveine.LGUHC.Players.Roles.Village.*;
+import me.Verveine.LGUHC.Players.Roles.Solo.*;
 
 public class ConfigurationsManager extends InternalManager {
 	private ArrayList<ConfigurationTimer> configurationTimers;
@@ -25,7 +25,10 @@ public class ConfigurationsManager extends InternalManager {
 	public ArrayList<ConfigurationRole> generateConfigurationRoles() {
 		ArrayList<ConfigurationRole> configuration = new ArrayList<ConfigurationRole>();
 		configuration.add(new ConfigurationRole(new RoleSimpleVillageois(this.getPlugin())));
+		configuration.add(new ConfigurationRole(new RoleMineur(this.getPlugin())));
+		configuration.add(new ConfigurationRole(new RoleMontreurDours(this.getPlugin())));
 		configuration.add(new ConfigurationRole(new RoleLoupGarou(this.getPlugin())));
+		configuration.add(new ConfigurationRole(new RoleAssassin(this.getPlugin())));
 		return configuration;
 	}
 	

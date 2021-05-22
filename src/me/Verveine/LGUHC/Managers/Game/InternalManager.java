@@ -1,4 +1,4 @@
-package me.Verveine.LGUHC.Managers;
+package me.Verveine.LGUHC.Managers.Game;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;

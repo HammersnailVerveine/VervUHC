@@ -1,4 +1,4 @@
-package me.Verveine.LGUHC.Managers.ConfigUI;
+package me.Verveine.LGUHC.Managers.Game.configUI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Managers.InternalManager;
+import me.Verveine.LGUHC.Managers.Game.InternalManager;
 import net.md_5.bungee.api.ChatColor;
 
 public abstract class InternalMenuManager extends InternalManager {

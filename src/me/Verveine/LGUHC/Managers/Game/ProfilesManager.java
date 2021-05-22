@@ -1,4 +1,4 @@
-package me.Verveine.LGUHC.Managers;
+package me.Verveine.LGUHC.Managers.Game;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -94,8 +94,12 @@ public class ProfilesManager extends InternalManager {
 		for (ConfigurationRole configRole : configurationsManager.getConfigurationRoles()) {
 			for (int i = 0 ; i < configRole.getAmount() ; i ++) {
 				Role role = configRole.getRole();
-				roles.add(role.clone());
-				
+				try {
+					roles.add((Role) role.clone());
+				} catch (CloneNotSupportedException e) {
+					game.getChatManager().sendSystemMessage("test try/catch profilesmanager");
+					e.printStackTrace();
+				}
 			}
 		}
 		

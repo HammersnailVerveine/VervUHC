@@ -1,4 +1,4 @@
-package me.Verveine.LGUHC.Managers.ConfigUI;
+package me.Verveine.LGUHC.Managers.Game.configUI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
-import me.Verveine.LGUHC.Managers.InternalManager;
+import me.Verveine.LGUHC.Managers.Game.InternalManager;
 
 public class MenusManager extends InternalManager {
 

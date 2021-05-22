@@ -1,4 +1,4 @@
-package me.Verveine.LGUHC.Managers;
+package me.Verveine.LGUHC.Managers.Game;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

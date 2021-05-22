@@ -1,4 +1,4 @@
-package me.Verveine.LGUHC.Managers.ConfigUI;
+package me.Verveine.LGUHC.Managers.Game.configUI;
 
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;

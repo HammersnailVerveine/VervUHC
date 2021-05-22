@@ -27,8 +27,8 @@ public class RoleMineur extends Role {
 		
 		ItemStack	item = new ItemStack(Material.DIAMOND_PICKAXE);
 		ItemMeta	meta = item.getItemMeta();
-		meta.getEnchants().put(Enchantment.DURABILITY, 1);
-		meta.getEnchants().put(Enchantment.DIG_SPEED, 1);
+		meta.addEnchant(Enchantment.DIG_SPEED, 1, true);
+		meta.addEnchant(Enchantment.DURABILITY, 1, true);
 		item.setItemMeta(meta);
 		
 		this.startInventory.add(item);

@@ -88,9 +88,18 @@ public class Profile {
 	}
 	
 	private String getTimer(int timer) {
-		int timerSec = timer - ( (int)(timer / 60) ) * 60;
+		int timerSec = timer % 60;
 		int timerMin =  (int)(timer / 60);
-		return (timerMin + ":" + timerSec);
+		String min = "";
+		String sec = "";
+		if (timerSec < 10) {
+			sec = "0";
+		}
+		
+		if (timerMin < 10) {
+			min = "0";
+		}
+		return (min + timerMin + ":" + sec + timerSec);
 	}
 	
 	private String getDistToCenter() {

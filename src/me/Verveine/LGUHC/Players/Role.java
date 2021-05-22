@@ -42,8 +42,8 @@ public abstract class Role implements Cloneable {
 	public abstract void resetNight(Player player);
 	public abstract void useCommand(CommandSender sender, Command cmd, String label, String[] args);
 	
-	public Role clone() {
-		return this.clone();
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 	
 	public GameLG getGame() {

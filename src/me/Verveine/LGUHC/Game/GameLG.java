@@ -4,16 +4,16 @@ import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.GameState;
-import me.Verveine.LGUHC.Managers.ChatManager;
-import me.Verveine.LGUHC.Managers.ConfigurationsManager;
-import me.Verveine.LGUHC.Managers.DamageManager;
 import me.Verveine.LGUHC.Managers.GameManager;
-import me.Verveine.LGUHC.Managers.GameObjectManager;
-import me.Verveine.LGUHC.Managers.GamePermissionsManager;
-import me.Verveine.LGUHC.Managers.ProfilesManager;
-import me.Verveine.LGUHC.Managers.UpdateManager;
-import me.Verveine.LGUHC.Managers.WorldManager;
-import me.Verveine.LGUHC.Managers.ConfigUI.MenusManager;
+import me.Verveine.LGUHC.Managers.Game.ChatManager;
+import me.Verveine.LGUHC.Managers.Game.ConfigurationsManager;
+import me.Verveine.LGUHC.Managers.Game.DamageManager;
+import me.Verveine.LGUHC.Managers.Game.GameObjectManager;
+import me.Verveine.LGUHC.Managers.Game.GamePermissionsManager;
+import me.Verveine.LGUHC.Managers.Game.ProfilesManager;
+import me.Verveine.LGUHC.Managers.Game.UpdateManager;
+import me.Verveine.LGUHC.Managers.Game.WorldManager;
+import me.Verveine.LGUHC.Managers.Game.configUI.MenusManager;
 
 public class GameLG {
 	private Main plugin;
