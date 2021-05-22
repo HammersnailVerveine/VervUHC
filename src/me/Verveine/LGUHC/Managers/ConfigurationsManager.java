@@ -44,6 +44,18 @@ public class ConfigurationsManager extends InternalManager {
 		}
 		return count;
 	}
+	
+	public ConfigurationTimer getNextConfigurationTimer() {
+		ConfigurationTimer configReturn = null;
+		int time = Integer.MAX_VALUE;
+		for (ConfigurationTimer config : this.getConfigurationTimers()) {
+			if (config.getTimer() > this.getGame().getTime() && config.getTimer() < time) {
+				time = config.getTimer();
+				configReturn = config;
+			}
+		}
+		return configReturn;
+	}
 
 	public ArrayList<ConfigurationTimer> getConfigurationTimers() {
 		return configurationTimers;

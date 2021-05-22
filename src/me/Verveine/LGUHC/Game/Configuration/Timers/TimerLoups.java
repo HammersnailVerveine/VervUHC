@@ -10,6 +10,7 @@ public class TimerLoups extends ConfigurationTimer {
 	@Override
 	public void setDefaults() {
 		this.name = "Liste des Loups";
+		this.scoreboardName = "L. Loups";
 		this.material = Material.BONE;
 		this.timer = 10; // TODO : edit default with config
 	}

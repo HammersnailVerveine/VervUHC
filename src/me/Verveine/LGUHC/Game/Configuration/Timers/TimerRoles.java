@@ -10,6 +10,7 @@ public class TimerRoles extends ConfigurationTimer {
 	@Override
 	public void setDefaults() {
 		this.name = "Distribution des Rôles";
+		scoreboardName = "Rôles";
 		this.material = Material.APPLE;
 		this.timer = 5; // TODO : edit default with config
 	}

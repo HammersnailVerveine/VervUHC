@@ -9,6 +9,7 @@ import me.Verveine.LGUHC.Game.GameLG;
 public abstract class ConfigurationTimer {
 	protected int timer;
 	protected String name;
+	protected String scoreboardName;
 	private ItemStack item;
 	protected Material material;
 	private boolean active;
@@ -19,6 +20,7 @@ public abstract class ConfigurationTimer {
 	public ConfigurationTimer() {
 		timer = 0;
 		name = "default";
+		scoreboardName = "default";
 		material = Material.APPLE;
 		active = false;
 		setDefaults();
@@ -75,5 +77,11 @@ public abstract class ConfigurationTimer {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public String getScoreboardName() {
+		return scoreboardName;
+	}
+	public void setScoreboardName(String scoreboardName) {
+		this.scoreboardName = scoreboardName;
 	}
 }

@@ -2,6 +2,7 @@ package me.Verveine.LGUHC.Commands;
 
 import java.util.List;
 
+//import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -63,6 +64,7 @@ public class AdminCommands implements CommandExecutor, TabCompleter {
 				if (p.getState().getPlayerState().equals(PlayerState.LOBBY)) p.getState().setPlayerState(PlayerState.ALIVE);
 			}
 			game.getChatManager().sendSystemMessage(sender.getName() + " started the game!");
+			//Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> game.getUpdateManager().checkWin(), 5 * 20);
 			return true;
 		} // FIN COMMANDE START
 		

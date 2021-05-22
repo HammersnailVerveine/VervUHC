@@ -1,6 +1,7 @@
 package me.Verveine.LGUHC.Managers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -8,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.Verveine.LGUHC.Main;
+import me.Verveine.LGUHC.Enums.Camps;
 import me.Verveine.LGUHC.Enums.GameState;
 import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Game.GameLG;
@@ -15,6 +17,7 @@ import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
 import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Players.State;
+import net.md_5.bungee.api.ChatColor;
 
 public class UpdateManager extends InternalManager {
 	private boolean isNight;
@@ -69,7 +72,15 @@ public class UpdateManager extends InternalManager {
 
 	public void updateProfiles() {
 		GameLG game = this.getGame();
+		
+		int nbAlive = 0;
+		int nbTotal = 0;
 		for (Profile profile : game.getProfilesManager().getProfiles()) {
+			if (!profile.getState().getPlayerState().equals(PlayerState.SPECTATOR)) {
+				nbTotal ++;
+				if (!profile.getState().getPlayerState().equals(PlayerState.DEAD)) nbAlive ++;
+			}
+			
 			if (isNight) {
 				profile.getRole().updateNight(profile.getPlayer());
 			} else {
@@ -113,6 +124,64 @@ public class UpdateManager extends InternalManager {
 					player.getWorld().dropItemNaturally(state.getDeathLocation(), new ItemStack(Material.GOLDEN_APPLE, 2));
 				}
 			}
+		}
+		
+		for (Profile profile : game.getProfilesManager().getProfiles()) {
+			profile.updateScoreboard(nbTotal, nbAlive, this.getGame().getConfigurationsManager().getNextConfigurationTimer());
+		}
+	}
+	
+	public void checkWin() {
+		GameLG game = this.getGame();
+		ChatManager chatManager = game.getChatManager();
+		ArrayList<PlayerState> validStates = new ArrayList<PlayerState>();
+		ArrayList<Profile> aliveProfiles = new ArrayList<Profile>();
+		validStates.add(PlayerState.ALIVE);
+		validStates.add(PlayerState.PREDEAD);
+
+		boolean winVillage = true;
+		boolean winWolves = true;
+		for (Profile profile : game.getProfilesManager().getProfiles()) {
+			List<Camps> camps = profile.getRole().getCamps();
+			if (validStates.contains(profile.getState().getPlayerState()) && profile.getPlayer().isOnline()) {
+				aliveProfiles.add(profile);
+				
+				if (!camps.contains(Camps.VILLAGE)) {
+					winVillage = false;
+				}
+				
+				if (!camps.contains(Camps.WOLF)) {
+					winWolves = false;
+				}
+			}
+		}
+		
+		if (aliveProfiles.size() == 0) {
+			chatManager.sendSystemMessage(ChatColor.RED + "Tout le monde est mort. *confused system noises*");
+			chatManager.sendPlayersList();
+			game.setGameState(GameState.ENDED);
+			return;
+		}
+		
+		if (winVillage) {
+			chatManager.sendSystemMessage(ChatColor.GREEN + "Le village a gagné.");
+			chatManager.sendPlayersList();
+			game.setGameState(GameState.ENDED);
+			return;
+		}
+		
+		if (winWolves) {
+			chatManager.sendSystemMessage(ChatColor.RED + "Les loups ont gagné.");
+			chatManager.sendPlayersList();
+			game.setGameState(GameState.ENDED);
+			return;
+		}
+		
+		if (aliveProfiles.size() == 1) {
+			chatManager.sendSystemMessage(ChatColor.RED + "Il n'y a plus qu'un joueur en vie : " + aliveProfiles.get(0).getPlayer().getName() + ".");
+			chatManager.sendPlayersList();
+			game.setGameState(GameState.ENDED);
+			return;
 		}
 	}
 }

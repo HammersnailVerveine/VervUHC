@@ -44,6 +44,7 @@ public class DamageManager extends InternalManager {
 	    			player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, time * 20, 0, false, false));
 	    			player.setHealth(20);
 	    			player.sendMessage(ChatColor.RED + "Vous êtes mort, mais quelque chose peut encore se passer...");
+	    			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> game.getUpdateManager().checkWin(), (time + 5) * 20);
 	    		}
 	        }
 		}
