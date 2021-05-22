@@ -47,7 +47,7 @@ public class ProfilesManager extends InternalManager {
 			profile.setPlayer(player);
 			chatManager.sendSystemMessage("Profil " + playerName + " actualisé");
 		} else {
-			profile = new Profile(plugin, player, new RoleBlank(), new Statistics());
+			profile = new Profile(plugin, player, new RoleBlank(this.getPlugin()), new Statistics());
 			this.profiles.add(profile);
 			chatManager.sendSystemMessage("Profil " + playerName + " ajouté");
 			
@@ -66,7 +66,7 @@ public class ProfilesManager extends InternalManager {
 		int nbConfigRoles = configurationsManager.countRoles();
 
 		for (Profile profile : this.getProfiles()) {
-			if (!profile.getPlayerState().equals(PlayerState.SPECTATOR)) {
+			if (!profile.getState().getPlayerState().equals(PlayerState.SPECTATOR)) {
 				nbProfils ++;
 			}
 		}
@@ -74,7 +74,7 @@ public class ProfilesManager extends InternalManager {
 		if (nbConfigRoles < nbProfils) {
 			game.getChatManager().sendSystemMessage("Pas assez de Rôles, " + (nbProfils - nbConfigRoles) + " Villageois a/ont été ajouté(s) à la pool de rôles.");
 			for (int i = 0 ; i < nbProfils - nbConfigRoles ; i ++) {
-				roles.add(new RoleSimpleVillageois());
+				roles.add(new RoleSimpleVillageois(this.getPlugin()));
 			}
 		}
 		
@@ -90,7 +90,11 @@ public class ProfilesManager extends InternalManager {
 		    Random rand = new Random();
 			Role role = roles.get(rand.nextInt(roles.size()));
 			profile.setRole(role);
+			if (role.getStartInventory().size() > 0) {
+				role.giveStartInventory();
+			}
 			profile.getPlayer().sendMessage("Vous êtes " + role.getColor() + role.getName());
+			profile.getPlayer().sendMessage(profile.getRole().getDescription());
 			roles.remove(role);
 		}
 		

@@ -5,14 +5,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Players.Role;
 
 public class RoleBlank extends Role {
 
-	@Override
-	public void setDefaults() {
+	public RoleBlank(Main main) {
+		super(main);
 		this.setColor(ChatColor.WHITE);
 		this.setName("Aucun Role");	
+		this.description = "Vous n'avez pas de rôle. Vous ne devez pas gagner. C'est bête. Peut être pourriez vous attendre d'en avoir un, ou blâmer Verveine pour s'être planté quelque part?";
 	}
 
 	@Override

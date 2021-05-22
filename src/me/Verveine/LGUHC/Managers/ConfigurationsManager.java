@@ -22,8 +22,8 @@ public class ConfigurationsManager extends InternalManager {
 	
 	public ArrayList<ConfigurationRole> generateConfigurationRoles() {
 		ArrayList<ConfigurationRole> configuration = new ArrayList<ConfigurationRole>();
-		configuration.add(new ConfigurationRole(new RoleSimpleVillageois()));
-		configuration.add(new ConfigurationRole(new RoleLoupGarou()));
+		configuration.add(new ConfigurationRole(new RoleSimpleVillageois(this.getPlugin())));
+		configuration.add(new ConfigurationRole(new RoleLoupGarou(this.getPlugin())));
 		return configuration;
 	}
 	

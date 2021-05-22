@@ -3,7 +3,6 @@ package me.Verveine.LGUHC.Managers.ConfigUI;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import me.Verveine.LGUHC.Main;
@@ -18,9 +17,7 @@ public class MenusManager extends InternalManager {
 		super(main);
 		game.setMenusManager(this);
 		new MainMenuManager(main, this);
-		Bukkit.broadcastMessage("1");
 		new RolesMenuManager(main, this);
-		Bukkit.broadcastMessage("2");
 	}
 
 	public MainMenuManager getMainMenuManager() {

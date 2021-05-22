@@ -6,6 +6,7 @@ import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.GameState;
 import me.Verveine.LGUHC.Managers.ChatManager;
 import me.Verveine.LGUHC.Managers.ConfigurationsManager;
+import me.Verveine.LGUHC.Managers.DamageManager;
 import me.Verveine.LGUHC.Managers.GameManager;
 import me.Verveine.LGUHC.Managers.GameObjectManager;
 import me.Verveine.LGUHC.Managers.GamePermissionsManager;
@@ -23,6 +24,7 @@ public class GameLG {
 	private GameObjectManager gameObjectManager;
 	private ConfigurationsManager configurationsManager;
 	private GamePermissionsManager gamePermissionsManager;
+	private DamageManager damageManager;
 	private MenusManager menusManager;
 	private GameState gameState;
 	private String hostName;
@@ -41,6 +43,7 @@ public class GameLG {
 		new ProfilesManager(main, this);
 		new GameObjectManager(main, this);
 		new GamePermissionsManager(main, this);
+		new DamageManager(main, this);
 
 		new MenusManager(main, this);
 	}
@@ -145,5 +148,13 @@ public class GameLG {
 
 	public void setMenusManager(MenusManager menusManager) {
 		this.menusManager = menusManager;
+	}
+
+	public DamageManager getDamageManager() {
+		return damageManager;
+	}
+
+	public void setDamageManager(DamageManager damageManager) {
+		this.damageManager = damageManager;
 	}
 }

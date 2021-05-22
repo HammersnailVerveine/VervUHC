@@ -7,14 +7,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Camps;
 import me.Verveine.LGUHC.Enums.Tags;
 import me.Verveine.LGUHC.Players.Role;
 
 public class RoleLoupGarou extends Role {
 
-	@Override
-	public void setDefaults() {
+	public RoleLoupGarou(Main main) {
+		super(main);
 		this.setColor(ChatColor.RED);
 		this.setName("Loup Garou");
 		this.camps.add(Camps.WOLF);	
@@ -22,7 +23,7 @@ public class RoleLoupGarou extends Role {
 		this.appearsOnWolfList = true;
 		this.description = "Votre but est de gagner avec les autres joueurs du camp des loups. Pour cela, vous disposez d'un effet force I la nuit, et aurez accès à la liste des loups avec la commande /lg lg.";
 	}
-
+	
 	@Override
 	public void updateStart(Player player) {
 	}

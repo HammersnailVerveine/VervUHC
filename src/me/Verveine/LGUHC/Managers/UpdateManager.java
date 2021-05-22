@@ -2,11 +2,19 @@ package me.Verveine.LGUHC.Managers;
 
 import java.util.ArrayList;
 
+import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.GameState;
+import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
 import me.Verveine.LGUHC.Players.Profile;
+import me.Verveine.LGUHC.Players.Role;
+import me.Verveine.LGUHC.Players.State;
 
 public class UpdateManager extends InternalManager {
 	private boolean isNight;
@@ -60,11 +68,50 @@ public class UpdateManager extends InternalManager {
 	}
 
 	public void updateProfiles() {
-		for (Profile p : this.getGame().getProfilesManager().getProfiles()) {
+		GameLG game = this.getGame();
+		for (Profile profile : game.getProfilesManager().getProfiles()) {
 			if (isNight) {
-				p.getRole().updateNight(p.getPlayer());
+				profile.getRole().updateNight(profile.getPlayer());
 			} else {
-				p.getRole().updateDay(p.getPlayer());
+				profile.getRole().updateDay(profile.getPlayer());
+			}
+			
+			State state = profile.getState();
+			if (state.getPlayerState().equals(PlayerState.PREDEAD)) {
+				state.setDeathTimer(state.getDeathTimer() - 1);
+				if (state.getDeathTimer() < 1) {
+					Player player = profile.getPlayer();
+					Role role = profile.getRole();
+					state.setPlayerState(PlayerState.DEAD);
+					game.getChatManager().sendSystemMessage("Le joueur " + player.getName() + " est mort.");
+					game.getChatManager().sendSystemMessage("Il était " + role.getColor() + role.getName() + ".");
+					player.setGameMode(GameMode.SPECTATOR);
+					player.teleport(state.getDeathLocation());
+					
+					for (ItemStack item : player.getInventory()) {
+						if (item != null) {
+							player.getWorld().dropItemNaturally(state.getDeathLocation(), item);
+						}
+					}
+					
+					if (player.getInventory().getHelmet() != null) {
+						player.getWorld().dropItemNaturally(state.getDeathLocation(), player.getInventory().getHelmet());
+					}
+					
+					if (player.getInventory().getChestplate() != null) {
+						player.getWorld().dropItemNaturally(state.getDeathLocation(), player.getInventory().getChestplate());
+					}
+					
+					if (player.getInventory().getLeggings() != null) {
+						player.getWorld().dropItemNaturally(state.getDeathLocation(), player.getInventory().getLeggings());
+					}
+					
+					if (player.getInventory().getBoots() != null) {
+						player.getWorld().dropItemNaturally(state.getDeathLocation(), player.getInventory().getBoots());
+					}
+					
+					player.getWorld().dropItemNaturally(state.getDeathLocation(), new ItemStack(Material.GOLDEN_APPLE, 2));
+				}
 			}
 		}
 	}

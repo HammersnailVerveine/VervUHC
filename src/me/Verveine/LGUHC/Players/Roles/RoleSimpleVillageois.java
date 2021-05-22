@@ -1,21 +1,26 @@
 package me.Verveine.LGUHC.Players.Roles;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
+import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Camps;
 import me.Verveine.LGUHC.Players.Role;
 
 public class RoleSimpleVillageois extends Role {
 
-	@Override
-	public void setDefaults() {
+	public RoleSimpleVillageois(Main main) {
+		super(main);
 		this.setColor(ChatColor.GREEN);
 		this.setName("Simple Villageois");
 		this.camps.add(Camps.VILLAGE);		
 		this.description = "Vous n'avez pas de pouvoir particulier. Votre but est de gagner avec le village, pour cela, vous devez éliminer les joueurs du camp des loups, et les solitaires.";
+		
+		this.startInventory.add(new ItemStack(Material.CARROT_ITEM, 1));
 	}
 
 	@Override

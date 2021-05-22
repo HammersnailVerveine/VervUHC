@@ -51,7 +51,7 @@ public class TestCommands implements CommandExecutor, TabCompleter {
 					Player player = (Player) sender;
 					Profile profile = getProfileFromName(player.getName());
 					if (profile != null) {
-						profile.setRole(new RoleSimpleVillageois());
+						profile.setRole(new RoleSimpleVillageois(plugin));
 						sender.sendMessage(ChatColor.BLUE + "Role defini : Simple Villageois");
 					} else {
 						sender.sendMessage(ChatColor.RED + "null profile");
@@ -63,7 +63,7 @@ public class TestCommands implements CommandExecutor, TabCompleter {
 					Player player = (Player) sender;
 					Profile profile = getProfileFromName(player.getName());
 					if (profile != null) {
-						profile.setRole(new RoleLoupGarou());
+						profile.setRole(new RoleLoupGarou(plugin));
 						sender.sendMessage(ChatColor.BLUE + "Role defini : owo");
 					} else {
 						sender.sendMessage(ChatColor.RED + "null profile");

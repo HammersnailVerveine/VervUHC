@@ -1,34 +1,40 @@
 package me.Verveine.LGUHC.Players;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
+import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Camps;
 import me.Verveine.LGUHC.Enums.Tags;
+import me.Verveine.LGUHC.Game.GameLG;
 
 public abstract class Role implements Cloneable {
-	protected ArrayList<Camps> camps;
-	protected ArrayList<Tags> tags;
+	private Main plugin;
+	protected List<Camps> camps;
+	protected List<Tags> tags;
+	protected List<ItemStack> startInventory;
 	protected boolean appearsOnWolfList;
 	protected String name;
 	protected ChatColor color;
 	protected String description;
 	
-	public Role() {
+	public Role(Main main) {
+		this.setPlugin(main);
 		this.camps = new ArrayList<Camps>();
 		this.tags = new ArrayList<Tags>();
+		this.startInventory = new ArrayList<ItemStack>();
 		appearsOnWolfList = false;
 		name = "Blank Name";
 		color = ChatColor.WHITE;
-		description = "Vous n'avez pas de rôle. Vous ne devez pas gagner. C'est bête. Peut être pourriez vous attendre d'en avoir un, ou blâmer Verveine pour s'être planté quelque part?";
-		setDefaults();
+		description = "Blank Description";
 	}
 	
-	public abstract void setDefaults();
 	public abstract void updateStart(Player player);
 	public abstract void updateDay(Player player);
 	public abstract void updateNight(Player player);
@@ -39,20 +45,53 @@ public abstract class Role implements Cloneable {
 	public Role clone() {
 		return this.clone();
 	}
+	
+	public GameLG getGame() {
+		return this.getPlugin().getGameManager().getGame();
+	}
+	
+	public void giveStartInventory() {
+		for (Profile profile : this.getGame().getProfilesManager().getProfiles()) {
+			if (profile.getRole() == this) {
+				Player player = profile.getPlayer();
+				if (player.isOnline()) {
+					if (startInventory.size() < 1) {
+						player.sendMessage(ChatColor.RED + "Tu as déjà reçu tous les objets de ton inventaire de départ");
+					} else {
+						ArrayList<ItemStack> givenItems = new ArrayList<ItemStack>();
+						for (ItemStack item : startInventory) {
+							if (player.getInventory().firstEmpty() == -1) {
+								player.sendMessage(ChatColor.RED + "Ton inventaire est plein, utilise la commande </lg i> pour recevoir les objets restants.");
+							} else {
+								player.getInventory().addItem(item);
+								givenItems.add(item);
+							}
+						}
+						
+						for (ItemStack item : givenItems) {
+							startInventory.remove(item);
+						}
+						givenItems.clear();
+					}
+				}
+				return;
+			}
+		}
+	}
 
-	public ArrayList<Camps> getCamps() {
+	public List<Camps> getCamps() {
 		return camps;
 	}
 
-	public void setCamps(ArrayList<Camps> camps) {
+	public void setCamps(List<Camps> camps) {
 		this.camps = camps;
 	}
 
-	public ArrayList<Tags> getTags() {
+	public List<Tags> getTags() {
 		return tags;
 	}
 
-	public void setTags(ArrayList<Tags> tags) {
+	public void setTags(List<Tags> tags) {
 		this.tags = tags;
 	}
 
@@ -86,5 +125,21 @@ public abstract class Role implements Cloneable {
 
 	public void setColor(ChatColor color) {
 		this.color = color;
+	}
+
+	public List<ItemStack> getStartInventory() {
+		return startInventory;
+	}
+
+	public void setStartInventory(List<ItemStack> startInventory) {
+		this.startInventory = startInventory;
+	}
+
+	public Main getPlugin() {
+		return plugin;
+	}
+
+	public void setPlugin(Main plugin) {
+		this.plugin = plugin;
 	}
 }

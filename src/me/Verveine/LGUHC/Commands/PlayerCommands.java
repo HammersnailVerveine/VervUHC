@@ -10,8 +10,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Commands.LG.CommandPower;
-import me.Verveine.LGUHC.Commands.LG.CommandRole;
+import me.Verveine.LGUHC.Commands.LG.*;
 import net.md_5.bungee.api.ChatColor;
 
 public class PlayerCommands implements CommandExecutor, TabCompleter {
@@ -25,6 +24,7 @@ public class PlayerCommands implements CommandExecutor, TabCompleter {
 		playerCommands = new ArrayList<PlayerCommand>();
 		playerCommands.add(new CommandRole(plugin));
 		playerCommands.add(new CommandPower(plugin));
+		playerCommands.add(new CommandInventory(plugin));
 	}
 
 	@Override

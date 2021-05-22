@@ -1,8 +1,10 @@
 package me.Verveine.LGUHC;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginManager;
@@ -50,10 +52,19 @@ public class Main extends JavaPlugin implements Listener {
 		}
 	}
 	
-	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onClick(InventoryClickEvent clickEvent) {
-		this.getGameManager().getGame().getMenusManager().onClick(clickEvent);
+		if (this.getGameManager().hasGame()) {
+			this.getGameManager().getGame().getMenusManager().onClick(clickEvent);
+		}
 	}
 	
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onDamage(EntityDamageEvent damageEvent) {
+		if(damageEvent.getEntity() instanceof Player) {
+			if (this.getGameManager().hasGame()) {
+				this.getGameManager().getGame().getDamageManager().onDamage(damageEvent);
+			}
+		}
+	}
 }

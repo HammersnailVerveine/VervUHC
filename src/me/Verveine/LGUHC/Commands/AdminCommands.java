@@ -60,7 +60,7 @@ public class AdminCommands implements CommandExecutor, TabCompleter {
 			GameLG game = plugin.getGameManager().getGame();
 			game.setGameState(GameState.STARTED);
 			for (Profile p : game.getProfilesManager().getProfiles()) {
-				if (p.getPlayerState().equals(PlayerState.LOBBY)) p.setPlayerState(PlayerState.ALIVE);
+				if (p.getState().getPlayerState().equals(PlayerState.LOBBY)) p.getState().setPlayerState(PlayerState.ALIVE);
 			}
 			game.getChatManager().sendSystemMessage(sender.getName() + " started the game!");
 			return true;

@@ -13,8 +13,9 @@ public class CommandPower extends PlayerCommand {
 		super(main);
 		this.labels.add("pouvoir");
 		this.labels.add("power");
-		this.labels.add("use");
+		this.labels.add("p");
 		this.labels.add("utiliser");
+		this.labels.add("use");
 		this.labels.add("u");
 	}
 
