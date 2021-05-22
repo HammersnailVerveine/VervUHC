@@ -3,7 +3,6 @@ package me.Verveine.LGUHC.Managers;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -24,7 +23,7 @@ public class DamageManager extends InternalManager {
 		if(damageEvent.getEntity() instanceof Player) {
 	        Player player = (Player) damageEvent.getEntity();	
 	        if (player != null) {// && !(damageEvent.getCause().equals(DamageCause.PROJECTILE) || damageEvent.getCause().equals(DamageCause.ENTITY_ATTACK)) ) {
-	        	if (this.getGame().getTime() < 30 && damageEvent.getCause().equals(DamageCause.FALL)) {
+	        	if (this.getGame().getTime() < 30) {
 	        		damageEvent.setCancelled(true);
 	        		return;
 	        	}
