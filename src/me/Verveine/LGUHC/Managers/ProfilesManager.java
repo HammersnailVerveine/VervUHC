@@ -37,6 +37,19 @@ public class ProfilesManager extends InternalManager {
 		return profile;
 	}
 	
+	public Profile getProfileFromUUID(String uuid) {
+		Profile profile = null;
+		
+		for (Profile p : this.profiles) {
+			if (uuid.equalsIgnoreCase(p.getPlayer().getUniqueId().toString())) {
+				profile = p;
+				break;
+			}
+		}
+
+		return profile;
+	}
+	
 	public void updateProfiles(Player player) {
 		GameLG game = this.getGame();
 		String playerName = player.getName();

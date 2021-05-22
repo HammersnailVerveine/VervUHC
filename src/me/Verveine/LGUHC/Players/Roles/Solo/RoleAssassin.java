@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Players.Role;
-import me.Verveine.LGUHC.translations.FR;
+import me.Verveine.LGUHC.Translations.FR;
 
 public class RoleAssassin extends Role {
 

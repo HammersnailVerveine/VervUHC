@@ -11,7 +11,7 @@ import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Camps;
 import me.Verveine.LGUHC.Enums.Tags;
 import me.Verveine.LGUHC.Players.Role;
-import me.Verveine.LGUHC.translations.FR;
+import me.Verveine.LGUHC.Translations.FR;
 
 public class RoleLoupGarou extends Role {
 
