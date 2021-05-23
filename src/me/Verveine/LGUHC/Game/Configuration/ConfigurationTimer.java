@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 
 public abstract class ConfigurationTimer {
@@ -13,17 +14,17 @@ public abstract class ConfigurationTimer {
 	private ItemStack displayItem;
 	protected Material material;
 	private boolean active;
+	private Main plugin;
 
-	public abstract void setDefaults();
 	public abstract void run(GameLG game);
 	
-	public ConfigurationTimer() {
+	public ConfigurationTimer(Main main) {
+		this.setPlugin(main);
 		timer = 0;
 		name = "default";
 		scoreboardName = "default";
 		material = Material.APPLE;
 		active = false;
-		setDefaults();
 		setItem();
 	}
 	
@@ -90,5 +91,11 @@ public abstract class ConfigurationTimer {
 	}
 	public void setDisplayItem(ItemStack displayItem) {
 		this.displayItem = displayItem;
+	}
+	public Main getPlugin() {
+		return plugin;
+	}
+	public void setPlugin(Main plugin) {
+		this.plugin = plugin;
 	}
 }

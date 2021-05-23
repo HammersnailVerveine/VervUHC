@@ -4,14 +4,17 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Players.Role;
 
 public class ConfigurationRole {
+	private Main plugin;
 	private int amount;
 	private Role role;
 	private boolean selected = false;
 	
-	public ConfigurationRole(Role role) {
+	public ConfigurationRole(Main main, Role role) {
+		this.setPlugin(main);
 		this.role = role;
 		selected = false;
 		amount = 0;
@@ -56,5 +59,13 @@ public class ConfigurationRole {
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	public Main getPlugin() {
+		return plugin;
+	}
+
+	public void setPlugin(Main plugin) {
+		this.plugin = plugin;
 	}
 }

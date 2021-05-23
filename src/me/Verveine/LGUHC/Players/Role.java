@@ -17,7 +17,6 @@ import me.Verveine.LGUHC.Enums.Tags;
 import me.Verveine.LGUHC.Game.GameLG;
 
 public abstract class Role implements Cloneable {
-	protected static int BUFFUPDATE = 60;
 	private Main plugin;
 	protected List<Camps> camps;
 	protected List<Tags> tags;
@@ -84,7 +83,7 @@ public abstract class Role implements Cloneable {
 	}
 
 	public void buff(Player player, PotionEffectType potionEffect) {
-		player.addPotionEffect(new PotionEffect(potionEffect, BUFFUPDATE, 1, false, false));
+		player.addPotionEffect(new PotionEffect(potionEffect, 60, 1, false, false));
 	}
 	
 	public List<Camps> getCamps() {

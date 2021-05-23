@@ -2,17 +2,19 @@ package me.Verveine.LGUHC.Game.Configuration.Timers;
 
 import org.bukkit.Material;
 
+import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
 
 public class TimerBorder extends ConfigurationTimer {
 
-	@Override
-	public void setDefaults() {
+	public TimerBorder(Main main) {
+		super(main);
 		this.name = "Rétrécissement de la Border";
 		scoreboardName = "Border";
 		this.material = Material.CLAY_BRICK;
 		this.timer = 60 * 5; // TODO : edit default with config
+		this.setItem();
 	}
 
 	@Override

@@ -62,14 +62,14 @@ public class Profile {
 		String str2 = (configTimer == null ? "" : (" : " + getTimer(configTimer.getTimer() - this.getGame().getTime())));
 
 		roleInfo = objective.getScore(role.getColor() + role.getName());
-		positionY = objective.getScore(ChatColor.YELLOW + "Y: " + ChatColor.GREEN + (int)(this.getPlayer().getLocation().getY()));
-		player = objective.getScore(ChatColor.YELLOW + "Joueurs: " + ChatColor.GREEN + nbPlayersAlive + "/" + nbPlayers);
+		positionY = objective.getScore(ChatColor.YELLOW + "Y: " + ChatColor.WHITE + (int)(this.getPlayer().getLocation().getY()));
+		player = objective.getScore(ChatColor.YELLOW + "Joueurs: " + ChatColor.WHITE + nbPlayersAlive + "/" + nbPlayers);
 		distCentreLabel = objective.getScore(ChatColor.YELLOW + "Dist centre: ");
-		distCentre = objective.getScore(ChatColor.GREEN + getDistToCenter());
-		timer = objective.getScore(ChatColor.YELLOW + "Timer: " + ChatColor.GREEN + getTimer(this.getGame().getTime()));
-		nextEvent = objective.getScore(ChatColor.YELLOW + str1 + ChatColor.GREEN + str2);
-		limG = objective.getScore(ChatColor.YELLOW + "Groupes: " + ChatColor.GREEN + this.getGame().getGroupLimit());
-		border = objective.getScore(ChatColor.YELLOW + "Border: " + ChatColor.GREEN + (int)this.getGame().getWorldManager().getWorld().getWorldBorder().getSize());
+		distCentre = objective.getScore(ChatColor.WHITE + getDistToCenter());
+		timer = objective.getScore(ChatColor.YELLOW + "Timer: " + ChatColor.WHITE + getTimer(this.getGame().getTime()));
+		nextEvent = objective.getScore(ChatColor.YELLOW + str1 + ChatColor.WHITE + str2);
+		limG = objective.getScore(ChatColor.YELLOW + "Groupes: " + ChatColor.WHITE + this.getGame().getGroupLimit());
+		border = objective.getScore(ChatColor.YELLOW + "Border: " + ChatColor.WHITE + (int)this.getGame().getWorldManager().getWorld().getWorldBorder().getSize());
 		
 		roleInfo.setScore(8);
 		nextEvent.setScore(7);

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationRole;
+import me.Verveine.LGUHC.Game.Configuration.ConfigurationScenario;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
+import me.Verveine.LGUHC.Game.Configuration.Scenarios.*;
 import me.Verveine.LGUHC.Game.Configuration.Timers.*;
 import me.Verveine.LGUHC.Players.Roles.LG.*;
 import me.Verveine.LGUHC.Players.Roles.Village.*;
@@ -14,30 +16,37 @@ import me.Verveine.LGUHC.Players.Roles.Solo.*;
 public class ConfigurationsManager extends InternalManager {
 	private ArrayList<ConfigurationTimer> configurationTimers;
 	private ArrayList<ConfigurationRole> configurationRoles;
+	private ArrayList<ConfigurationScenario> configurationScenarios;
 	
 	public ConfigurationsManager(Main main, GameLG game) {
 		super(main);
 		game.setConfigurationsManager(this);
 		configurationTimers = generateConfigurationTimers();
 		configurationRoles = generateConfigurationRoles();
+		configurationScenarios = generateConfigurationScenarios();
+	}
+	public ArrayList<ConfigurationScenario> generateConfigurationScenarios() {
+		ArrayList<ConfigurationScenario> configuration = new ArrayList<ConfigurationScenario>();
+		configuration.add(new ScenarioDiamondLimit(this.getPlugin()));
+		return configuration;
 	}
 	
 	public ArrayList<ConfigurationRole> generateConfigurationRoles() {
 		ArrayList<ConfigurationRole> configuration = new ArrayList<ConfigurationRole>();
-		configuration.add(new ConfigurationRole(new RoleSimpleVillageois(this.getPlugin())));
-		configuration.add(new ConfigurationRole(new RoleMineur(this.getPlugin())));
-		configuration.add(new ConfigurationRole(new RoleMontreurDours(this.getPlugin())));
-		configuration.add(new ConfigurationRole(new RoleLoupGarou(this.getPlugin())));
-		configuration.add(new ConfigurationRole(new RoleAssassin(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleSimpleVillageois(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleMineur(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleMontreurDours(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleLoupGarou(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleAssassin(this.getPlugin())));
 		return configuration;
 	}
 	
 	public ArrayList<ConfigurationTimer> generateConfigurationTimers() {
 		ArrayList<ConfigurationTimer> configuration = new ArrayList<ConfigurationTimer>();
-		configuration.add(new TimerRoles());
-		configuration.add(new TimerLoups());
-		configuration.add(new TimerBorder());
-		configuration.add(new TimerBorderEnd());
+		configuration.add(new TimerRoles(this.getPlugin()));
+		configuration.add(new TimerLoups(this.getPlugin()));
+		configuration.add(new TimerBorder(this.getPlugin()));
+		configuration.add(new TimerBorderEnd(this.getPlugin()));
 		return configuration;
 	}
 	
@@ -78,5 +87,13 @@ public class ConfigurationsManager extends InternalManager {
 
 	public void setConfigurationRoles(ArrayList<ConfigurationRole> configurationRoles) {
 		this.configurationRoles = configurationRoles;
+	}
+
+	public ArrayList<ConfigurationScenario> getConfigurationScenarios() {
+		return configurationScenarios;
+	}
+
+	public void setConfigurationScenarios(ArrayList<ConfigurationScenario> configurationScenarios) {
+		this.configurationScenarios = configurationScenarios;
 	}
 }
