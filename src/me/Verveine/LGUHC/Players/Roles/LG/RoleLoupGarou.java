@@ -4,7 +4,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
@@ -26,7 +25,11 @@ public class RoleLoupGarou extends Role {
 	}
 	
 	@Override
-	public void updateStart(Player player) {
+	public void setupStart(Player player) {
+	}
+	
+	@Override
+	public void update(Player player) {
 	}
 
 	@Override
@@ -35,7 +38,7 @@ public class RoleLoupGarou extends Role {
 
 	@Override
 	public void updateNight(Player player) {
-		player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 40, 0, false, false));
+		buff(player, PotionEffectType.INCREASE_DAMAGE);
 	}
 
 	@Override

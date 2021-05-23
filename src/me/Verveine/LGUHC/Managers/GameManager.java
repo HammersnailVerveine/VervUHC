@@ -18,12 +18,18 @@ public class GameManager {
 	}
 	
 	public void createGame(Player host) {
+		if (this.gameRunnable != null) { 
+			this.gameRunnable.cancel(); // Maybe not necessary --> Avoid creating new runnable if one already exists ?
+		}
+		
 		new GameLG(plugin, host, this);
 		this.gameRunnable = new RunnableUpdate(plugin);
 		
 		this.gameRunnable .runTaskTimer(plugin, 0, 20);
 		this.game.getWorldManager().setSpawnLocation(host.getLocation());
 		this.game.getGameObjectManager().getSpawnBox().CreateFromPlayer(host);
+		this.game.getWorldManager().getWorld().getWorldBorder().setCenter(game.getGameObjectManager().getSpawnBox().getLocation());
+		this.game.getWorldManager().getWorld().getWorldBorder().setSize(game.getWorldManager().getStartBorderSize());
 		this.game.getChatManager().sendSystemMessage("New game successfully created.\n ");
 		this.game.getChatManager().sendSystemMessage(host.getName() + " was set as te host");
 		for (Player p : Bukkit.getOnlinePlayers()) {

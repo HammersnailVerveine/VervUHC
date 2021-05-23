@@ -18,12 +18,32 @@ public class MenusManager extends InternalManager {
 		game.setMenusManager(this);
 		new MainMenuManager(main, this);
 		new RolesMenuManager(main, this);
+		new TimersMenuManager(main, this);
+		new BorderMenuManager(main, this);
 	}
 
 	public MainMenuManager getMainMenuManager() {
 		for (InternalMenuManager menu : menus) {
 			if (menu instanceof MainMenuManager) {
 				return (MainMenuManager) menu;
+			}
+		}
+		return null;
+	}
+
+	public InternalMenuManager getBorderMenuManager() {
+		for (InternalMenuManager menu : menus) {
+			if (menu instanceof BorderMenuManager) {
+				return (BorderMenuManager) menu;
+			}
+		}
+		return null;
+	}
+
+	public InternalMenuManager getTimersMenuManager() {
+		for (InternalMenuManager menu : menus) {
+			if (menu instanceof TimersMenuManager) {
+				return (TimersMenuManager) menu;
 			}
 		}
 		return null;
@@ -45,6 +65,25 @@ public class MenusManager extends InternalManager {
 			}
 		}		
 		this.menus.add(mainMenuManager);
+	}
+
+	public void setBorderMenuManager(BorderMenuManager borderMenuManager) {
+		for (InternalMenuManager menu : menus) {
+			if (menu instanceof BorderMenuManager) {
+				menus.remove(menu);
+			}
+		}		
+		this.menus.add(borderMenuManager);
+	}
+
+
+	public void setTimersMenuManager(TimersMenuManager timersMenuManager) {
+		for (InternalMenuManager menu : menus) {
+			if (menu instanceof TimersMenuManager) {
+				menus.remove(menu);
+			}
+		}		
+		this.menus.add(timersMenuManager);
 	}
 
 	public void setRolesMenuManager(RolesMenuManager rolesMenuManager) {

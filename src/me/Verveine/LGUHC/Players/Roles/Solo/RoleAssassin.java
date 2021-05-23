@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
@@ -46,12 +45,16 @@ public class RoleAssassin extends Role {
 	}
 
 	@Override
-	public void updateStart(Player player) {
+	public void setupStart(Player player) {
+	}
+	
+	@Override
+	public void update(Player player) {
 	}
 
 	@Override
 	public void updateDay(Player player) {
-		player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 40, 0, false, false));
+		buff(player, PotionEffectType.INCREASE_DAMAGE);
 	}
 
 	@Override
@@ -68,7 +71,5 @@ public class RoleAssassin extends Role {
 
 	@Override
 	public void useCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		sender.sendMessage("test");
 	}
-
 }

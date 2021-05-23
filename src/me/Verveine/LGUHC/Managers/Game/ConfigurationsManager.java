@@ -36,6 +36,8 @@ public class ConfigurationsManager extends InternalManager {
 		ArrayList<ConfigurationTimer> configuration = new ArrayList<ConfigurationTimer>();
 		configuration.add(new TimerRoles());
 		configuration.add(new TimerLoups());
+		configuration.add(new TimerBorder());
+		configuration.add(new TimerBorderEnd());
 		return configuration;
 	}
 	

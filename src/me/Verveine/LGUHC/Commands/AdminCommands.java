@@ -60,8 +60,14 @@ public class AdminCommands implements CommandExecutor, TabCompleter {
 		if (args[0].equalsIgnoreCase("start")) { // COMMANDE START
 			GameLG game = plugin.getGameManager().getGame();
 			game.setGameState(GameState.STARTED);
-			for (Profile p : game.getProfilesManager().getProfiles()) {
-				if (p.getState().getPlayerState().equals(PlayerState.LOBBY)) p.getState().setPlayerState(PlayerState.ALIVE);
+			game.getWorldManager().getWorld().getWorldBorder().setCenter(game.getGameObjectManager().getSpawnBox().getLocation());
+			game.getWorldManager().getWorld().getWorldBorder().setSize(game.getWorldManager().getStartBorderSize());
+			for (Profile profile : game.getProfilesManager().getProfiles()) {
+				profile.getPlayer().getInventory().clear();
+				if (profile.getState().getPlayerState().equals(PlayerState.LOBBY)) {
+					profile.getState().setPlayerState(PlayerState.ALIVE);
+					profile.randomTeleport();
+				}
 			}
 			game.getChatManager().sendSystemMessage(sender.getName() + " started the game!");
 			//Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> game.getUpdateManager().checkWin(), 5 * 20);

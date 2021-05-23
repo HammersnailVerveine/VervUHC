@@ -35,6 +35,7 @@ public class RolesMenuManager extends InternalMenuManager {
 	public void setDefaults() {
 		this.updateRoles();
 		ItemStack item = getSelectedConfiguration().getDisplayItem();
+		this.setItem(this.getInventory(), 0, Material.BARRIER, ChatColor.RED + "Retour", 1);
 		this.setItem(this.getInventory(), 3, Material.REDSTONE_BLOCK, ChatColor.RED + "Remove 1", 1);
 		this.setItem(this.getInventory(), 4, item.getType(), item.getItemMeta().getDisplayName(), 1);
 		this.setItem(this.getInventory(), 5, Material.EMERALD_BLOCK, ChatColor.RED + "Add 1", 1);
@@ -46,7 +47,7 @@ public class RolesMenuManager extends InternalMenuManager {
 		if (slot < 9) {
 			switch(clickEvent.getCurrentItem().getType()) {
 			case BARRIER:
-				clickEvent.getWhoClicked().closeInventory();
+				clickEvent.getWhoClicked().openInventory(this.getGame().getMenusManager().getMainMenuManager().getInventory());
 				break;
 			case EMERALD_BLOCK:
 				this.getSelectedConfiguration().add();

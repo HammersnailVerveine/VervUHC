@@ -8,7 +8,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
@@ -36,17 +35,20 @@ public class RoleMineur extends Role {
 	}
 
 	@Override
-	public void updateStart(Player player) {
+	public void setupStart(Player player) {
+	}
+	
+	@Override
+	public void update(Player player) {
+		buff(player, PotionEffectType.FAST_DIGGING);
 	}
 
 	@Override
 	public void updateDay(Player player) {
-		player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 40, 1, false, false));
 	}
 
 	@Override
 	public void updateNight(Player player) {
-		player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 40, 1, false, false));
 	}
 
 	@Override
@@ -59,7 +61,5 @@ public class RoleMineur extends Role {
 
 	@Override
 	public void useCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		sender.sendMessage("test");
 	}
-
 }

@@ -1,6 +1,9 @@
 package me.Verveine.LGUHC.Players;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -65,8 +68,8 @@ public class Profile {
 		distCentre = objective.getScore(ChatColor.GREEN + getDistToCenter());
 		timer = objective.getScore(ChatColor.YELLOW + "Timer: " + ChatColor.GREEN + getTimer(this.getGame().getTime()));
 		nextEvent = objective.getScore(ChatColor.YELLOW + str1 + ChatColor.GREEN + str2);
-		limG = objective.getScore("TODO : grp");
-		border = objective.getScore("TODO : border");
+		limG = objective.getScore(ChatColor.YELLOW + "Groupes: " + ChatColor.GREEN + this.getGame().getGroupLimit());
+		border = objective.getScore(ChatColor.YELLOW + "Border: " + ChatColor.GREEN + (int)this.getGame().getWorldManager().getWorld().getWorldBorder().getSize());
 		
 		roleInfo.setScore(8);
 		nextEvent.setScore(7);
@@ -122,6 +125,42 @@ public class Profile {
 		} else {
 			char[] chars = Integer.toString(val).toCharArray();
 			return chars[0] + "k" + chars[1];
+		}
+	}
+	
+	public void randomTeleport() {	// old code
+		Player player = this.getPlayer();
+		WorldBorder border = player.getWorld().getWorldBorder();
+		double borderSize = border.getSize();
+		boolean cancelled = false;
+		
+		Location location = player.getLocation().clone();		
+		
+		location.setX(Math.random() * (borderSize) - (borderSize / 2) + border.getCenter().getX());
+		location.setZ(Math.random() * (borderSize) - (borderSize / 2) + border.getCenter().getZ());
+		
+		int height = 255;
+		location.setY(height);
+		
+		while (height > 5 && !(location.getBlock().getType().isSolid())) {
+			height --;
+			location.setY(height);
+	
+			Material mat = location.getBlock().getType();
+			if ((mat == Material.STATIONARY_WATER) || (mat == Material.STATIONARY_LAVA) || (mat == Material.LEAVES) || (mat == Material.LAVA) || (mat == Material.WATER) || (mat == Material.BARRIER || (mat == Material.STAINED_GLASS)) ) {
+				cancelled = true;
+			}
+			
+			if (location.distance(this.getState().getDeathLocation()) < (player.getWorld().getWorldBorder().getSize() / 3)) {
+				cancelled = true;
+			}
+		}
+		
+		if (!cancelled) {
+			location.setY(height + 3);
+			player.teleport(location);
+		} else {
+			randomTeleport();
 		}
 	}
 	

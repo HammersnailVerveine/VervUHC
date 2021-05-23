@@ -30,6 +30,12 @@ public class MainMenuManager extends InternalMenuManager {
 			case BOOK:
 				clickEvent.getWhoClicked().openInventory(this.getGame().getMenusManager().getRolesMenuManager().getInventory());
 				break;
+			case CLAY_BRICK:
+				clickEvent.getWhoClicked().openInventory(this.getGame().getMenusManager().getBorderMenuManager().getInventory());
+				break;
+			case WATCH:
+				clickEvent.getWhoClicked().openInventory(this.getGame().getMenusManager().getTimersMenuManager().getInventory());
+				break;
 			default:
 				break;
 		}

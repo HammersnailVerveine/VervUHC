@@ -10,7 +10,7 @@ public abstract class ConfigurationTimer {
 	protected int timer;
 	protected String name;
 	protected String scoreboardName;
-	private ItemStack item;
+	private ItemStack displayItem;
 	protected Material material;
 	private boolean active;
 
@@ -28,23 +28,24 @@ public abstract class ConfigurationTimer {
 	}
 	
 	public void setItem() {
-		item = new ItemStack(material);
-		ItemMeta meta = item.getItemMeta();
+		displayItem = new ItemStack(material);
+		ItemMeta meta = displayItem.getItemMeta();
 		meta.setDisplayName(name);
-		item.setItemMeta(meta);
+		displayItem.setItemMeta(meta);
+	}
+	
+	public void add(int value) {
+		timer = timer + value;
+	}
+	
+	public void remove(int value) {
+		timer = timer - value;
+		timer = timer < 5 ? 5 : timer;
 	}
 	
 	public void activate(GameLG game) {
 		active = true;
 		run(game);
-	}
-
-	public ItemStack getItem() {
-		return item;
-	}
-
-	public void setItem(ItemStack item) {
-		this.item = item;
 	}
 
 	public String getName() {
@@ -83,5 +84,11 @@ public abstract class ConfigurationTimer {
 	}
 	public void setScoreboardName(String scoreboardName) {
 		this.scoreboardName = scoreboardName;
+	}
+	public ItemStack getDisplayItem() {
+		return displayItem;
+	}
+	public void setDisplayItem(ItemStack displayItem) {
+		this.displayItem = displayItem;
 	}
 }

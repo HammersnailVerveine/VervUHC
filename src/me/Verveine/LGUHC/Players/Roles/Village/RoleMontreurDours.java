@@ -26,7 +26,11 @@ public class RoleMontreurDours extends Role {
 	}
 
 	@Override
-	public void updateStart(Player player) {
+	public void setupStart(Player player) {
+	}
+	
+	@Override
+	public void update(Player player) {
 	}
 
 	@Override

@@ -8,6 +8,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Camps;
@@ -15,6 +17,7 @@ import me.Verveine.LGUHC.Enums.Tags;
 import me.Verveine.LGUHC.Game.GameLG;
 
 public abstract class Role implements Cloneable {
+	protected static int BUFFUPDATE = 60;
 	private Main plugin;
 	protected List<Camps> camps;
 	protected List<Tags> tags;
@@ -35,7 +38,8 @@ public abstract class Role implements Cloneable {
 		description = "Blank Description";
 	}
 	
-	public abstract void updateStart(Player player);
+	public abstract void setupStart(Player player);
+	public abstract void update(Player player);
 	public abstract void updateDay(Player player);
 	public abstract void updateNight(Player player);
 	public abstract void resetDay(Player player);
@@ -79,6 +83,10 @@ public abstract class Role implements Cloneable {
 		}
 	}
 
+	public void buff(Player player, PotionEffectType potionEffect) {
+		player.addPotionEffect(new PotionEffect(potionEffect, BUFFUPDATE, 1, false, false));
+	}
+	
 	public List<Camps> getCamps() {
 		return camps;
 	}

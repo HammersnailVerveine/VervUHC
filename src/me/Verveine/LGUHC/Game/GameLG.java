@@ -29,6 +29,7 @@ public class GameLG {
 	private GameState gameState;
 	private String hostName;
 	private int time;
+	private int groupLimit;
 	
 	public GameLG(Main main, Player player, GameManager gameManager) {
 		gameManager.setGame(this);
@@ -36,6 +37,7 @@ public class GameLG {
 		this.setHostName(player.getName()); // TODO : Retirer dépendance à un player
 		this.setGameState(GameState.LOBBY);
 		this.setTime(0);
+		this.setGroupLimit(6);
 		new ConfigurationsManager(main, this);
 		new ChatManager(main, this);
 		new UpdateManager(main, this);
@@ -156,5 +158,13 @@ public class GameLG {
 
 	public void setDamageManager(DamageManager damageManager) {
 		this.damageManager = damageManager;
+	}
+
+	public int getGroupLimit() {
+		return groupLimit;
+	}
+
+	public void setGroupLimit(int groupLimit) {
+		this.groupLimit = groupLimit;
 	}
 }
