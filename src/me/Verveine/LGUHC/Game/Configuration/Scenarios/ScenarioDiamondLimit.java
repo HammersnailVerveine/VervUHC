@@ -1,31 +1,30 @@
 package me.Verveine.LGUHC.Game.Configuration.Scenarios;
 
-//import org.bukkit.Location;
+import org.bukkit.Location;
 import org.bukkit.Material;
-//import org.bukkit.entity.ExperienceOrb;
-//import org.bukkit.entity.Player;
-//import org.bukkit.event.EventHandler;
-//import org.bukkit.event.EventPriority;
-//import org.bukkit.event.block.BlockBreakEvent;
-//import org.bukkit.inventory.ItemStack;
+import org.bukkit.entity.ExperienceOrb;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 
 import me.Verveine.LGUHC.Main;
-//import me.Verveine.LGUHC.Game.GameLG;
+import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationScenario;
-//import me.Verveine.LGUHC.Players.Profile;
-//import net.md_5.bungee.api.ChatColor;
+import me.Verveine.LGUHC.Players.Profile;
+import net.md_5.bungee.api.ChatColor;
 
 public class ScenarioDiamondLimit extends ConfigurationScenario {
 
 	public ScenarioDiamondLimit(Main main) {
 		super(main);
-		this.name = "Diamond Limit (17)";
-		this.material = Material.DIAMOND;
+		this.setName("Diamond Limit (17)");
 		this.enabled = true;
-		this.setItem();
+		this.setItem(Material.DIAMOND);
 	}
 
-/*
+
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onBreak(BlockBreakEvent breakEvent) {
 		if (this.isEnabled()) {
@@ -48,10 +47,10 @@ public class ScenarioDiamondLimit extends ConfigurationScenario {
 				profile.getStatistics().setDiamondsMined(profile.getStatistics().getDiamondsMined() + 1);
 				if (profile.getStatistics().getDiamondsMined() == 17) {
 					Player player = profile.getPlayer();
-					player.sendMessage(ChatColor.AQUA + "Limite de Diamants (17) atteinte !");
-					player.sendMessage(ChatColor.GOLD + "Tout diamant miné donnera désormais un lingot d'or");
+					player.sendMessage(ChatColor.AQUA + "Limite de Diamants (17) atteinte!");
+					player.sendMessage(ChatColor.AQUA + "Tout diamant miné manuellement donnera désormais un lingot d'or");
 				}
 			}
 		}
-	}*/
+	}
 }

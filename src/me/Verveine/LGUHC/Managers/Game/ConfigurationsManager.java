@@ -65,7 +65,7 @@ public class ConfigurationsManager extends InternalManager {
 		ConfigurationTimer configReturn = null;
 		int time = Integer.MAX_VALUE;
 		for (ConfigurationTimer config : this.getConfigurationTimers()) {
-			if (config.getTimer() > this.getGame().getTime() && config.getTimer() < time) {
+			if (config.getTimer() > this.getGame().getTime() && config.getTimer() < time && !config.isActive()) {
 				time = config.getTimer();
 				configReturn = config;
 			}

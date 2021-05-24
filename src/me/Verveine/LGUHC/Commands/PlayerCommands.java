@@ -10,21 +10,22 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Commands.LG.*;
+import me.Verveine.LGUHC.Commands.Player.*;
 import net.md_5.bungee.api.ChatColor;
 
 public class PlayerCommands implements CommandExecutor, TabCompleter {
 
-	static List<PlayerCommand> playerCommands = new ArrayList<PlayerCommand>();
+	static List<PluginCommand> pluginCommands = new ArrayList<PluginCommand>();
 	static Main plugin;
 	
 	public PlayerCommands(Main instance) {
 		plugin = instance;
 		
-		playerCommands = new ArrayList<PlayerCommand>();
-		playerCommands.add(new CommandRole(plugin));
-		playerCommands.add(new CommandPower(plugin));
-		playerCommands.add(new CommandInventory(plugin));
+		pluginCommands = new ArrayList<PluginCommand>();
+		pluginCommands.add(new CommandRole(plugin));
+		pluginCommands.add(new CommandPower(plugin));
+		pluginCommands.add(new CommandInventory(plugin));
+		pluginCommands.add(new CommandLG(plugin));
 	}
 
 	@Override
@@ -45,13 +46,14 @@ public class PlayerCommands implements CommandExecutor, TabCompleter {
 		}
 		
 		if (args.length > 0) {
-			for (PlayerCommand command : playerCommands) {
+			for (PluginCommand command : pluginCommands) {
 				if (command.getLabels().contains(args[0])) {
 					command.onCommand((Player)(sender), cmd, label, args);
 					return true;
 				}
 			}
 		}
+		sender.sendMessage(ChatColor.RED + "Commande invalide");
 		return false;
 	}
 

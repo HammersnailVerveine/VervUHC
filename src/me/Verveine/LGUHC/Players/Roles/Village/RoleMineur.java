@@ -19,7 +19,7 @@ public class RoleMineur extends Role {
 
 	public RoleMineur(Main main) {
 		super(main);
-		this.setColor(ChatColor.AQUA);
+		this.setColor(ChatColor.GREEN);
 		this.setName(FR.MINEUR_ROLE);
 		this.camps.add(Camps.VILLAGE);		
 		this.description = FR.MINEUR_DESC;
@@ -40,7 +40,7 @@ public class RoleMineur extends Role {
 	
 	@Override
 	public void update(Player player) {
-		buff(player, PotionEffectType.FAST_DIGGING);
+		buff(player, PotionEffectType.FAST_DIGGING, 1);
 	}
 
 	@Override

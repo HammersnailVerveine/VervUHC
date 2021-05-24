@@ -15,17 +15,15 @@ public abstract class ConfigurationScenario implements Listener {
 	protected String name;
 	protected String scoreboardName;
 	private ItemStack displayItem;
-	protected Material material;
 	
 	public ConfigurationScenario(Main main) {
 		this.setPlugin(main);
 		enabled = false;
 		name = "default";
-		material = Material.APPLE;
-		setItem();
+		setItem(Material.APPLE);
 	}
 	
-	public void setItem() {
+	public void setItem(Material material) {
 		displayItem = new ItemStack(material);
 		ItemMeta meta = displayItem.getItemMeta();
 		meta.setDisplayName(name);
@@ -58,5 +56,13 @@ public abstract class ConfigurationScenario implements Listener {
 	
 	public void setPlugin(Main plugin) {
 		this.plugin = plugin;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

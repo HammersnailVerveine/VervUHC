@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Camps;
+import me.Verveine.LGUHC.Enums.Tags;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Translations.FR;
 
@@ -43,18 +44,12 @@ public class RoleMontreurDours extends Role {
 
 	@Override
 	public void resetDay(Player player) {
+		Bukkit.broadcastMessage(ChatColor.YELLOW + "L'ours du Montreur d'Ours se réveille.");
 		Collection<Entity> entitys = player.getLocation().getWorld().getNearbyEntities(player.getLocation(), 30, 30, 30);
-		int	find = 0;
-		for (Entity entity : entitys)
-		{
-		    if (entity.getType().equals(EntityType.PLAYER))
-		    {
-		    	if (find == 0)
-		    		Bukkit.broadcastMessage(ChatColor.YELLOW + "L'ours du " + ChatColor.GOLD + "Montreur d'Ours" + ChatColor.YELLOW + " a grogné. ");
-		    	if (this.getPlugin().getGameManager().getGame().getProfilesManager().getProfileFromUUID(entity.getUniqueId().toString()).getRole().getCamps().contains(Camps.WOLF))
-		    	{
-		    		Bukkit.broadcastMessage(ChatColor.YELLOW + " ''GRRRRRRRR'' -" + ChatColor.GOLD + " L'ours");
-		    		find++;
+		for (Entity entity : entitys) {
+		    if (entity.getType().equals(EntityType.PLAYER)) {
+		    	if (this.getGame().getProfilesManager().getProfileFromUUID(entity.getUniqueId().toString()).getRole().getTags().contains(Tags.WOLF)) {
+		    		Bukkit.broadcastMessage(ChatColor.YELLOW + "'Grrrrrrr'");
 		    	}
 		    }
 		}

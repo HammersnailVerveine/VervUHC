@@ -22,6 +22,7 @@ public abstract class Role implements Cloneable {
 	protected List<Tags> tags;
 	protected List<ItemStack> startInventory;
 	protected boolean appearsOnWolfList;
+	protected boolean accessWolfList;
 	protected String name;
 	protected ChatColor color;
 	protected String description;
@@ -82,8 +83,8 @@ public abstract class Role implements Cloneable {
 		}
 	}
 
-	public void buff(Player player, PotionEffectType potionEffect) {
-		player.addPotionEffect(new PotionEffect(potionEffect, 60, 1, false, false));
+	public void buff(Player player, PotionEffectType potionEffect, int level) {
+		player.addPotionEffect(new PotionEffect(potionEffect, 60, level, false, false));
 	}
 	
 	public List<Camps> getCamps() {
@@ -148,5 +149,13 @@ public abstract class Role implements Cloneable {
 
 	public void setPlugin(Main plugin) {
 		this.plugin = plugin;
+	}
+
+	public boolean isAccessWolfList() {
+		return accessWolfList;
+	}
+
+	public void setAccessWolfList(boolean accessWolfList) {
+		this.accessWolfList = accessWolfList;
 	}
 }

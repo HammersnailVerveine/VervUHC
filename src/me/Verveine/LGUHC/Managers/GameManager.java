@@ -4,7 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
+import me.Verveine.LGUHC.Enums.GameState;
+import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Game.GameLG;
+import me.Verveine.LGUHC.Game.Configuration.ConfigurationScenario;
+import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Runnables.RunnableUpdate;
 
 public class GameManager {
@@ -37,6 +41,24 @@ public class GameManager {
 		}
 	}
 
+	public void startGame() {
+		GameLG game = this.getGame();
+		game.setGameState(GameState.STARTED);
+		game.getWorldManager().getWorld().getWorldBorder().setCenter(game.getGameObjectManager().getSpawnBox().getLocation());
+		game.getWorldManager().getWorld().getWorldBorder().setSize(game.getWorldManager().getStartBorderSize());
+		for (ConfigurationScenario config : this.getGame().getConfigurationsManager().getConfigurationScenarios()) {
+			plugin.getServer().getPluginManager().registerEvents(config, plugin);
+		}
+		
+		for (Profile profile : game.getProfilesManager().getProfiles()) {
+			profile.getPlayer().getInventory().clear();
+			if (profile.getState().getPlayerState().equals(PlayerState.LOBBY)) {
+				profile.getState().setPlayerState(PlayerState.ALIVE);
+				profile.randomTeleport();
+			}
+		}
+	}
+	
 	public boolean hasGame() {
 		return game != null;
 	}

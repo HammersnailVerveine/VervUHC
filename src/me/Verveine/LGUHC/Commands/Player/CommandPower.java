@@ -1,13 +1,14 @@
-package me.Verveine.LGUHC.Commands.LG;
+package me.Verveine.LGUHC.Commands.Player;
 
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Commands.PlayerCommand;
+import me.Verveine.LGUHC.Commands.PluginCommand;
 import me.Verveine.LGUHC.Players.Profile;
 
-public class CommandPower extends PlayerCommand {
+public class CommandPower extends PluginCommand {
 
 	public CommandPower(Main main) {
 		super(main);
@@ -20,8 +21,8 @@ public class CommandPower extends PlayerCommand {
 	}
 
 	@Override
-	public void onCommand(Player sender, Command cmd, String label, String[] args) {
-		Profile profile = this.getProfile(sender);
+	public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		Profile profile = this.getProfile((Player) sender);
 		if (profile != null) {
 			profile.getRole().useCommand(sender, cmd, label, args);
 		}

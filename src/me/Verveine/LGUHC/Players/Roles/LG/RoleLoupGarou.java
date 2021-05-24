@@ -21,6 +21,7 @@ public class RoleLoupGarou extends Role {
 		this.camps.add(Camps.WOLF);	
 		this.tags.add(Tags.WOLF);
 		this.appearsOnWolfList = true;
+		this.accessWolfList = true;
 		this.description = FR.LG_DESC;
 	}
 	
@@ -38,7 +39,7 @@ public class RoleLoupGarou extends Role {
 
 	@Override
 	public void updateNight(Player player) {
-		buff(player, PotionEffectType.INCREASE_DAMAGE);
+		buff(player, PotionEffectType.INCREASE_DAMAGE, 0);
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class MainMenuManager extends InternalMenuManager {
 		this.setItem(this.getInventory(), 3, Material.BOOK, ChatColor.BLUE + "Configuration Rôles", 1);
 		this.setItem(this.getInventory(), 4, Material.CLAY_BRICK, ChatColor.BLUE + "Configuration Bordure", 1);
 		this.setItem(this.getInventory(), 5, Material.WATCH, ChatColor.BLUE + "Configuration Timers", 1);
-		this.setItem(this.getInventory(), 6, Material.APPLE, ChatColor.BLUE + "Configuration Règles", 1);
+		this.setItem(this.getInventory(), 6, Material.APPLE, ChatColor.BLUE + "Configuration Scènarios", 1);
 	}
 
 	@Override
@@ -35,6 +35,9 @@ public class MainMenuManager extends InternalMenuManager {
 				break;
 			case WATCH:
 				clickEvent.getWhoClicked().openInventory(this.getGame().getMenusManager().getTimersMenuManager().getInventory());
+				break;
+			case APPLE:
+				clickEvent.getWhoClicked().openInventory(this.getGame().getMenusManager().getScenariosMenuManager().getInventory());
 				break;
 			default:
 				break;

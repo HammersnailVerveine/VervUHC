@@ -58,6 +58,7 @@ public class ProfilesManager extends InternalManager {
 		
 		if (profile != null) {
 			profile.setPlayer(player);
+			player.setScoreboard(profile.getScoreboard());
 			chatManager.sendSystemMessage("Profil " + playerName + " actualisé");
 		} else {
 			profile = new Profile(plugin, player, new RoleBlank(this.getPlugin()), new Statistics());

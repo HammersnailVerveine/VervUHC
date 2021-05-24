@@ -1,14 +1,15 @@
-package me.Verveine.LGUHC.Commands.LG;
+package me.Verveine.LGUHC.Commands.Player;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Commands.PlayerCommand;
+import me.Verveine.LGUHC.Commands.PluginCommand;
 import me.Verveine.LGUHC.Players.Profile;
 
-public class CommandInventory extends PlayerCommand {
+public class CommandInventory extends PluginCommand {
 
 	public CommandInventory(Main main) {
 		super(main);
@@ -23,8 +24,8 @@ public class CommandInventory extends PlayerCommand {
 	}
 
 	@Override
-	public void onCommand(Player sender, Command cmd, String label, String[] args) {
-		Profile profile = this.getProfile(sender);
+	public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		Profile profile = this.getProfile((Player) sender);
 		if (profile != null) {
 			profile.getPlayer().sendMessage(ChatColor.YELLOW + "Voici votre inventaire de départ");
 			profile.getRole().giveStartInventory();

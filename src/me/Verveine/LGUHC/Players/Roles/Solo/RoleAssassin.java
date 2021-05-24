@@ -19,7 +19,7 @@ public class RoleAssassin extends Role {
 
 	public RoleAssassin(Main main) {
 		super(main);
-		this.setColor(ChatColor.GOLD);
+		this.setColor(ChatColor.YELLOW);
 		this.setName(FR.ASSASSIN_ROLE);
 		this.description = FR.ASSASSIN_DESC;
 		
@@ -54,7 +54,7 @@ public class RoleAssassin extends Role {
 
 	@Override
 	public void updateDay(Player player) {
-		buff(player, PotionEffectType.INCREASE_DAMAGE);
+		buff(player, PotionEffectType.INCREASE_DAMAGE, 0);
 	}
 
 	@Override

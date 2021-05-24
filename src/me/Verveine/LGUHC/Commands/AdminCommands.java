@@ -1,5 +1,6 @@
 package me.Verveine.LGUHC.Commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //import org.bukkit.Bukkit;
@@ -7,20 +8,23 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Enums.GameState;
-import me.Verveine.LGUHC.Enums.PlayerState;
-import me.Verveine.LGUHC.Game.GameLG;
-import me.Verveine.LGUHC.Players.Profile;
+import me.Verveine.LGUHC.Commands.Admin.*;
 import net.md_5.bungee.api.ChatColor;
 
 public class AdminCommands implements CommandExecutor, TabCompleter {
 	
+	static List<PluginCommand> pluginCommands = new ArrayList<PluginCommand>();
 	static Main plugin;
+	
 	public AdminCommands(Main instance) {
 		plugin = instance;
+		
+		pluginCommands = new ArrayList<PluginCommand>();
+		pluginCommands.add(new CommandConfig(plugin));
+		pluginCommands.add(new CommandNew(plugin));
+		pluginCommands.add(new CommandStart(plugin));
 	}
 	
 	@Override
@@ -36,62 +40,18 @@ public class AdminCommands implements CommandExecutor, TabCompleter {
 			return true;
 		}
 		
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.RED + "needs 1 arg");
-			return true;
-		}
-		
-		if (args[0].equalsIgnoreCase("new")) { // COMMANDE NEW
-			if (sender instanceof Player) {
-				Player player = (Player) sender;
-				plugin.getGameManager().createGame(player);
-				return true;
-			} else {
-				sender.sendMessage(ChatColor.RED + "Non utilisable depuis la console (requiert d'être utilisé par l'host).");
-				return true;
-			} // FIN COMMANDE NEW
-		}
-		
-		if (!plugin.getGameManager().hasGame()) {
-			sender.sendMessage(ChatColor.RED + "Aucune partie trouvée");
-			return true;
-		}
-		
-		if (args[0].equalsIgnoreCase("start")) { // COMMANDE START
-			GameLG game = plugin.getGameManager().getGame();
-			game.setGameState(GameState.STARTED);
-			game.getWorldManager().getWorld().getWorldBorder().setCenter(game.getGameObjectManager().getSpawnBox().getLocation());
-			game.getWorldManager().getWorld().getWorldBorder().setSize(game.getWorldManager().getStartBorderSize());
-			for (Profile profile : game.getProfilesManager().getProfiles()) {
-				profile.getPlayer().getInventory().clear();
-				if (profile.getState().getPlayerState().equals(PlayerState.LOBBY)) {
-					profile.getState().setPlayerState(PlayerState.ALIVE);
-					profile.randomTeleport();
+		if (args.length > 0) {
+			for (PluginCommand command : pluginCommands) {
+				if (command.getLabels().contains(args[0])) {
+					if (plugin.getGameManager().hasGame() || command instanceof CommandNew) {
+						command.onCommand(sender, cmd, label, args);
+					} else {
+						sender.sendMessage(ChatColor.RED + "Aucune partie trouvée");
+					}
+					return true;
 				}
 			}
-			game.getChatManager().sendSystemMessage(sender.getName() + " started the game!");
-			//Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> game.getUpdateManager().checkWin(), 5 * 20);
-			return true;
-		} // FIN COMMANDE START
-		
-		if (args[0].equalsIgnoreCase("config") || args[0].equalsIgnoreCase("configuration")) { // COMMANDE CONFIG
-			
-			if (args.length != 1) {
-				sender.sendMessage(ChatColor.RED + "Usage : /alg config");
-				return true;
-			}
-			
-			if (sender instanceof Player) {
-				Player playerTarget = (Player) sender;
-				GameLG game = plugin.getGameManager().getGame();
-				playerTarget.openInventory(game.getMenusManager().getMainMenuManager().getInventory());
-				return true;
-			} else {
-				sender.sendMessage(ChatColor.RED + "Vous n'etes pas un joueur");
-				return true;
-			}
-		}		// FIN COMMANDE CONFIG
-
+		}
 		sender.sendMessage(ChatColor.RED + "Commande invalide");
 		return false;
 	}

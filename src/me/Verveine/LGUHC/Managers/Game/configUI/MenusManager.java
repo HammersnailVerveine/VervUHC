@@ -20,12 +20,22 @@ public class MenusManager extends InternalManager {
 		new RolesMenuManager(main, this);
 		new TimersMenuManager(main, this);
 		new BorderMenuManager(main, this);
+		new ScenariosMenuManager(main, this);
 	}
 
 	public MainMenuManager getMainMenuManager() {
 		for (InternalMenuManager menu : menus) {
 			if (menu instanceof MainMenuManager) {
 				return (MainMenuManager) menu;
+			}
+		}
+		return null;
+	}
+
+	public InternalMenuManager getScenariosMenuManager() {
+		for (InternalMenuManager menu : menus) {
+			if (menu instanceof ScenariosMenuManager) {
+				return (ScenariosMenuManager) menu;
 			}
 		}
 		return null;
@@ -76,6 +86,14 @@ public class MenusManager extends InternalManager {
 		this.menus.add(borderMenuManager);
 	}
 
+	public void setScenariosMenuManager(ScenariosMenuManager scenariosMenuManager) {
+		for (InternalMenuManager menu : menus) {
+			if (menu instanceof ScenariosMenuManager) {
+				menus.remove(menu);
+			}
+		}		
+		this.menus.add(scenariosMenuManager);
+	}
 
 	public void setTimersMenuManager(TimersMenuManager timersMenuManager) {
 		for (InternalMenuManager menu : menus) {
