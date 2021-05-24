@@ -1,6 +1,7 @@
 package me.Verveine.LGUHC.Commands;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.command.Command;
@@ -27,9 +28,34 @@ public class PlayerCommands implements CommandExecutor, TabCompleter {
 		pluginCommands.add(new CommandInventory(plugin));
 		pluginCommands.add(new CommandLG(plugin));
 	}
-
+	
 	@Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+		ArrayList<String> result = new ArrayList<String>();
+		
+		if (args.length == 1) {
+			ArrayList<String> allCommands = new ArrayList<String>();
+			for (PluginCommand command : pluginCommands) {
+				if (command.getLabels().size() > 0) {
+					allCommands.add(command.getLabels().get(0));
+				}
+			}
+				
+			if (!(args[0].contentEquals(""))) {
+				for (String s : allCommands) {
+					if (s.toLowerCase().startsWith(args[0].toLowerCase())) {
+						result.add(s);
+					}
+				}
+			} else {
+				for (String s : allCommands) {
+					result.add(s);
+				}
+			}
+			
+			Collections.sort(result);
+			return result;
+		}	
 		return null;
 	}
 	

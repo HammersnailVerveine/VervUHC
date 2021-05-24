@@ -19,6 +19,17 @@ public class ChatManager extends InternalManager {
 		Bukkit.broadcastMessage(ChatColor.GOLD + "Système : " + message);
 	}
 	
+	public void sendGameMessage(String message) {
+		String equals = "";
+		char[] chars = message.toCharArray();
+		for (int i = 0 ; i < chars.length ; i ++) {
+			equals += "=";
+		}
+		Bukkit.broadcastMessage(ChatColor.AQUA + equals);
+		Bukkit.broadcastMessage(ChatColor.AQUA + message);
+		Bukkit.broadcastMessage(ChatColor.AQUA + equals);
+	}
+	
 	public void sendPlayersList() {
 		GameLG game = this.getGame();
 		Bukkit.broadcastMessage(ChatColor.GOLD + "======== Joueurs ========");

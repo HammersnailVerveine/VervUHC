@@ -13,14 +13,14 @@ public class CommandInventory extends PluginCommand {
 
 	public CommandInventory(Main main) {
 		super(main);
+		this.labels.add("kit");
+		this.labels.add("k");
 		this.labels.add("inventory");
 		this.labels.add("inventaire");
 		this.labels.add("objets");
 		this.labels.add("items");
 		this.labels.add("item");
 		this.labels.add("i");
-		this.labels.add("kit");
-		this.labels.add("k");
 	}
 
 	@Override

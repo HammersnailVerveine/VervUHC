@@ -47,6 +47,7 @@ public class ConfigurationsManager extends InternalManager {
 		configuration.add(new TimerLoups(this.getPlugin()));
 		configuration.add(new TimerBorder(this.getPlugin()));
 		configuration.add(new TimerBorderEnd(this.getPlugin()));
+		configuration.add(new TimerIndice(this.getPlugin()));
 		return configuration;
 	}
 	

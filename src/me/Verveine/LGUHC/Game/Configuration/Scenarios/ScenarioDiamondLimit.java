@@ -27,7 +27,7 @@ public class ScenarioDiamondLimit extends ConfigurationScenario {
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onBreak(BlockBreakEvent breakEvent) {
-		if (this.isEnabled()) {
+		if (this.isEnabled() && breakEvent.getBlock().getType().equals(Material.DIAMOND_ORE)) {
 			GameLG game = this.getGame();
 			Profile profile = game.getProfilesManager().getProfileFromName(breakEvent.getPlayer().getName());
 			if (profile.getStatistics().getDiamondsMined() >= 17) {

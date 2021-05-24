@@ -4,27 +4,27 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-public class SpawnBox {
-	private Location location; // Players spawn location in the box
-	private boolean created;
+import me.Verveine.LGUHC.Main;
+import me.Verveine.LGUHC.Managers.Game.GameObjectManager;
+
+public class SpawnBox extends GameObject {
 	private boolean visible;
 	
-	public SpawnBox(Location location, boolean visible) {
+	public SpawnBox(Main plugin, GameObjectManager manager, boolean visible) {
+		super(plugin);
+		manager.setSpawnBox(this);
 		this.visible = visible;
-		this.created = false;
 	}
 	
 	public void CreateFromPlayer(Player player) {
 		Location location = player.getLocation();
 		location.setY(150);
 		this.location = location;
-		this.Create();
+		this.create();
 	}
 	
-	public boolean Create() { //TODO : supprimer l'ancienne box
-		if (location == null) {
-			return false;
-		} else {
+	public void create() { //TODO : supprimer l'ancienne box
+		if (location != null) {
 			Location ref = this.location.clone();
 			ref.setY(ref.getY() - 3);
 			ref.setX(ref.getX() - 10);
@@ -76,7 +76,6 @@ public class SpawnBox {
 			}
 		}
 		this.created = true;
-		return true;
 	}
 
 	public boolean isVisible() {
@@ -85,21 +84,5 @@ public class SpawnBox {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
-	}
-
-	public boolean isCreated() {
-		return created;
-	}
-
-	public void setCreated(boolean created) {
-		this.created = created;
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
 	}
 }

@@ -3,6 +3,7 @@ package me.Verveine.LGUHC.Managers.Game;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
 import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Players.State;
+import me.Verveine.LGUHC.Players.Roles.Solo.RoleAssassin;
 import net.md_5.bungee.api.ChatColor;
 
 public class UpdateManager extends InternalManager {
@@ -64,7 +66,7 @@ public class UpdateManager extends InternalManager {
 		
 		ArrayList<ConfigurationTimer> configurationTimers = game.getConfigurationsManager().getConfigurationTimers();
 		for (ConfigurationTimer configurationTimer : configurationTimers) {
-			if (time == configurationTimer.getTimer() && !configurationTimer.isActive()) {
+			if (time >= configurationTimer.getTimer() && !configurationTimer.isActive()) {
 				configurationTimer.activate(game);
 			}
 		}
@@ -133,7 +135,6 @@ public class UpdateManager extends InternalManager {
 	
 	public void checkWin() {
 		GameLG game = this.getGame();
-		ChatManager chatManager = game.getChatManager();
 		ArrayList<PlayerState> validStates = new ArrayList<PlayerState>();
 		ArrayList<Profile> aliveProfiles = new ArrayList<Profile>();
 		validStates.add(PlayerState.ALIVE);
@@ -157,31 +158,37 @@ public class UpdateManager extends InternalManager {
 		}
 		
 		if (aliveProfiles.size() == 0) {
-			chatManager.sendSystemMessage(ChatColor.RED + "Tout le monde est mort. *confused system noises*");
-			chatManager.sendPlayersList();
-			game.setGameState(GameState.ENDED);
+			endGame(ChatColor.GRAY + "Victoire de ... personne?");
 			return;
 		}
 		
 		if (winVillage) {
-			chatManager.sendSystemMessage(ChatColor.GREEN + "Le village a gagné.");
-			chatManager.sendPlayersList();
-			game.setGameState(GameState.ENDED);
+			endGame(ChatColor.GREEN + "Victoire du village.");
 			return;
 		}
 		
 		if (winWolves) {
-			chatManager.sendSystemMessage(ChatColor.RED + "Les loups ont gagné.");
-			chatManager.sendPlayersList();
-			game.setGameState(GameState.ENDED);
+			endGame(ChatColor.RED + "Victoire des loups.");
 			return;
 		}
 		
 		if (aliveProfiles.size() == 1) {
-			chatManager.sendSystemMessage(ChatColor.RED + "Il n'y a plus qu'un joueur en vie : " + aliveProfiles.get(0).getPlayer().getName() + ".");
-			chatManager.sendPlayersList();
-			game.setGameState(GameState.ENDED);
+			Profile profile = aliveProfiles.get(0);
+			if (profile.getRole() instanceof RoleAssassin) {
+				endGame(ChatColor.YELLOW + "Victoire de l'assassin.");
+				return;
+			}
+
+			endGame(ChatColor.YELLOW + "Il n'y a plus qu'un joueur en vie : " + aliveProfiles.get(0).getPlayer().getName() + ".");
 			return;
 		}
+	}
+	
+	private void endGame(String message) {
+		Bukkit.broadcastMessage(message);
+		GameLG game = this.getGame();
+		ChatManager chatManager = game.getChatManager();
+		chatManager.sendPlayersList();
+		game.setGameState(GameState.ENDED);
 	}
 }

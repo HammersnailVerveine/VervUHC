@@ -12,12 +12,12 @@ public class CommandPower extends PluginCommand {
 
 	public CommandPower(Main main) {
 		super(main);
+		this.labels.add("use");
+		this.labels.add("u");
 		this.labels.add("pouvoir");
 		this.labels.add("power");
 		this.labels.add("p");
 		this.labels.add("utiliser");
-		this.labels.add("use");
-		this.labels.add("u");
 	}
 
 	@Override
