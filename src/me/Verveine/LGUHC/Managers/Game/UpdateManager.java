@@ -16,7 +16,6 @@ import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
 import me.Verveine.LGUHC.Players.Profile;
-import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Players.State;
 import me.Verveine.LGUHC.Players.Roles.Solo.RoleAssassin;
 import net.md_5.bungee.api.ChatColor;
@@ -94,10 +93,8 @@ public class UpdateManager extends InternalManager {
 				state.setDeathTimer(state.getDeathTimer() - 1);
 				if (state.getDeathTimer() < 1) {
 					Player player = profile.getPlayer();
-					Role role = profile.getRole();
 					state.setPlayerState(PlayerState.DEAD);
-					game.getChatManager().sendSystemMessage("Le joueur " + player.getName() + " est mort.");
-					game.getChatManager().sendSystemMessage("Il était " + role.getColor() + role.getName() + ".");
+					game.getChatManager().sendProfileDeath(profile);
 					player.setGameMode(GameMode.SPECTATOR);
 					player.teleport(state.getDeathLocation());
 					
@@ -189,6 +186,20 @@ public class UpdateManager extends InternalManager {
 		GameLG game = this.getGame();
 		ChatManager chatManager = game.getChatManager();
 		chatManager.sendPlayersList();
+		ArrayList<PlayerState> validStates = new ArrayList<PlayerState>();
+		validStates.add(PlayerState.ALIVE);
+		validStates.add(PlayerState.PREDEAD);
+		
+		int nbAlive = 0;
+		for (Profile profile : game.getProfilesManager().getProfiles()) {
+			if (!validStates.contains(profile.getState().getPlayerState()))
+				nbAlive ++;
+		}
+		
+		for (Profile profile : game.getProfilesManager().getProfiles()) {
+			profile.updateScoreboardEnd(nbAlive);
+		}
+		
 		game.setGameState(GameState.ENDED);
 	}
 }

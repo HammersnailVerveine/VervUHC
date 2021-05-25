@@ -46,6 +46,27 @@ public class Profile {
 		return scoreboard;
 	}
 	
+	public void updateScoreboardEnd(int nbPlayersAlive) {
+		scoreboard.getObjective("objectiveLG").unregister();
+		Objective objective = scoreboard.registerNewObjective("objectiveLG", "dummy");
+		List<Score> scores = new ArrayList<Score>();
+		
+		scores.add(objective.getScore(ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "+------------+"));
+		scores.add(objective.getScore(ChatColor.AQUA + " Timer: " + ChatColor.WHITE + getTimer(this.getGame().getTime())));
+		scores.add(objective.getScore(ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "+----------   +"));
+		scores.add(objective.getScore(ChatColor.AQUA + " En vie: " + ChatColor.WHITE + nbPlayersAlive));
+		scores.add(objective.getScore(ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "+--------      +"));
+		
+		int flag = 0;
+		for (Score score : scores) {
+			score.setScore(scores.size() - flag);
+			flag ++;
+		}
+		
+		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+		objective.setDisplayName(ChatColor.DARK_AQUA + "_   " + ChatColor.AQUA + "LG UHC" + ChatColor.DARK_AQUA + "   _   ");
+	}
+	
 	public void updateScoreboard(int nbPlayers, int nbPlayersAlive, ConfigurationTimer configTimer) {
 		scoreboard.getObjective("objectiveLG").unregister();
 		Objective objective = scoreboard.registerNewObjective("objectiveLG", "dummy");

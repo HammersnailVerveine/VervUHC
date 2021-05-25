@@ -27,11 +27,25 @@ public class ChatManager extends InternalManager {
 		}
 	}
 	
+	public void sendProfileDeath(Profile profile) {
+		Role role = profile.getRole();
+		String messageName = "Le joueur " + role.getColor() + profile.getPlayer().getName() + ChatColor.WHITE + " est mort.";
+		String messageRole = "Il était " + role.getColor() + role.getName() + ChatColor.WHITE + ".";
+		String filler = "+--------------------------+";
+		Bukkit.broadcastMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + filler);
+		Bukkit.broadcastMessage(ChatColor.WHITE + " " +  messageName);
+		Bukkit.broadcastMessage(ChatColor.WHITE + " " +  messageRole);
+		Bukkit.broadcastMessage(ChatColor.GREEN + "" + ChatColor.STRIKETHROUGH + filler);
+	}
+	
 	public void sendGameMessage(String message) {
 		String filler = "+";
 		char[] chars = message.toCharArray();
 		for (int i = 0 ; i < chars.length - 4; i ++) {
 			filler += "-";
+			if (filler.length() > 50) {
+				break;
+			}
 		}
 		filler += "+";
 		Bukkit.broadcastMessage(ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + filler);
@@ -44,6 +58,9 @@ public class ChatManager extends InternalManager {
 		char[] chars = message.toCharArray();
 		for (int i = 0 ; i < chars.length - 4; i ++) {
 			filler += "-";
+			if (filler.length() > 50) {
+				break;
+			}
 		}
 		filler += "+";
 		player.sendMessage(ChatColor.RED + "" + ChatColor.STRIKETHROUGH + filler);
@@ -68,7 +85,8 @@ public class ChatManager extends InternalManager {
 		int index = 0;
 		List<String> descriptions = role.campsDescriptionToStringList();
 		for (String string : descriptions) {
-			camps += string + ChatColor.WHITE + (index ++ < descriptions.size() ? ", " : ".");
+			index ++;
+			camps += string + ChatColor.WHITE + (index < descriptions.size() ? ", " : ".");
 		}
 		
 		profile.getPlayer().sendMessage(ChatColor.RED + "" + ChatColor.STRIKETHROUGH + "+--------------------------------------+");
