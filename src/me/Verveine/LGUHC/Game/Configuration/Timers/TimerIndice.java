@@ -5,7 +5,6 @@ import org.bukkit.Material;
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
-import net.md_5.bungee.api.ChatColor;
 
 public class TimerIndice extends ConfigurationTimer {
 
@@ -21,6 +20,6 @@ public class TimerIndice extends ConfigurationTimer {
 	@Override
 	public void run(GameLG game) {
 		game.getGameObjectManager().generateIndice();
-		game.getChatManager().sendGameMessage(ChatColor.GREEN + "Indice généré");
+		game.getChatManager().sendGameMessage("Un indice est apparu.");
 	}
 }

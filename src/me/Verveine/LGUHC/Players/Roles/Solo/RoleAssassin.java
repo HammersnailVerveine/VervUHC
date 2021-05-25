@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
+import me.Verveine.LGUHC.Enums.Camps;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Translations.FR;
 
@@ -21,6 +22,8 @@ public class RoleAssassin extends Role {
 		super(main);
 		this.setColor(ChatColor.YELLOW);
 		this.setName(FR.ASSASSIN_ROLE);
+		this.camps.add(Camps.SOLO);		
+		this.getCampsDescription().add(Camps.SOLO);
 		this.description = FR.ASSASSIN_DESC;
 		
 		ItemStack book1 = new ItemStack(Material.ENCHANTED_BOOK, 1);

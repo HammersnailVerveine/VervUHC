@@ -1,4 +1,4 @@
-package me.Verveine.LGUHC.Game.Configuration.Scenarios;
+package me.Verveine.LGUHC.Game.Configuration.Scenarios.Optional;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
-import me.Verveine.LGUHC.Game.Configuration.ConfigurationScenario;
+import me.Verveine.LGUHC.Game.Configuration.Scenarios.ConfigurationScenario;
 import me.Verveine.LGUHC.Players.Profile;
 import net.md_5.bungee.api.ChatColor;
 

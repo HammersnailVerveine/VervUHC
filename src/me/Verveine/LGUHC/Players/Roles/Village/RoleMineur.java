@@ -21,7 +21,8 @@ public class RoleMineur extends Role {
 		super(main);
 		this.setColor(ChatColor.GREEN);
 		this.setName(FR.MINEUR_ROLE);
-		this.camps.add(Camps.VILLAGE);		
+		this.camps.add(Camps.VILLAGE);
+		this.getCampsDescription().add(Camps.VILLAGE);
 		this.description = FR.MINEUR_DESC;
 		
 		ItemStack	item = new ItemStack(Material.DIAMOND_PICKAXE);

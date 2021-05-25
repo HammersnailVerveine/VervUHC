@@ -5,7 +5,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Game.Configuration.ConfigurationScenario;
+import me.Verveine.LGUHC.Game.Configuration.Scenarios.ConfigurationScenario;
 import net.md_5.bungee.api.ChatColor;
 
 public class ScenariosMenuManager extends InternalMenuManager {

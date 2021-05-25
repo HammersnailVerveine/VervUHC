@@ -18,7 +18,8 @@ public class RoleSimpleVillageois extends Role {
 		super(main);
 		this.setColor(ChatColor.GREEN);
 		this.setName(FR.SV_ROLE);
-		this.camps.add(Camps.VILLAGE);		
+		this.camps.add(Camps.VILLAGE);	
+		this.getCampsDescription().add(Camps.VILLAGE);	
 		this.description = FR.SV_DESC;
 		
 		this.startInventory.add(new ItemStack(Material.CARROT_ITEM, 1));

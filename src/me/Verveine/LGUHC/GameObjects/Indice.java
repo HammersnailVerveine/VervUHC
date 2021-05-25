@@ -12,6 +12,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Tags;
+import me.Verveine.LGUHC.Managers.Game.ChatManager;
 import me.Verveine.LGUHC.Managers.Game.GameObjectManager;
 import me.Verveine.LGUHC.Players.Profile;
 import net.md_5.bungee.api.ChatColor;
@@ -46,10 +47,11 @@ public class Indice extends GameObject {
 	public void revealWolf(BlockBreakEvent event) {
 		this.activated = true;
 		this.setRevealedProfile(chooseRevealedProfile());
+		ChatManager chatManager = this.getGame().getChatManager();
 		if (this.getRevealedProfile() != null) {
-			event.getPlayer().sendMessage(ChatColor.RED + "Le joueur " + ChatColor.WHITE + this.getRevealedProfile().getPlayer().getName() + ChatColor.RED + " est un loup.");
+			chatManager.sendPrivateMessage("Le joueur " + ChatColor.WHITE + this.getRevealedProfile().getPlayer().getName() + ChatColor.YELLOW + " est un loup.", event.getPlayer());
 		} else {
-			event.getPlayer().sendMessage("Il n'y a aucun loup en vie");
+			chatManager.sendPrivateMessage("Il n'y a aucun loup en vie", event.getPlayer());
 		}
 	}
 	

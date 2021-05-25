@@ -4,9 +4,6 @@ version: 0.1
 author: Verveine
 
 commands:
-   lgtest:
-      description: Commandes test temporaires VervUHC (Coucou carnage)
-      usage: /lgtest
    alg:
       description: Commandes admin VervUHC
       usage: /alg

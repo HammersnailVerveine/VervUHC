@@ -1,4 +1,4 @@
-package me.Verveine.LGUHC.Game.Configuration;
+package me.Verveine.LGUHC.Game.Configuration.Scenarios;
 
 import org.bukkit.Material;
 import org.bukkit.event.Listener;

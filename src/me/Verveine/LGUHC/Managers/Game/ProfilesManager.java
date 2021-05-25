@@ -111,8 +111,7 @@ public class ProfilesManager extends InternalManager {
 			if (role.getStartInventory().size() > 0) {
 				role.giveStartInventory();
 			}
-			profile.getPlayer().sendMessage("Vous êtes " + role.getColor() + role.getName());
-			profile.getPlayer().sendMessage(profile.getRole().getDescription());
+			game.getChatManager().sendProfileRole(profile);
 			roles.remove(role);
 		}
 		

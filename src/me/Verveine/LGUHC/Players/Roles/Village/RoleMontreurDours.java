@@ -23,6 +23,7 @@ public class RoleMontreurDours extends Role {
 		this.setColor(ChatColor.AQUA);
 		this.setName(FR.OURS_ROLE);
 		this.camps.add(Camps.VILLAGE);		
+		this.getCampsDescription().add(Camps.VILLAGE);
 		this.description = FR.OURS_DESC;
 	}
 

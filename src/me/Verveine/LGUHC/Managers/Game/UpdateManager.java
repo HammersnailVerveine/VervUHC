@@ -42,7 +42,7 @@ public class UpdateManager extends InternalManager {
 		long time = game.getWorldManager().getWorld().getTime();
 		if (!isNight && time > 12000) {
 			isNight = true;
-			game.getChatManager().sendSystemMessage("C'est la nuit.");
+			game.getChatManager().sendGameMessage("C'est la nuit.");
 			for (Profile p : game.getProfilesManager().getProfiles()) {
 				p.getRole().resetNight(p.getPlayer());
 			}
@@ -51,7 +51,7 @@ public class UpdateManager extends InternalManager {
 		
 		if (isNight && time < 12000) {
 			isNight = false;
-			game.getChatManager().sendSystemMessage("C'est le jour.");
+			game.getChatManager().sendGameMessage("C'est le jour.");
 			for (Profile p : game.getProfilesManager().getProfiles()) {
 				p.getRole().resetDay(p.getPlayer());
 			}

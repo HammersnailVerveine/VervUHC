@@ -19,6 +19,7 @@ public class RoleLoupGarou extends Role {
 		this.setColor(ChatColor.RED);
 		this.setName(FR.LG_ROLE);
 		this.camps.add(Camps.WOLF);	
+		this.getCampsDescription().add(Camps.WOLF);
 		this.tags.add(Tags.WOLF);
 		this.appearsOnWolfList = true;
 		this.accessWolfList = true;

@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationRole;
-import me.Verveine.LGUHC.Game.Configuration.ConfigurationScenario;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
-import me.Verveine.LGUHC.Game.Configuration.Scenarios.*;
+import me.Verveine.LGUHC.Game.Configuration.Scenarios.Permanent.*;
+import me.Verveine.LGUHC.Game.Configuration.Scenarios.ConfigurationScenario;
+import me.Verveine.LGUHC.Game.Configuration.Scenarios.Optional.*;
 import me.Verveine.LGUHC.Game.Configuration.Timers.*;
 import me.Verveine.LGUHC.Players.Roles.LG.*;
 import me.Verveine.LGUHC.Players.Roles.Village.*;
@@ -17,6 +18,7 @@ public class ConfigurationsManager extends InternalManager {
 	private ArrayList<ConfigurationTimer> configurationTimers;
 	private ArrayList<ConfigurationRole> configurationRoles;
 	private ArrayList<ConfigurationScenario> configurationScenarios;
+	private ArrayList<ConfigurationScenario> configurationScenariosPermanent;
 	
 	public ConfigurationsManager(Main main, GameLG game) {
 		super(main);
@@ -24,7 +26,17 @@ public class ConfigurationsManager extends InternalManager {
 		configurationTimers = generateConfigurationTimers();
 		configurationRoles = generateConfigurationRoles();
 		configurationScenarios = generateConfigurationScenarios();
+		configurationScenariosPermanent = generateConfigurationScenariosPermanent();
 	}
+	
+	public ArrayList<ConfigurationScenario> generateConfigurationScenariosPermanent() {
+		ArrayList<ConfigurationScenario> configuration = new ArrayList<ConfigurationScenario>();
+		configuration.add(new ScenarioIndiceBreak(this.getPlugin()));
+		configuration.add(new ScenarioDamage(this.getPlugin()));
+		configuration.add(new ScenarioMenus(this.getPlugin()));
+		return configuration;
+	}
+	
 	public ArrayList<ConfigurationScenario> generateConfigurationScenarios() {
 		ArrayList<ConfigurationScenario> configuration = new ArrayList<ConfigurationScenario>();
 		configuration.add(new ScenarioDiamondLimit(this.getPlugin()));
@@ -96,5 +108,11 @@ public class ConfigurationsManager extends InternalManager {
 
 	public void setConfigurationScenarios(ArrayList<ConfigurationScenario> configurationScenarios) {
 		this.configurationScenarios = configurationScenarios;
+	}
+	public ArrayList<ConfigurationScenario> getConfigurationScenariosPermanent() {
+		return configurationScenariosPermanent;
+	}
+	public void setConfigurationScenariosPermanent(ArrayList<ConfigurationScenario> configurationScenariosPermanent) {
+		this.configurationScenariosPermanent = configurationScenariosPermanent;
 	}
 }

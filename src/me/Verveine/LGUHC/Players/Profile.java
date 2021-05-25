@@ -1,5 +1,8 @@
 package me.Verveine.LGUHC.Players;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -39,11 +42,39 @@ public class Profile {
 	public Scoreboard initializeScoreboard() {
 		ScoreboardManager manager = Bukkit.getScoreboardManager();
 		Scoreboard scoreboard = manager.getNewScoreboard();	
-		scoreboard.registerNewObjective("test", "dummy");
+		scoreboard.registerNewObjective("objectiveLG", "dummy");
 		return scoreboard;
 	}
 	
 	public void updateScoreboard(int nbPlayers, int nbPlayersAlive, ConfigurationTimer configTimer) {
+		scoreboard.getObjective("objectiveLG").unregister();
+		Objective objective = scoreboard.registerNewObjective("objectiveLG", "dummy");
+		
+		List<Score> scores = new ArrayList<Score>();
+		
+		String str1 = " " + (configTimer == null ? "-" : configTimer.getScoreboardName());
+		String str2 = (configTimer == null ? "" : (" : " + getTimer(configTimer.getTimer() - this.getGame().getTime())));
+
+		scores.add(objective.getScore(ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "+------------+"));
+		scores.add(objective.getScore(ChatColor.AQUA + " Timer: " + ChatColor.WHITE + getTimer(this.getGame().getTime())));
+		scores.add(objective.getScore(ChatColor.AQUA + str1 + ChatColor.WHITE + str2));
+		scores.add(objective.getScore(ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "+----------   +"));
+		scores.add(objective.getScore(ChatColor.AQUA + " Joueurs: " + ChatColor.WHITE + nbPlayersAlive + "/" + nbPlayers));
+		scores.add(objective.getScore(ChatColor.AQUA + " Groupes: " + ChatColor.WHITE + this.getGame().getGroupLimit()));
+		scores.add(objective.getScore(ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "+--------      +"));
+		
+		int flag = 0;
+		for (Score score : scores) {
+			score.setScore(scores.size() - flag);
+			flag ++;
+		}
+		
+		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+		objective.setDisplayName(ChatColor.DARK_AQUA + "_   " + ChatColor.AQUA + "LG UHC" + ChatColor.DARK_AQUA + "   _   ");
+	}
+	
+	@Deprecated
+	public void updateScoreboardOld(int nbPlayers, int nbPlayersAlive, ConfigurationTimer configTimer) {
 		Role role = this.getRole();
 		scoreboard.getObjective("test").unregister();
 		Objective objective = scoreboard.registerNewObjective("test", "dummy");

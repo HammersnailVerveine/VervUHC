@@ -21,6 +21,7 @@ public abstract class Role implements Cloneable {
 	protected List<Camps> camps;
 	protected List<Tags> tags;
 	protected List<ItemStack> startInventory;
+	protected List<Camps> campsDescription;
 	protected boolean appearsOnWolfList;
 	protected boolean accessWolfList;
 	protected String name;
@@ -32,6 +33,7 @@ public abstract class Role implements Cloneable {
 		this.camps = new ArrayList<Camps>();
 		this.tags = new ArrayList<Tags>();
 		this.startInventory = new ArrayList<ItemStack>();
+		this.setCampsDescription(new ArrayList<Camps>());
 		appearsOnWolfList = false;
 		name = "Blank Name";
 		color = ChatColor.WHITE;
@@ -52,6 +54,14 @@ public abstract class Role implements Cloneable {
 	
 	public GameLG getGame() {
 		return this.getPlugin().getGameManager().getGame();
+	}
+	
+	public ArrayList<String> campsDescriptionToStringList() {
+		ArrayList<String> camps = new ArrayList<String>();
+		for (Camps camp : this.getCamps()) {
+			camps.add(camp.getColor() + camp.toString());
+		}
+		return camps;
 	}
 	
 	public void giveStartInventory() {
@@ -157,5 +167,13 @@ public abstract class Role implements Cloneable {
 
 	public void setAccessWolfList(boolean accessWolfList) {
 		this.accessWolfList = accessWolfList;
+	}
+
+	public List<Camps> getCampsDescription() {
+		return campsDescription;
+	}
+
+	public void setCampsDescription(List<Camps> campsDescription) {
+		this.campsDescription = campsDescription;
 	}
 }

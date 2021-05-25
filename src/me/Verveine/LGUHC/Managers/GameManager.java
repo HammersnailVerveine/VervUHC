@@ -7,7 +7,7 @@ import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.GameState;
 import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Game.GameLG;
-import me.Verveine.LGUHC.Game.Configuration.ConfigurationScenario;
+import me.Verveine.LGUHC.Game.Configuration.Scenarios.ConfigurationScenario;
 import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Runnables.RunnableUpdate;
 
@@ -39,6 +39,10 @@ public class GameManager {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			game.getProfilesManager().updateProfiles(p);
 		}
+		
+		for (ConfigurationScenario config : this.getGame().getConfigurationsManager().getConfigurationScenariosPermanent()) {
+			plugin.getServer().getPluginManager().registerEvents(config, plugin);
+		}
 	}
 
 	public void startGame() {
@@ -46,6 +50,7 @@ public class GameManager {
 		game.setGameState(GameState.STARTED);
 		game.getWorldManager().getWorld().getWorldBorder().setCenter(game.getGameObjectManager().getSpawnBox().getLocation());
 		game.getWorldManager().getWorld().getWorldBorder().setSize(game.getWorldManager().getStartBorderSize());
+		
 		for (ConfigurationScenario config : this.getGame().getConfigurationsManager().getConfigurationScenarios()) {
 			plugin.getServer().getPluginManager().registerEvents(config, plugin);
 		}
