@@ -1,11 +1,12 @@
 package me.Verveine.LGUHC.Game.Configuration.Scenarios.Optional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -13,7 +14,6 @@ import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.Scenarios.ConfigurationScenario;
 import me.Verveine.LGUHC.Players.Profile;
-import net.md_5.bungee.api.ChatColor;
 
 public class ScenarioDiamondLimit extends ConfigurationScenario {
 
@@ -24,9 +24,8 @@ public class ScenarioDiamondLimit extends ConfigurationScenario {
 		this.setItem(Material.DIAMOND);
 	}
 
-
-	@EventHandler(priority = EventPriority.NORMAL)
-	public void onBreak(BlockBreakEvent breakEvent) {
+	@Override
+	public void onBlockBreak(BlockBreakEvent breakEvent) {
 		if (this.isEnabled() && breakEvent.getBlock().getType().equals(Material.DIAMOND_ORE)) {
 			GameLG game = this.getGame();
 			Profile profile = game.getProfilesManager().getProfileFromName(breakEvent.getPlayer().getName());
@@ -47,8 +46,11 @@ public class ScenarioDiamondLimit extends ConfigurationScenario {
 				profile.getStatistics().setDiamondsMined(profile.getStatistics().getDiamondsMined() + 1);
 				if (profile.getStatistics().getDiamondsMined() == 17) {
 					Player player = profile.getPlayer();
-					player.sendMessage(ChatColor.AQUA + "Limite de Diamants (17) atteinte!");
-					player.sendMessage(ChatColor.AQUA + "Tout diamant miné manuellement donnera désormais un lingot d'or");
+					List <String> messages = new ArrayList<String>();
+					messages.add("Limite de Diamants (17) atteinte!");
+					messages.add("Tout diamant miné manuellement donnera désormais un lingot d'or.");
+					
+					this.getGame().getChatManager().sendPrivateMessage(messages , player);
 				}
 			}
 		}

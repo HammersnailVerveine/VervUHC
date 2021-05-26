@@ -7,13 +7,14 @@ import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.GameState;
 import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Game.GameLG;
-import me.Verveine.LGUHC.Game.Configuration.Scenarios.ConfigurationScenario;
+import me.Verveine.LGUHC.Game.GameListeners;
 import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Runnables.RunnableUpdate;
 
 public class GameManager {
 
 	private GameLG game;
+	private GameListeners gameListeners;
 	private RunnableUpdate gameRunnable;
 	private Main plugin;
 	
@@ -40,8 +41,9 @@ public class GameManager {
 			game.getProfilesManager().updateProfiles(p);
 		}
 		
-		for (ConfigurationScenario config : this.getGame().getConfigurationsManager().getConfigurationScenariosPermanent()) {
-			plugin.getServer().getPluginManager().registerEvents(config, plugin);
+		if (this.gameListeners == null) {
+			new GameListeners(plugin, this);
+			plugin.getServer().getPluginManager().registerEvents(gameListeners, plugin);
 		}
 	}
 
@@ -50,10 +52,11 @@ public class GameManager {
 		game.setGameState(GameState.STARTED);
 		game.getWorldManager().getWorld().getWorldBorder().setCenter(game.getGameObjectManager().getSpawnBox().getLocation());
 		game.getWorldManager().getWorld().getWorldBorder().setSize(game.getWorldManager().getStartBorderSize());
-		
+		/*
 		for (ConfigurationScenario config : this.getGame().getConfigurationsManager().getConfigurationScenarios()) {
 			plugin.getServer().getPluginManager().registerEvents(config, plugin);
 		}
+		*/
 		
 		for (Profile profile : game.getProfilesManager().getProfiles()) {
 			profile.getPlayer().getInventory().clear();
@@ -90,5 +93,13 @@ public class GameManager {
 
 	public void setPlugin(Main plugin) {
 		this.plugin = plugin;
+	}
+
+	public GameListeners getGameListeners() {
+		return gameListeners;
+	}
+
+	public void setGameListeners(GameListeners gameListeners) {
+		this.gameListeners = gameListeners;
 	}
 }

@@ -2,8 +2,6 @@ package me.Verveine.LGUHC.Game.Configuration.Scenarios.Permanent;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -21,10 +19,10 @@ public class ScenarioDamage extends ConfigurationScenario {
 		this.setName("Damage Handling");
 		this.enabled = true;
 	}
-
-	@EventHandler(priority = EventPriority.NORMAL)
-	public void onDamage(EntityDamageEvent event) {
-		if(event.getEntity() instanceof Player && this.isEnabled()) {
+	
+	@Override
+	public void onEntityDamage(EntityDamageEvent event) {
+		if(event.getEntity() instanceof Player) {
 			if(event.getEntity() instanceof Player) {
 		        Player player = (Player) event.getEntity();	
 		        if (player != null) {// && !(damageEvent.getCause().equals(DamageCause.PROJECTILE) || damageEvent.getCause().equals(DamageCause.ENTITY_ATTACK)) ) {
@@ -42,11 +40,14 @@ public class ScenarioDamage extends ConfigurationScenario {
 		    			profile.getState().setDeathTimer(time);
 		    			profile.getState().setDeathLocation(player.getLocation());
 		    			player.teleport(game.getGameObjectManager().getSpawnBox().getLocation());
-		    			player.getActivePotionEffects().clear();
+		    			for(PotionEffect effect : player.getActivePotionEffects()) {
+		    			    player.removePotionEffect(effect.getType());
+		    			}
 		    			Bukkit.getScheduler().scheduleSyncDelayedTask(this.getPlugin(), () -> player.setFireTicks(0), 1);
 		    			player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, time * 20, 0, false, false));
 		    			player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, time * 20, 0, false, false));
 		    			player.setHealth(20);
+		    			player.setFoodLevel(20);
 		    			this.getGame().getChatManager().sendPrivateMessage("Vous êtes mort, mais quelque chose peut encore se passer...", player);
 		    			Bukkit.getScheduler().scheduleSyncDelayedTask(this.getPlugin(), () -> game.getUpdateManager().checkWin(), (time + 5) * 20);
 		    		}

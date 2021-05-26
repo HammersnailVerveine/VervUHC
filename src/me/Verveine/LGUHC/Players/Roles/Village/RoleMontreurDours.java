@@ -11,7 +11,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Enums.Camps;
+import me.Verveine.LGUHC.Enums.Camp;
 import me.Verveine.LGUHC.Enums.Tags;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Translations.FR;
@@ -22,8 +22,8 @@ public class RoleMontreurDours extends Role {
 		super(main);
 		this.setColor(ChatColor.AQUA);
 		this.setName(FR.OURS_ROLE);
-		this.camps.add(Camps.VILLAGE);		
-		this.getCampsDescription().add(Camps.VILLAGE);
+		this.camps.add(Camp.VILLAGE);		
+		this.getCampsDescription().add(Camp.VILLAGE);
 		this.description = FR.OURS_DESC;
 	}
 
@@ -62,7 +62,6 @@ public class RoleMontreurDours extends Role {
 
 	@Override
 	public void useCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		sender.sendMessage("test");
 	}
 
 }

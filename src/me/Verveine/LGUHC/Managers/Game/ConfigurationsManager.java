@@ -86,6 +86,13 @@ public class ConfigurationsManager extends InternalManager {
 		return configReturn;
 	}
 
+	public ArrayList<ConfigurationScenario> getConfigurationScenariosAll() {
+		ArrayList<ConfigurationScenario> scenarios = new ArrayList<ConfigurationScenario>();
+		scenarios.addAll(configurationScenarios);
+		scenarios.addAll(configurationScenariosPermanent);
+		return scenarios;
+	}
+
 	public ArrayList<ConfigurationTimer> getConfigurationTimers() {
 		return configurationTimers;
 	}

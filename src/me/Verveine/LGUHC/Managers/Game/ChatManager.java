@@ -68,6 +68,25 @@ public class ChatManager extends InternalManager {
 		player.sendMessage(ChatColor.RED + "" + ChatColor.STRIKETHROUGH + filler);
 	}
 	
+	public void sendPrivateMessage(List<String> messages, Player player) {
+		if (messages.size() > 0) {
+			String filler = "+";
+			char[] chars = messages.get(0).toCharArray();
+			for (int i = 0 ; i < chars.length - 4; i ++) {
+				filler += "-";
+				if (filler.length() > 50) {
+					break;
+				}
+			}
+			filler += "+";
+			player.sendMessage(ChatColor.RED + "" + ChatColor.STRIKETHROUGH + filler);
+			for (String message : messages) {
+				player.sendMessage(ChatColor.YELLOW + " " +  message);
+			}
+			player.sendMessage(ChatColor.RED + "" + ChatColor.STRIKETHROUGH + filler);
+		}
+	}
+	
 	public void sendPlayersList() {
 		GameLG game = this.getGame();
 		Bukkit.broadcastMessage(ChatColor.GOLD + "======== Joueurs ========");
@@ -84,16 +103,20 @@ public class ChatManager extends InternalManager {
 		String camps = "";
 		int index = 0;
 		List<String> descriptions = role.campsDescriptionToStringList();
+		String[] infos = profile.getRole().getDescription().split("\n");
 		for (String string : descriptions) {
 			index ++;
 			camps += string + ChatColor.WHITE + (index < descriptions.size() ? ", " : ".");
 		}
 		
+		
 		profile.getPlayer().sendMessage(ChatColor.RED + "" + ChatColor.STRIKETHROUGH + "+--------------------------------------+");
 		profile.getPlayer().sendMessage(ChatColor.YELLOW + "Vous êtes " + role.getColor() + "" + ChatColor.UNDERLINE + role.getName());
 		profile.getPlayer().sendMessage(ChatColor.RED + "" + ChatColor.STRIKETHROUGH + "+--------------------------------------+");
 		profile.getPlayer().sendMessage(ChatColor.YELLOW + "Camps : " + camps);
-		profile.getPlayer().sendMessage(ChatColor.ITALIC + profile.getRole().getDescription());
+		for (String info : infos) {
+			profile.getPlayer().sendMessage(ChatColor.ITALIC + info);
+		}
 		profile.getPlayer().sendMessage(ChatColor.RED + "" + ChatColor.STRIKETHROUGH + "+--------------------------------------+");
 		
 	}

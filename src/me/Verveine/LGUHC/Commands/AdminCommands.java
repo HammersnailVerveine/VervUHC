@@ -27,6 +27,9 @@ public class AdminCommands implements CommandExecutor, TabCompleter {
 		pluginCommands.add(new CommandNew(plugin));
 		pluginCommands.add(new CommandStart(plugin));
 		pluginCommands.add(new CommandIndice(plugin));
+		pluginCommands.add(new CommandSetRole(plugin));
+		pluginCommands.add(new CommandTeleport(plugin));
+		pluginCommands.add(new CommandRevive(plugin));
 	}
 	
 	@Override

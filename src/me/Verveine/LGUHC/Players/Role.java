@@ -12,16 +12,16 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Enums.Camps;
+import me.Verveine.LGUHC.Enums.Camp;
 import me.Verveine.LGUHC.Enums.Tags;
 import me.Verveine.LGUHC.Game.GameLG;
 
 public abstract class Role implements Cloneable {
 	private Main plugin;
-	protected List<Camps> camps;
+	protected List<Camp> camps;
 	protected List<Tags> tags;
 	protected List<ItemStack> startInventory;
-	protected List<Camps> campsDescription;
+	protected List<Camp> campsDescription;
 	protected boolean appearsOnWolfList;
 	protected boolean accessWolfList;
 	protected String name;
@@ -30,10 +30,10 @@ public abstract class Role implements Cloneable {
 	
 	public Role(Main main) {
 		this.setPlugin(main);
-		this.camps = new ArrayList<Camps>();
+		this.camps = new ArrayList<Camp>();
 		this.tags = new ArrayList<Tags>();
 		this.startInventory = new ArrayList<ItemStack>();
-		this.setCampsDescription(new ArrayList<Camps>());
+		this.setCampsDescription(new ArrayList<Camp>());
 		appearsOnWolfList = false;
 		name = "Blank Name";
 		color = ChatColor.WHITE;
@@ -58,8 +58,8 @@ public abstract class Role implements Cloneable {
 	
 	public ArrayList<String> campsDescriptionToStringList() {
 		ArrayList<String> camps = new ArrayList<String>();
-		for (Camps camp : this.getCamps()) {
-			camps.add(camp.getColor() + camp.toString());
+		for (Camp camp : this.getCamps()) {
+			camps.add(camp.toChatColor() + camp.toString());
 		}
 		return camps;
 	}
@@ -70,12 +70,12 @@ public abstract class Role implements Cloneable {
 				Player player = profile.getPlayer();
 				if (player.isOnline()) {
 					if (startInventory.size() < 1) {
-						player.sendMessage(ChatColor.RED + "Tu as déjà reçu tous les objets de ton inventaire de départ");
+						this.getGame().getChatManager().sendPrivateMessage("Tu as déjà reçu tous les objets de ton inventaire de départ", player);
 					} else {
 						ArrayList<ItemStack> givenItems = new ArrayList<ItemStack>();
 						for (ItemStack item : startInventory) {
 							if (player.getInventory().firstEmpty() == -1) {
-								player.sendMessage(ChatColor.RED + "Ton inventaire est plein, utilise la commande </lg i> pour recevoir les objets restants.");
+								this.getGame().getChatManager().sendPrivateMessage("Ton inventaire est plein, utilise la commande </lg i> pour recevoir les objets restants.", player);
 							} else {
 								player.getInventory().addItem(item);
 								givenItems.add(item);
@@ -93,15 +93,19 @@ public abstract class Role implements Cloneable {
 		}
 	}
 
+	public void buff(Player player, PotionEffectType potionEffect) {
+		buff(player, potionEffect, 0);
+	}
+
 	public void buff(Player player, PotionEffectType potionEffect, int level) {
 		player.addPotionEffect(new PotionEffect(potionEffect, 60, level, false, false));
 	}
 	
-	public List<Camps> getCamps() {
+	public List<Camp> getCamps() {
 		return camps;
 	}
 
-	public void setCamps(List<Camps> camps) {
+	public void setCamps(List<Camp> camps) {
 		this.camps = camps;
 	}
 
@@ -169,11 +173,11 @@ public abstract class Role implements Cloneable {
 		this.accessWolfList = accessWolfList;
 	}
 
-	public List<Camps> getCampsDescription() {
+	public List<Camp> getCampsDescription() {
 		return campsDescription;
 	}
 
-	public void setCampsDescription(List<Camps> campsDescription) {
+	public void setCampsDescription(List<Camp> campsDescription) {
 		this.campsDescription = campsDescription;
 	}
 }

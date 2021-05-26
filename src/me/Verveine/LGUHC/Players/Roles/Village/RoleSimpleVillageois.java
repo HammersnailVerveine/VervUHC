@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Enums.Camps;
+import me.Verveine.LGUHC.Enums.Camp;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Translations.FR;
 
@@ -18,8 +18,8 @@ public class RoleSimpleVillageois extends Role {
 		super(main);
 		this.setColor(ChatColor.GREEN);
 		this.setName(FR.SV_ROLE);
-		this.camps.add(Camps.VILLAGE);	
-		this.getCampsDescription().add(Camps.VILLAGE);	
+		this.camps.add(Camp.VILLAGE);	
+		this.getCampsDescription().add(Camp.VILLAGE);	
 		this.description = FR.SV_DESC;
 		
 		this.startInventory.add(new ItemStack(Material.CARROT_ITEM, 1));
@@ -51,7 +51,6 @@ public class RoleSimpleVillageois extends Role {
 
 	@Override
 	public void useCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		sender.sendMessage("test");
 	}
 
 }

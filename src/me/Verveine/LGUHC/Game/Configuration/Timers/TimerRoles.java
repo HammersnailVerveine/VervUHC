@@ -19,6 +19,7 @@ public class TimerRoles extends ConfigurationTimer {
 
 	@Override
 	public void run(GameLG game) {
+		game.getChatManager().sendGameMessage("Les rôles ont été distribués.");
 		game.getProfilesManager().giveRoles();
 	}
 }

@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -15,6 +18,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import me.Verveine.LGUHC.Main;
+import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
 import net.md_5.bungee.api.ChatColor;
@@ -178,6 +182,20 @@ public class Profile {
 			char[] chars = Integer.toString(val).toCharArray();
 			return chars[0] + "k" + chars[1];
 		}
+	}
+	
+	public void respawn() {
+		Player player = this.getPlayer();
+		player.setHealth(20);
+		player.setFoodLevel(20);
+		player.setGameMode(GameMode.SURVIVAL);
+		for(PotionEffect effect : player.getActivePotionEffects()) {
+		    player.removePotionEffect(effect.getType());
+		}
+		player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 10, 4, false, false));
+		this.getState().setPlayerState(PlayerState.ALIVE);
+		this.randomTeleport();
+		this.getGame().getChatManager().sendPrivateMessage("Vous revenez d'entre les morts.", player);
 	}
 	
 	public void randomTeleport() {	// old code

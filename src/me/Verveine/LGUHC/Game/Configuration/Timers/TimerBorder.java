@@ -28,5 +28,6 @@ public class TimerBorder extends ConfigurationTimer {
 		
 		diff = diff > 0 ? diff : 0;
 		game.getWorldManager().getWorld().getWorldBorder().setSize(game.getWorldManager().getEndBorderSize(), diff);
+		game.getChatManager().sendGameMessage("La bordure commence à rétricir.");
 	}
 }

@@ -3,7 +3,8 @@ package me.Verveine.LGUHC.Enums;
 import me.Verveine.LGUHC.Translations.FR;
 import net.md_5.bungee.api.ChatColor;
 
-public enum Camps {
+@Deprecated
+public enum CampsOld {
 	VILLAGE,
 	WOLF,
 	COUPLE,

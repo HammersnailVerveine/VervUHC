@@ -1,14 +1,17 @@
 package me.Verveine.LGUHC.Game.Configuration.Scenarios;
 
 import org.bukkit.Material;
-import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 
-public abstract class ConfigurationScenario implements Listener {
+public abstract class ConfigurationScenario {
 
 	private Main plugin;
 	protected boolean enabled;
@@ -29,6 +32,11 @@ public abstract class ConfigurationScenario implements Listener {
 		meta.setDisplayName(name);
 		displayItem.setItemMeta(meta);
 	}
+	
+	public void onPlayerJoin(PlayerJoinEvent event) {}
+	public void onBlockBreak(BlockBreakEvent event) {}
+	public void onInventoryClick(InventoryClickEvent event) {}
+	public void onEntityDamage(EntityDamageEvent event) {}
 	
 	public GameLG getGame() {
 		return this.getPlugin().getGameManager().getGame();

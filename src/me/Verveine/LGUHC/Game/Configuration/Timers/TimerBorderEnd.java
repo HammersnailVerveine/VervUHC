@@ -19,6 +19,6 @@ public class TimerBorderEnd extends ConfigurationTimer {
 
 	@Override
 	public void run(GameLG game) {
-		
+		game.getChatManager().sendGameMessage("La bordure a fini de rétrécir.");
 	}
 }

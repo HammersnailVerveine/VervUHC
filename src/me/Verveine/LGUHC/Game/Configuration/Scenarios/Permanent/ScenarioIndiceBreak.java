@@ -1,8 +1,6 @@
 package me.Verveine.LGUHC.Game.Configuration.Scenarios.Permanent;
 
 import org.bukkit.Material;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import me.Verveine.LGUHC.Main;
@@ -18,8 +16,8 @@ public class ScenarioIndiceBreak extends ConfigurationScenario {
 	}
 
 
-	@EventHandler(priority = EventPriority.NORMAL)
-	public void onBreak(BlockBreakEvent event) {
+	@Override
+	public void onBlockBreak(BlockBreakEvent event) {
 		if (event.getBlock().getType().equals(Material.GOLD_BLOCK) && this.isEnabled()) {
 			for (Indice indice : this.getGame().getGameObjectManager().getIndices()) {
 				//if (indice.getLocation().equals(event.getBlock().getLocation())) {

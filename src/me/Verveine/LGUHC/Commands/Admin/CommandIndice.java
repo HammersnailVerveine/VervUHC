@@ -17,6 +17,6 @@ public class CommandIndice extends PluginCommand {
 	@Override
 	public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		this.getGame().getGameObjectManager().generateIndice();
-		sender.sendMessage("Indice généré");
+		this.getGame().getChatManager().sendGameMessage("Un indice est apparu.");
 	}
 }

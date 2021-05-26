@@ -1,6 +1,5 @@
 package me.Verveine.LGUHC.Commands.Player;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -27,7 +26,6 @@ public class CommandInventory extends PluginCommand {
 	public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Profile profile = this.getProfile((Player) sender);
 		if (profile != null) {
-			profile.getPlayer().sendMessage(ChatColor.YELLOW + "Voici votre inventaire de départ");
 			profile.getRole().giveStartInventory();
 		}
 	}

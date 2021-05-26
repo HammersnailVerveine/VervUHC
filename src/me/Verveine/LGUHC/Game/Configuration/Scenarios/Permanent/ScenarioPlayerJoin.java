@@ -1,7 +1,5 @@
 package me.Verveine.LGUHC.Game.Configuration.Scenarios.Permanent;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import me.Verveine.LGUHC.Main;
@@ -15,7 +13,7 @@ public class ScenarioPlayerJoin extends ConfigurationScenario {
 		this.enabled = true;
 	}
 	
-	@EventHandler(priority = EventPriority.NORMAL)
+	@Override
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if (this.isEnabled()) {
 			this.getGame().getProfilesManager().updateProfiles(event.getPlayer());

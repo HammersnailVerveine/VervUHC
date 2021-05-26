@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Enums.Camps;
+import me.Verveine.LGUHC.Enums.Camp;
 import me.Verveine.LGUHC.Enums.GameState;
 import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Game.GameLG;
@@ -140,15 +140,15 @@ public class UpdateManager extends InternalManager {
 		boolean winVillage = true;
 		boolean winWolves = true;
 		for (Profile profile : game.getProfilesManager().getProfiles()) {
-			List<Camps> camps = profile.getRole().getCamps();
+			List<Camp> camps = profile.getRole().getCamps();
 			if (validStates.contains(profile.getState().getPlayerState()) && profile.getPlayer().isOnline()) {
 				aliveProfiles.add(profile);
 				
-				if (!camps.contains(Camps.VILLAGE)) {
+				if (!camps.contains(Camp.VILLAGE)) {
 					winVillage = false;
 				}
 				
-				if (!camps.contains(Camps.WOLF)) {
+				if (!camps.contains(Camp.WOLF)) {
 					winWolves = false;
 				}
 			}
@@ -187,8 +187,8 @@ public class UpdateManager extends InternalManager {
 		ChatManager chatManager = game.getChatManager();
 		chatManager.sendPlayersList();
 		ArrayList<PlayerState> validStates = new ArrayList<PlayerState>();
-		validStates.add(PlayerState.ALIVE);
-		validStates.add(PlayerState.PREDEAD);
+		validStates.add(PlayerState.SPECTATOR);
+		validStates.add(PlayerState.DEAD);
 		
 		int nbAlive = 0;
 		for (Profile profile : game.getProfilesManager().getProfiles()) {

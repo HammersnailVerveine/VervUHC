@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Enums.Camps;
+import me.Verveine.LGUHC.Enums.Camp;
 import me.Verveine.LGUHC.Enums.Tags;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Translations.FR;
@@ -18,8 +18,8 @@ public class RoleLoupGarou extends Role {
 		super(main);
 		this.setColor(ChatColor.RED);
 		this.setName(FR.LG_ROLE);
-		this.camps.add(Camps.WOLF);	
-		this.getCampsDescription().add(Camps.WOLF);
+		this.camps.add(Camp.WOLF);	
+		this.getCampsDescription().add(Camp.WOLF);
 		this.tags.add(Tags.WOLF);
 		this.appearsOnWolfList = true;
 		this.accessWolfList = true;
@@ -40,7 +40,7 @@ public class RoleLoupGarou extends Role {
 
 	@Override
 	public void updateNight(Player player) {
-		buff(player, PotionEffectType.INCREASE_DAMAGE, 0);
+		buff(player, PotionEffectType.INCREASE_DAMAGE);
 	}
 
 	@Override

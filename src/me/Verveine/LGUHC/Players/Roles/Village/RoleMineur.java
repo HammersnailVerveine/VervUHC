@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
-import me.Verveine.LGUHC.Enums.Camps;
+import me.Verveine.LGUHC.Enums.Camp;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Translations.FR;
 
@@ -21,8 +21,8 @@ public class RoleMineur extends Role {
 		super(main);
 		this.setColor(ChatColor.GREEN);
 		this.setName(FR.MINEUR_ROLE);
-		this.camps.add(Camps.VILLAGE);
-		this.getCampsDescription().add(Camps.VILLAGE);
+		this.camps.add(Camp.VILLAGE);
+		this.getCampsDescription().add(Camp.VILLAGE);
 		this.description = FR.MINEUR_DESC;
 		
 		ItemStack	item = new ItemStack(Material.DIAMOND_PICKAXE);

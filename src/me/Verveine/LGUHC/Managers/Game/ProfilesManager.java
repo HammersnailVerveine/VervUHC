@@ -3,6 +3,7 @@ package me.Verveine.LGUHC.Managers.Game;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
@@ -67,6 +68,7 @@ public class ProfilesManager extends InternalManager {
 			
 			if (!game.started()) {
 				player.teleport(game.getGameObjectManager().getSpawnBox().getLocation());
+				player.setGameMode(GameMode.SURVIVAL);
 			}
 		}
 	}
@@ -114,8 +116,6 @@ public class ProfilesManager extends InternalManager {
 			game.getChatManager().sendProfileRole(profile);
 			roles.remove(role);
 		}
-		
-		game.getChatManager().sendSystemMessage("Rôles distribués");
 	}
 
 	public ArrayList<Profile> getProfiles() {
