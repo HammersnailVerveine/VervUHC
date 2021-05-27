@@ -1,5 +1,6 @@
 package me.Verveine.LGUHC.Managers.Game;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -98,7 +99,10 @@ public class ProfilesManager extends InternalManager {
 			for (int i = 0 ; i < configRole.getAmount() ; i ++) {
 				Role role = configRole.getRole();
 				try {
-					roles.add((Role) role.clone());
+					Class<?> clazz = Class.forName(role.getClass().getName());
+					Constructor<?> ctor = clazz.getConstructor(String.class);
+					Object object = ctor.newInstance(new Object[] { this.getPlugin() });
+					roles.add((Role)object);
 				} catch (CloneNotSupportedException e) {
 					game.getChatManager().sendSystemMessage("test try/catch profilesmanager");
 					e.printStackTrace();
