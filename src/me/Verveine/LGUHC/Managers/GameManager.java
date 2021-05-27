@@ -1,7 +1,16 @@
 package me.Verveine.LGUHC.Managers;
 
+import org.bukkit.Achievement;
 import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.Statistic;
+import org.bukkit.World;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.GameState;
@@ -52,6 +61,7 @@ public class GameManager {
 		switch (game.getGameState()) {
 			case LOBBY:
 				game.setGameState(GameState.STARTED);
+				
 				game.getWorldManager().getWorld().getWorldBorder().setCenter(game.getGameObjectManager().getSpawnBox().getLocation());
 				game.getWorldManager().getWorld().getWorldBorder().setSize(game.getWorldManager().getStartBorderSize());
 				/*
@@ -67,6 +77,57 @@ public class GameManager {
 						profile.randomTeleport();
 					}
 				}
+				
+				for (World w : Bukkit.getWorlds())
+				{
+					w.setDifficulty(Difficulty.HARD);
+					w.setGameRuleValue("doDaylightCycle", "true");
+					w.setGameRuleValue("naturalRegeneration", "false");
+					w.setGameRuleValue("reducedDebugInfo", "true");
+					w.setGameRuleValue("showDeathMessages", "false");
+				}
+				
+				for (Player ap:Bukkit.getOnlinePlayers())
+				{
+					ap.getInventory().clear();
+					ap.getEquipment().setBoots(new ItemStack(Material.AIR));
+					ap.getEquipment().setLeggings(new ItemStack(Material.AIR));
+					ap.getEquipment().setChestplate(new ItemStack(Material.AIR));
+					ap.getEquipment().setHelmet(new ItemStack(Material.AIR));
+					ap.setFoodLevel(20);
+					ap.setSaturation(20);
+					ap.setHealth(1);
+					ap.setMaxHealth(20);
+					ap.setHealth(ap.getMaxHealth());
+					ap.setLevel(0);
+					ap.resetPlayerTime();
+					ap.setGameMode(GameMode.SURVIVAL);
+					for (PotionEffect pe: ap.getActivePotionEffects())
+						ap.removePotionEffect(pe.getType());
+					for (Achievement ac:Achievement.values())
+						ap.removeAchievement(ac);
+					for (Statistic st:Statistic.values())
+					{
+						if (st.isSubstatistic())
+						{
+							if (st.isBlock())
+							{
+								for (Material m:Material.values())
+									ap.setStatistic(st, m, 0);
+							}
+							else
+							{
+								for (EntityType m:EntityType.values())
+									ap.setStatistic(st, m, 0);
+							}
+						}
+						else
+						{
+							ap.setStatistic(st, 0);
+						}
+					}
+				}
+				
 				break;
 			case ENDED:
 				game.setGameState(GameState.STARTED);
