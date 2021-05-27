@@ -106,26 +106,6 @@ public class GameManager {
 						ap.removePotionEffect(pe.getType());
 					for (Achievement ac:Achievement.values())
 						ap.removeAchievement(ac);
-					for (Statistic st:Statistic.values())
-					{
-						if (st.isSubstatistic())
-						{
-							if (st.isBlock())
-							{
-								for (Material m:Material.values())
-									ap.setStatistic(st, m, 0);
-							}
-							else
-							{
-								for (EntityType m:EntityType.values())
-									ap.setStatistic(st, m, 0);
-							}
-						}
-						else
-						{
-							ap.setStatistic(st, 0);
-						}
-					}
 				}
 				
 				break;
