@@ -18,11 +18,11 @@ public class CommandRevive extends PluginCommand {
 
 	@Override
 	public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (args.length != 3) {
+		if (args.length == 2) {
 			Profile profile = this.getGame().getProfilesManager().getProfileFromName(args[1]);
 			if (profile != null) {
 				if (profile.getState().getPlayerState().equals(PlayerState.DEAD) || profile.getState().getPlayerState().equals(PlayerState.PREDEAD)) {
-					sender.sendMessage(ChatColor.GOLD + "Joueur " + ChatColor.WHITE + profile.getPlayer().getName() + ChatColor.GOLD + " ressuscité avec succès.");
+					this.getGame().getChatManager().sendSystemMessage("Joueur " + ChatColor.WHITE + profile.getPlayer().getName() + ChatColor.GOLD + " ressuscité avec succès.");
 					this.getGame().getChatManager().sendPrivateMessage("Vous avez été ressuscité(e) par un administrateur.", profile.getPlayer());
 					profile.respawn();
 				} else {

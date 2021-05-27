@@ -1,4 +1,4 @@
-package me.Verveine.LGUHC.Players.Roles.Village;
+package me.Verveine.LGUHC.Players.Roles.Village.Info;
 
 import java.util.Collection;
 
@@ -62,6 +62,10 @@ public class RoleMontreurDours extends Role {
 
 	@Override
 	public void useCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	}
+
+	@Override
+	public void resetPower() {
 	}
 
 }

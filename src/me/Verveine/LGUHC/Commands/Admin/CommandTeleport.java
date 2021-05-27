@@ -18,12 +18,12 @@ public class CommandTeleport extends PluginCommand {
 
 	@Override
 	public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (args.length != 3) {
+		if (args.length == 2) {
 			Profile profile = this.getGame().getProfilesManager().getProfileFromName(args[1]);
 			if (profile != null) {
 				profile.randomTeleport();
 				this.getGame().getChatManager().sendPrivateMessage("Vous avez été téléporté par un administrateur.", profile.getPlayer());
-				sender.sendMessage(ChatColor.GOLD + "Joueur " + ChatColor.WHITE + profile.getPlayer().getName() + ChatColor.GOLD + " téléporté avec succès.");
+				this.getGame().getChatManager().sendSystemMessage("Joueur " + ChatColor.WHITE + profile.getPlayer().getName() + ChatColor.GOLD + " téléporté avec succès.");
 			} else {
 				sender.sendMessage(ChatColor.GOLD + "Le profil du joueur " + args[1] + " est introuvable");
 				return;

@@ -8,6 +8,8 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Camp;
@@ -29,10 +31,18 @@ public class UpdateManager extends InternalManager {
 	}
 
 	public void update() {
-		if (this.getGame().getGameState().equals(GameState.STARTED)) {
+		GameLG game = this.getGame();
+		if (game.getGameState().equals(GameState.STARTED)) {
 			this.updateTimer();
 			this.updateProfiles();
 			this.updateNight();
+		} else {
+			game.getWorldManager().getWorld().setTime(1);
+			for (Profile profile : game.getProfilesManager().getProfiles()) {
+				Player player = profile.getPlayer();
+				player.setHealth(20);
+				player.setFoodLevel(20);
+			}
 		}
 	}
 	
@@ -42,8 +52,8 @@ public class UpdateManager extends InternalManager {
 		if (!isNight && time > 12000) {
 			isNight = true;
 			game.getChatManager().sendGameMessage("C'est la nuit.");
-			for (Profile p : game.getProfilesManager().getProfiles()) {
-				p.getRole().resetNight(p.getPlayer());
+			for (Profile profile : game.getProfilesManager().getProfiles()) {
+				profile.getRole().resetNight(profile.getPlayer());
 			}
 			return;
 		}
@@ -51,8 +61,8 @@ public class UpdateManager extends InternalManager {
 		if (isNight && time < 12000) {
 			isNight = false;
 			game.getChatManager().sendGameMessage("C'est le jour.");
-			for (Profile p : game.getProfilesManager().getProfiles()) {
-				p.getRole().resetDay(p.getPlayer());
+			for (Profile profile : game.getProfilesManager().getProfiles()) {
+				profile.getRole().resetDay(profile.getPlayer());
 			}
 			return;
 		}
@@ -81,6 +91,8 @@ public class UpdateManager extends InternalManager {
 				nbTotal ++;
 				if (!profile.getState().getPlayerState().equals(PlayerState.DEAD)) nbAlive ++;
 			}
+
+			profile.getRole().update(profile.getPlayer());
 			
 			if (isNight) {
 				profile.getRole().updateNight(profile.getPlayer());
@@ -122,6 +134,8 @@ public class UpdateManager extends InternalManager {
 					
 					player.getWorld().dropItemNaturally(state.getDeathLocation(), new ItemStack(Material.GOLDEN_APPLE, 2));
 				}
+			} else {
+				profile.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 72000, 0, false, false));
 			}
 		}
 		

@@ -1,11 +1,15 @@
 package me.Verveine.LGUHC.Commands.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Commands.PluginCommand;
+import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Players.Profile;
 import net.md_5.bungee.api.ChatColor;
 
@@ -23,12 +27,14 @@ public class CommandLG extends PluginCommand {
 		if (this.getGame().getGamePermissionsManager().isWolfList()) {
 			Profile senderProfile = this.getProfile((Player) sender);
 			if (senderProfile.getRole().isAccessWolfList()) {
-				sender.sendMessage(ChatColor.RED + "Liste des loups :");
+				List<String> liste = new ArrayList<String>();
+				liste.add("Liste des loups : ");
 				for (Profile profile : this.getGame().getProfilesManager().getProfiles()) {
-					if (profile.getRole().isAppearsOnWolfList()) {
-						sender.sendMessage(profile.getPlayer().getName());
+					if (profile.getRole().isAppearsOnWolfList() && profile.getState().getPlayerState().equals(PlayerState.ALIVE)) {
+						liste.add(ChatColor.WHITE + profile.getPlayer().getName());
 					}
 				}
+				this.getGame().getChatManager().sendPrivateMessage(liste, (Player) sender);
 			} else {
 				sender.sendMessage(ChatColor.RED + "Vous n'avez pas accès à la liste des loups");
 			}

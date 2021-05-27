@@ -12,20 +12,20 @@ import me.Verveine.LGUHC.Enums.Tags;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Translations.FR;
 
-public class RoleLoupGarou extends Role {
+public class RoleLoupGarouPerfide extends Role {
 
-	public RoleLoupGarou(Main main) {
+	public RoleLoupGarouPerfide(Main main) {
 		super(main);
 		this.setColor(ChatColor.RED);
-		this.setName(FR.LG_ROLE);
-		this.camps.add(Camp.WOLF);	
+		this.setName(FR.LGP_ROLE);
+		this.camps.add(Camp.WOLF);
 		this.getCampsDescription().add(Camp.WOLF);
 		this.tags.add(Tags.WOLF);
 		this.appearsOnWolfList = true;
 		this.accessWolfList = true;
-		this.description = FR.LG_DESC;
+		this.description = FR.LGP_DESC;
 	}
-	
+
 	@Override
 	public void setupStart(Player player) {
 	}
@@ -40,7 +40,15 @@ public class RoleLoupGarou extends Role {
 
 	@Override
 	public void updateNight(Player player) {
-		buff(player, PotionEffectType.INCREASE_DAMAGE);
+		if (player.getInventory().getHelmet() == null
+		&& player.getInventory().getChestplate() == null
+		&& player.getInventory().getLeggings() == null
+		&& player.getInventory().getBoots() == null) {
+			buff(player, PotionEffectType.INVISIBILITY);
+			buff(player, PotionEffectType.WEAKNESS, 1);
+		} else {
+			buff(player, PotionEffectType.INCREASE_DAMAGE);
+		}
 	}
 
 	@Override

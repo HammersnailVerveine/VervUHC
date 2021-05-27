@@ -49,21 +49,30 @@ public class GameManager {
 
 	public void startGame() {
 		GameLG game = this.getGame();
-		game.setGameState(GameState.STARTED);
-		game.getWorldManager().getWorld().getWorldBorder().setCenter(game.getGameObjectManager().getSpawnBox().getLocation());
-		game.getWorldManager().getWorld().getWorldBorder().setSize(game.getWorldManager().getStartBorderSize());
-		/*
-		for (ConfigurationScenario config : this.getGame().getConfigurationsManager().getConfigurationScenarios()) {
-			plugin.getServer().getPluginManager().registerEvents(config, plugin);
-		}
-		*/
-		
-		for (Profile profile : game.getProfilesManager().getProfiles()) {
-			profile.getPlayer().getInventory().clear();
-			if (profile.getState().getPlayerState().equals(PlayerState.LOBBY)) {
-				profile.getState().setPlayerState(PlayerState.ALIVE);
-				profile.randomTeleport();
-			}
+		switch (game.getGameState()) {
+			case LOBBY:
+				game.setGameState(GameState.STARTED);
+				game.getWorldManager().getWorld().getWorldBorder().setCenter(game.getGameObjectManager().getSpawnBox().getLocation());
+				game.getWorldManager().getWorld().getWorldBorder().setSize(game.getWorldManager().getStartBorderSize());
+				/*
+				for (ConfigurationScenario config : this.getGame().getConfigurationsManager().getConfigurationScenarios()) {
+					plugin.getServer().getPluginManager().registerEvents(config, plugin);
+				}
+				*/
+				
+				for (Profile profile : game.getProfilesManager().getProfiles()) {
+					profile.getPlayer().getInventory().clear();
+					if (profile.getState().getPlayerState().equals(PlayerState.LOBBY)) {
+						profile.getState().setPlayerState(PlayerState.ALIVE);
+						profile.randomTeleport();
+					}
+				}
+				break;
+			case ENDED:
+				game.setGameState(GameState.STARTED);
+				break;
+		default:
+			break;
 		}
 	}
 	

@@ -12,6 +12,7 @@ import me.Verveine.LGUHC.Game.Configuration.Scenarios.Optional.*;
 import me.Verveine.LGUHC.Game.Configuration.Timers.*;
 import me.Verveine.LGUHC.Players.Roles.LG.*;
 import me.Verveine.LGUHC.Players.Roles.Village.*;
+import me.Verveine.LGUHC.Players.Roles.Village.Info.*;
 import me.Verveine.LGUHC.Players.Roles.Solo.*;
 
 public class ConfigurationsManager extends InternalManager {
@@ -48,7 +49,10 @@ public class ConfigurationsManager extends InternalManager {
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleSimpleVillageois(this.getPlugin())));
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleMineur(this.getPlugin())));
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleMontreurDours(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleRenard(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RolePetiteFille(this.getPlugin())));
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleLoupGarou(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleLoupGarouPerfide(this.getPlugin())));
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleAssassin(this.getPlugin())));
 		return configuration;
 	}

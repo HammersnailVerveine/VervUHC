@@ -47,6 +47,11 @@ public abstract class Role implements Cloneable {
 	public abstract void resetDay(Player player);
 	public abstract void resetNight(Player player);
 	public abstract void useCommand(CommandSender sender, Command cmd, String label, String[] args);
+	public abstract void resetPower();
+	
+	public String getScoreboardLine() {
+		return null;
+	}
 	
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
@@ -98,7 +103,8 @@ public abstract class Role implements Cloneable {
 	}
 
 	public void buff(Player player, PotionEffectType potionEffect, int level) {
-		player.addPotionEffect(new PotionEffect(potionEffect, 60, level, false, false));
+		player.removePotionEffect(potionEffect);
+		player.addPotionEffect(new PotionEffect(potionEffect, 40, level, false, false));
 	}
 	
 	public List<Camp> getCamps() {

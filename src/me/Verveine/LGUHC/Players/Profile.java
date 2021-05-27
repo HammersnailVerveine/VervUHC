@@ -74,6 +74,7 @@ public class Profile {
 	public void updateScoreboard(int nbPlayers, int nbPlayersAlive, ConfigurationTimer configTimer) {
 		scoreboard.getObjective("objectiveLG").unregister();
 		Objective objective = scoreboard.registerNewObjective("objectiveLG", "dummy");
+		String roleLine = this.getRole().getScoreboardLine();
 		
 		List<Score> scores = new ArrayList<Score>();
 		
@@ -87,6 +88,11 @@ public class Profile {
 		scores.add(objective.getScore(ChatColor.AQUA + " Joueurs: " + ChatColor.WHITE + nbPlayersAlive + "/" + nbPlayers));
 		scores.add(objective.getScore(ChatColor.AQUA + " Groupes: " + ChatColor.WHITE + this.getGame().getGroupLimit()));
 		scores.add(objective.getScore(ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "+--------      +"));
+
+		if (roleLine != null) {
+			scores.add(objective.getScore(ChatColor.AQUA + " " + roleLine));
+			scores.add(objective.getScore(ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "+------         +"));
+		}
 		
 		int flag = 0;
 		for (Score score : scores) {

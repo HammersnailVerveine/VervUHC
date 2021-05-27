@@ -47,7 +47,7 @@ public class CommandSetRole extends PluginCommand {
 						
 						if (role != null) {
 							profile.setRole(role);
-							sender.sendMessage(ChatColor.GOLD + "Le role du joueur " + ChatColor.WHITE + profile.getPlayer().getName() + ChatColor.GOLD + " est désormais " + profile.getRole().getColor() + profile.getRole().getName());
+							this.getGame().getChatManager().sendSystemMessage("Le role du joueur " + ChatColor.WHITE + profile.getPlayer().getName() + ChatColor.GOLD + " est désormais " + profile.getRole().getColor() + profile.getRole().getName());
 							this.getGame().getChatManager().sendPrivateMessage("Votre rôle a été changé par un administrateur", profile.getPlayer());
 							this.getGame().getChatManager().sendProfileRole(profile);
 							return;

@@ -53,4 +53,7 @@ public class RoleSimpleVillageois extends Role {
 	public void useCommand(CommandSender sender, Command cmd, String label, String[] args) {
 	}
 
+	@Override
+	public void resetPower() {
+	}
 }

@@ -1,31 +1,31 @@
-package me.Verveine.LGUHC.Players.Roles.LG;
+package me.Verveine.LGUHC.Players.Roles.Village.Info;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Camp;
-import me.Verveine.LGUHC.Enums.Tags;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Translations.FR;
 
-public class RoleLoupGarou extends Role {
+public class RolePetiteFille extends Role {
 
-	public RoleLoupGarou(Main main) {
+	public RolePetiteFille(Main main) {
 		super(main);
-		this.setColor(ChatColor.RED);
-		this.setName(FR.LG_ROLE);
-		this.camps.add(Camp.WOLF);	
-		this.getCampsDescription().add(Camp.WOLF);
-		this.tags.add(Tags.WOLF);
-		this.appearsOnWolfList = true;
-		this.accessWolfList = true;
-		this.description = FR.LG_DESC;
+		this.setColor(ChatColor.AQUA);
+		this.setName(FR.PF_ROLE);
+		this.camps.add(Camp.VILLAGE);		
+		this.getCampsDescription().add(Camp.VILLAGE);
+		this.description = FR.PF_DESC;
+		
+		this.startInventory.add(new ItemStack(Material.TNT, 5));
 	}
-	
+
 	@Override
 	public void setupStart(Player player) {
 	}
@@ -40,7 +40,13 @@ public class RoleLoupGarou extends Role {
 
 	@Override
 	public void updateNight(Player player) {
-		buff(player, PotionEffectType.INCREASE_DAMAGE);
+		if (player.getInventory().getHelmet() == null
+		&& player.getInventory().getChestplate() == null
+		&& player.getInventory().getLeggings() == null
+		&& player.getInventory().getBoots() == null) {
+			buff(player, PotionEffectType.INVISIBILITY);
+			buff(player, PotionEffectType.WEAKNESS, 1);
+		}
 	}
 
 	@Override
