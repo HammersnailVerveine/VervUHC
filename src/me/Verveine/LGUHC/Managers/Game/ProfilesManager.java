@@ -1,6 +1,7 @@
 package me.Verveine.LGUHC.Managers.Game;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -98,13 +99,31 @@ public class ProfilesManager extends InternalManager {
 		for (ConfigurationRole configRole : configurationsManager.getConfigurationRoles()) {
 			for (int i = 0 ; i < configRole.getAmount() ; i ++) {
 				Role role = configRole.getRole();
+				Class<?> clazz;
 				try {
-					Class<?> clazz = Class.forName(role.getClass().getName());
-					Constructor<?> ctor = clazz.getConstructor(String.class);
-					Object object = ctor.newInstance(new Object[] { this.getPlugin() });
-					roles.add((Role)object);
-				} catch (CloneNotSupportedException e) {
-					game.getChatManager().sendSystemMessage("test try/catch profilesmanager");
+					clazz = Class.forName(role.getClass().getName());
+					Constructor<?> ctor;
+					try {
+						ctor = clazz.getConstructor(Main.class);
+						Object object;
+						try {
+							object = ctor.newInstance(new Object[] { this.getPlugin() });
+							roles.add((Role)object);
+						} catch (InstantiationException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (InvocationTargetException e) {
+							e.printStackTrace();
+						}
+					} catch (NoSuchMethodException e) {
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						e.printStackTrace();
+					}
+				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				}
 			}
