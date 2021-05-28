@@ -13,6 +13,9 @@ public class FR {
 	public static String SV_ROLE = "Simple Villageois";
 	public static String SV_DESC = "Vous n'avez pas de pouvoir particulier.\nVotre pouvoir de déduction, et talents exceptionnels en PvP seront vos seuls outils pour gagner.";
 	
+	public static String SOEUR_ROLE = "TODO";
+	public static String SOEUR_DESC = "TODO";
+	
 	public static String PF_ROLE = "Petite Fille";
 	public static String PF_DESC = "Entièrement retirer votre armure la nuit vous rendra invisible.\nLorsque vous êtes invisible, vous disposez de l'effet Faiblesse II.\nVous commencez également avec 5 TNT.";
 
