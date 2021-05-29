@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Commands.PluginCommand;
-import me.Verveine.LGUHC.Enums.PlayerState;
 import me.Verveine.LGUHC.Players.Profile;
 import net.md_5.bungee.api.ChatColor;
 
@@ -29,8 +28,8 @@ public class CommandLG extends PluginCommand {
 			if (senderProfile.getRole().isAccessWolfList()) {
 				List<String> liste = new ArrayList<String>();
 				liste.add("Liste des loups : ");
-				for (Profile profile : this.getGame().getProfilesManager().getProfiles()) {
-					if (profile.getRole().isAppearsOnWolfList() && profile.getState().getPlayerState().equals(PlayerState.ALIVE)) {
+				for (Profile profile : this.getGame().getProfilesManager().getAliveProfiles()) {
+					if (profile.getRole().isAppearsOnWolfList()) {
 						liste.add(ChatColor.WHITE + profile.getPlayer().getName());
 					}
 				}

@@ -57,7 +57,7 @@ public class Indice extends GameObject {
 	
 	private Profile chooseRevealedProfile() {
 		List<Profile> wolves = new ArrayList<Profile>();
-		for (Profile profile : this.getGame().getProfilesManager().getProfiles()) {
+		for (Profile profile : this.getGame().getProfilesManager().getAliveProfiles()) {
 			if (profile.getRole().getTags().contains(Tags.WOLF)) {
 				wolves.add(profile);
 			}

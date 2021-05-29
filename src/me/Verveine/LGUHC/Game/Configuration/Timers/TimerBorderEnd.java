@@ -13,7 +13,7 @@ public class TimerBorderEnd extends ConfigurationTimer {
 		this.name = "Arrivée de la Border";
 		scoreboardName = "Border Fin";
 		this.material = Material.NETHER_BRICK_ITEM;
-		this.timer = 60 * 7; // TODO : edit default with config
+		this.timer = 60 * 90; // TODO : edit default with config
 		this.setItem();
 	}
 

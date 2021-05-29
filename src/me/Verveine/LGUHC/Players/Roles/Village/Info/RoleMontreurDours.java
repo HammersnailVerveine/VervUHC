@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Camp;
 import me.Verveine.LGUHC.Enums.Tags;
+import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Translations.FR;
 
@@ -25,10 +26,6 @@ public class RoleMontreurDours extends Role {
 		this.camps.add(Camp.VILLAGE);		
 		this.getCampsDescription().add(Camp.VILLAGE);
 		this.description = FR.OURS_DESC;
-	}
-
-	@Override
-	public void setupStart(Player player) {
 	}
 	
 	@Override
@@ -68,4 +65,7 @@ public class RoleMontreurDours extends Role {
 	public void resetPower() {
 	}
 
+	@Override
+	public void updateDeath(Player player, Profile deadProfile) {
+	}
 }

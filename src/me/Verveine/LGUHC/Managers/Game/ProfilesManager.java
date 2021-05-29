@@ -3,7 +3,6 @@ package me.Verveine.LGUHC.Managers.Game;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import org.bukkit.GameMode;
@@ -71,7 +70,11 @@ public class ProfilesManager extends InternalManager {
 			
 			if (!game.started()) {
 				player.teleport(game.getGameObjectManager().getSpawnBox().getLocation());
-				player.setGameMode(GameMode.SURVIVAL);
+				player.setGameMode(GameMode.ADVENTURE);
+				profile.getState().setPlayerState(PlayerState.LOBBY);
+			} else {
+				player.setGameMode(GameMode.SPECTATOR);
+				profile.getState().setPlayerState(PlayerState.SPECTATOR);
 			}
 		}
 	}
@@ -81,14 +84,8 @@ public class ProfilesManager extends InternalManager {
 		ArrayList<Role> roles = new ArrayList<Role>();
 		ConfigurationsManager configurationsManager = this.getGame().getConfigurationsManager();
 		
-		int nbProfils = 0;
+		int nbProfils = this.getAliveProfiles().size();
 		int nbConfigRoles = configurationsManager.countRoles();
-
-		for (Profile profile : this.getProfiles()) {
-			if (!profile.getState().getPlayerState().equals(PlayerState.SPECTATOR)) {
-				nbProfils ++;
-			}
-		}
 		
 		if (nbConfigRoles < nbProfils) {
 			game.getChatManager().sendSystemMessage("Pas assez de Rôles, " + (nbProfils - nbConfigRoles) + " Villageois a/ont été ajouté(s) à la pool de rôles.");
@@ -130,16 +127,26 @@ public class ProfilesManager extends InternalManager {
 			}
 		}
 		
-		for (Profile profile : this.getProfiles()) {
+		for (Profile profile : this.getAliveProfiles()) {
 		    Random rand = new Random();
 			Role role = roles.get(rand.nextInt(roles.size()));
 			profile.setRole(role);
-			if (role.getStartInventory().size() > 0) {
-				role.giveStartInventory();
-			}
 			game.getChatManager().sendProfileRole(profile);
+			role.obtain(profile.getPlayer());
 			roles.remove(role);
 		}
+	}
+
+	public ArrayList<Profile> getAliveProfiles() {
+		ArrayList<Profile> aliveProfiles = new ArrayList<Profile>();
+		
+		for (Profile profile : this.getProfiles()) {
+			if (profile.getState().getPlayerState().equals(PlayerState.ALIVE) 
+			|| profile.getState().getPlayerState().equals(PlayerState.PREDEAD)) {
+				aliveProfiles.add(profile);
+			}
+		}
+		return aliveProfiles;
 	}
 
 	public ArrayList<Profile> getProfiles() {

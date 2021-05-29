@@ -11,6 +11,7 @@ public class ScenarioPlayerJoin extends ConfigurationScenario {
 		super(main);
 		this.setName("Player Join");
 		this.enabled = true;
+		this.permanent = true;
 	}
 	
 	@Override

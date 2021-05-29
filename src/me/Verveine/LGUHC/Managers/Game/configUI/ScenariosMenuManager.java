@@ -18,10 +18,12 @@ public class ScenariosMenuManager extends InternalMenuManager {
 	public void updateScenarios() {
 		int slot = 18;
 		for (ConfigurationScenario configScenario : this.getGame().getConfigurationsManager().getConfigurationScenarios()) {
-			ItemStack item = configScenario.getDisplayItem();
-			String name = (configScenario.isEnabled() ? ChatColor.GREEN : ChatColor.RED) + configScenario.getName();
-			this.setItem(this.getInventory(), slot, item.getType(), name, 1);
-			slot ++;
+			if (!configScenario.isPermanent()) {
+				ItemStack item = configScenario.getDisplayItem();
+				String name = (configScenario.isEnabled() ? ChatColor.GREEN : ChatColor.RED) + configScenario.getName();
+				this.setItem(this.getInventory(), slot, item.getType(), name, 1);
+				slot ++;
+			}
 		}
 	}
 	

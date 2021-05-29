@@ -3,12 +3,14 @@ package me.Verveine.LGUHC.Players;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Achievement;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -190,6 +192,26 @@ public class Profile {
 		}
 	}
 	
+	public void resetPlayer() {
+		Player ap = this.getPlayer();
+		ap.getInventory().clear();
+		ap.getEquipment().setBoots(new ItemStack(Material.AIR));
+		ap.getEquipment().setLeggings(new ItemStack(Material.AIR));
+		ap.getEquipment().setChestplate(new ItemStack(Material.AIR));
+		ap.getEquipment().setHelmet(new ItemStack(Material.AIR));
+		ap.setFoodLevel(20);
+		ap.setSaturation(20);
+		ap.setHealth(1);
+		ap.setMaxHealth(20);
+		ap.setHealth(ap.getMaxHealth());
+		ap.setLevel(0);
+		ap.resetPlayerTime();
+		for (PotionEffect pe: ap.getActivePotionEffects())
+			ap.removePotionEffect(pe.getType());
+		for (Achievement ac:Achievement.values())
+			ap.removeAchievement(ac);
+	}
+	
 	public void respawn() {
 		Player player = this.getPlayer();
 		player.setHealth(20);
@@ -238,6 +260,10 @@ public class Profile {
 		} else {
 			randomTeleport();
 		}
+	}
+	
+	public boolean isAlive() {
+		return this.getState().getPlayerState().equals(PlayerState.ALIVE);
 	}
 	
 	public Main getPlugin() {

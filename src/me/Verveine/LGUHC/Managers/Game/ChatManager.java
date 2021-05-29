@@ -92,8 +92,9 @@ public class ChatManager extends InternalManager {
 		Bukkit.broadcastMessage(ChatColor.GOLD + "======== Joueurs ========");
 		for (Profile profile : game.getProfilesManager().getProfiles()) {
 			if (!profile.getState().getPlayerState().equals(PlayerState.SPECTATOR)) {
+				String infected = profile.getRole().isInfected() ? ChatColor.WHITE + " : " + ChatColor.RED + "Infecté(e)" : "";
 				String alive = profile.getState().getPlayerState().equals(PlayerState.DEAD) ? ChatColor.RED + "Mort" : ChatColor.GREEN + "Vivant";
-				Bukkit.broadcastMessage(profile.getPlayer().getName() + " : " + alive + ChatColor.WHITE + " : " +  profile.getRole().getColor() + profile.getRole().getName());
+				Bukkit.broadcastMessage(profile.getPlayer().getName() + " : " + alive + ChatColor.WHITE + " : " +  profile.getRole().getColor() + profile.getRole().getName() + infected);
 			}
 		}
 	}

@@ -18,6 +18,7 @@ import me.Verveine.LGUHC.Game.GameLG;
 
 public abstract class Role implements Cloneable {
 	private Main plugin;
+	private boolean infected = false;
 	protected List<Camp> camps;
 	protected List<Tags> tags;
 	protected List<ItemStack> startInventory;
@@ -40,7 +41,6 @@ public abstract class Role implements Cloneable {
 		description = "Blank Description";
 	}
 	
-	public abstract void setupStart(Player player);
 	public abstract void update(Player player);
 	public abstract void updateDay(Player player);
 	public abstract void updateNight(Player player);
@@ -48,6 +48,15 @@ public abstract class Role implements Cloneable {
 	public abstract void resetNight(Player player);
 	public abstract void useCommand(CommandSender sender, Command cmd, String label, String[] args);
 	public abstract void resetPower();
+	public abstract void updateDeath(Player player, Profile deadProfile);
+	
+	public void obtain(Player player) {
+		player.setMaxHealth(20);
+		
+		if (this.getStartInventory().size() > 0) {
+			this.giveStartInventory();
+		}
+	}
 	
 	public String getScoreboardLine() {
 		return null;
@@ -185,5 +194,13 @@ public abstract class Role implements Cloneable {
 
 	public void setCampsDescription(List<Camp> campsDescription) {
 		this.campsDescription = campsDescription;
+	}
+
+	public boolean isInfected() {
+		return infected;
+	}
+
+	public void setInfected(boolean infected) {
+		this.infected = infected;
 	}
 }

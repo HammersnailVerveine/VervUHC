@@ -4,7 +4,7 @@ import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Game.GameLG;
 
 public class GamePermissionsManager extends InternalManager {
-	private boolean mineBlocks;
+	private boolean limiteMinage;
 	private boolean wolfList;
 	private boolean pvpHit;
 	
@@ -13,15 +13,7 @@ public class GamePermissionsManager extends InternalManager {
 		game.setGamePermissionsManager(this);
 		this.setWolfList(false);
 		this.setPvpHit(false);
-		this.setMineBlocks(false);
-	}
-
-	public boolean isMineBlocks() {
-		return mineBlocks;
-	}
-
-	public void setMineBlocks(boolean mineBlocks) {
-		this.mineBlocks = mineBlocks;
+		this.setLimiteMinage(false);
 	}
 
 	public boolean isWolfList() {
@@ -38,5 +30,13 @@ public class GamePermissionsManager extends InternalManager {
 
 	public void setPvpHit(boolean pvpHit) {
 		this.pvpHit = pvpHit;
+	}
+
+	public boolean isLimiteMinage() {
+		return limiteMinage;
+	}
+
+	public void setLimiteMinage(boolean limiteMinage) {
+		this.limiteMinage = limiteMinage;
 	}
 }

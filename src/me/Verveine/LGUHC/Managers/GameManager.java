@@ -1,14 +1,12 @@
 package me.Verveine.LGUHC.Managers;
 
-import org.bukkit.Achievement;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.GameState;
@@ -68,14 +66,6 @@ public class GameManager {
 				}
 				*/
 				
-				for (Profile profile : game.getProfilesManager().getProfiles()) {
-					profile.getPlayer().getInventory().clear();
-					if (profile.getState().getPlayerState().equals(PlayerState.LOBBY)) {
-						profile.getState().setPlayerState(PlayerState.ALIVE);
-						profile.randomTeleport();
-					}
-				}
-				
 				for (World w : Bukkit.getWorlds())
 				{
 					w.setDifficulty(Difficulty.HARD);
@@ -83,27 +73,21 @@ public class GameManager {
 					w.setGameRuleValue("naturalRegeneration", "false");
 					w.setGameRuleValue("reducedDebugInfo", "true");
 					w.setGameRuleValue("showDeathMessages", "false");
+					w.setPVP(false);
 				}
 				
-				for (Player ap:Bukkit.getOnlinePlayers())
-				{
-					ap.getInventory().clear();
-					ap.getEquipment().setBoots(new ItemStack(Material.AIR));
-					ap.getEquipment().setLeggings(new ItemStack(Material.AIR));
-					ap.getEquipment().setChestplate(new ItemStack(Material.AIR));
-					ap.getEquipment().setHelmet(new ItemStack(Material.AIR));
-					ap.setFoodLevel(20);
-					ap.setSaturation(20);
-					ap.setHealth(1);
-					ap.setMaxHealth(20);
-					ap.setHealth(ap.getMaxHealth());
-					ap.setLevel(0);
-					ap.resetPlayerTime();
-					ap.setGameMode(GameMode.SURVIVAL);
-					for (PotionEffect pe: ap.getActivePotionEffects())
-						ap.removePotionEffect(pe.getType());
-					for (Achievement ac:Achievement.values())
-						ap.removeAchievement(ac);
+				for (Profile profile : game.getProfilesManager().getProfiles()) {
+					profile.resetPlayer();
+					if (profile.getState().getPlayerState().equals(PlayerState.LOBBY)) {
+						profile.getState().setPlayerState(PlayerState.ALIVE);
+						profile.getPlayer().setGameMode(GameMode.SURVIVAL);
+						profile.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 10, 4, false, false)); // TODO : listener game start
+						profile.randomTeleport();
+					}
+
+					if (profile.getState().getPlayerState().equals(PlayerState.SPECTATOR)) {
+						profile.getPlayer().setGameMode(GameMode.SPECTATOR);
+					}
 				}
 				
 				break;

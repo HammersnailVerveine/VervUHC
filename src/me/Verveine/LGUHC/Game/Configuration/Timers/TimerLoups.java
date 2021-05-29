@@ -13,7 +13,7 @@ public class TimerLoups extends ConfigurationTimer {
 		this.name = "Liste des Loups";
 		this.scoreboardName = "L. Loups";
 		this.material = Material.BONE;
-		this.timer = 10; // TODO : edit default with config
+		this.timer = 60 * 25; // TODO : edit default with config
 		this.setItem();
 	}
 

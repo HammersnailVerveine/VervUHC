@@ -11,6 +11,7 @@ public class ScenarioMenus extends ConfigurationScenario {
 		super(main);
 		this.setName("Menus");
 		this.enabled = true;
+		this.permanent = true;
 	}
 
 	@Override

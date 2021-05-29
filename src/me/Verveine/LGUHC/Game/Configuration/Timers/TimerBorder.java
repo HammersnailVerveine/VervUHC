@@ -13,7 +13,7 @@ public class TimerBorder extends ConfigurationTimer {
 		this.name = "Rétrécissement de la Border";
 		scoreboardName = "Border";
 		this.material = Material.CLAY_BRICK;
-		this.timer = 60 * 5; // TODO : edit default with config
+		this.timer = 60 * 60; // TODO : edit default with config
 		this.setItem();
 	}
 

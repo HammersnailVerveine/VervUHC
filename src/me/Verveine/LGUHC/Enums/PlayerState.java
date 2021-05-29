@@ -6,5 +6,6 @@ public enum PlayerState {
 	ALIVE,
 	PREDEAD,
 	DEAD,
-	SPECTATOR
+	SPECTATOR,
+	HOST
 }

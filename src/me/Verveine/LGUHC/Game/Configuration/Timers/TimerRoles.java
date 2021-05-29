@@ -13,7 +13,7 @@ public class TimerRoles extends ConfigurationTimer {
 		this.name = "Distribution des Rôles";
 		scoreboardName = "Rôles";
 		this.material = Material.APPLE;
-		this.timer = 5; // TODO : edit default with config
+		this.timer = 60 * 20; // TODO : edit default with config
 		this.setItem();
 	}
 

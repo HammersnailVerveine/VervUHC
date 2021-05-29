@@ -13,7 +13,7 @@ public class TimerIndice extends ConfigurationTimer {
 		this.name = "Apparition d'un indice";
 		scoreboardName = "Indice";
 		this.material = Material.REDSTONE;
-		this.timer = 60 * 10; // TODO : edit default with config
+		this.timer = 60 * 95; // TODO : edit default with config
 		this.setItem();
 	}
 

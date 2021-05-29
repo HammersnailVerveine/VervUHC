@@ -19,7 +19,6 @@ public class ConfigurationsManager extends InternalManager {
 	private ArrayList<ConfigurationTimer> configurationTimers;
 	private ArrayList<ConfigurationRole> configurationRoles;
 	private ArrayList<ConfigurationScenario> configurationScenarios;
-	private ArrayList<ConfigurationScenario> configurationScenariosPermanent;
 	
 	public ConfigurationsManager(Main main, GameLG game) {
 		super(main);
@@ -27,20 +26,20 @@ public class ConfigurationsManager extends InternalManager {
 		configurationTimers = generateConfigurationTimers();
 		configurationRoles = generateConfigurationRoles();
 		configurationScenarios = generateConfigurationScenarios();
-		configurationScenariosPermanent = generateConfigurationScenariosPermanent();
-	}
-	
-	public ArrayList<ConfigurationScenario> generateConfigurationScenariosPermanent() {
-		ArrayList<ConfigurationScenario> configuration = new ArrayList<ConfigurationScenario>();
-		configuration.add(new ScenarioIndiceBreak(this.getPlugin()));
-		configuration.add(new ScenarioDamage(this.getPlugin()));
-		configuration.add(new ScenarioMenus(this.getPlugin()));
-		return configuration;
 	}
 	
 	public ArrayList<ConfigurationScenario> generateConfigurationScenarios() {
 		ArrayList<ConfigurationScenario> configuration = new ArrayList<ConfigurationScenario>();
 		configuration.add(new ScenarioDiamondLimit(this.getPlugin()));
+		configuration.add(new ScenarioPommes(this.getPlugin()));
+		configuration.add(new ScenarioCutCleanOres(this.getPlugin()));
+		configuration.add(new ScenarioCutCleanFood(this.getPlugin()));
+		
+		configuration.add(new ScenarioIndiceBreak(this.getPlugin()));
+		configuration.add(new ScenarioDamage(this.getPlugin()));
+		configuration.add(new ScenarioMenus(this.getPlugin()));
+		configuration.add(new ScenarioPlayerJoin(this.getPlugin()));
+		configuration.add(new ScenarioLimiteMinage(this.getPlugin()));
 		return configuration;
 	}
 	
@@ -48,12 +47,17 @@ public class ConfigurationsManager extends InternalManager {
 		ArrayList<ConfigurationRole> configuration = new ArrayList<ConfigurationRole>();
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleSimpleVillageois(this.getPlugin())));
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleMineur(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleSorciere(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleSoeur(this.getPlugin())));
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleMontreurDours(this.getPlugin())));
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleRenard(this.getPlugin())));
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RolePetiteFille(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleVoyante(this.getPlugin())));
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleLoupGarou(this.getPlugin())));
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleLoupGarouPerfide(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleInfectPereDesLoups(this.getPlugin())));
 		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleAssassin(this.getPlugin())));
+		configuration.add(new ConfigurationRole(this.getPlugin(), new RoleLoupGarouBlanc(this.getPlugin())));
 		return configuration;
 	}
 	
@@ -61,7 +65,9 @@ public class ConfigurationsManager extends InternalManager {
 		ArrayList<ConfigurationTimer> configuration = new ArrayList<ConfigurationTimer>();
 		configuration.add(new TimerRoles(this.getPlugin()));
 		configuration.add(new TimerLoups(this.getPlugin()));
+		configuration.add(new TimerPvP(this.getPlugin()));
 		configuration.add(new TimerBorder(this.getPlugin()));
+		configuration.add(new TimerMinage(this.getPlugin()));
 		configuration.add(new TimerBorderEnd(this.getPlugin()));
 		configuration.add(new TimerIndice(this.getPlugin()));
 		return configuration;
@@ -90,13 +96,6 @@ public class ConfigurationsManager extends InternalManager {
 		return configReturn;
 	}
 
-	public ArrayList<ConfigurationScenario> getConfigurationScenariosAll() {
-		ArrayList<ConfigurationScenario> scenarios = new ArrayList<ConfigurationScenario>();
-		scenarios.addAll(configurationScenarios);
-		scenarios.addAll(configurationScenariosPermanent);
-		return scenarios;
-	}
-
 	public ArrayList<ConfigurationTimer> getConfigurationTimers() {
 		return configurationTimers;
 	}
@@ -119,11 +118,5 @@ public class ConfigurationsManager extends InternalManager {
 
 	public void setConfigurationScenarios(ArrayList<ConfigurationScenario> configurationScenarios) {
 		this.configurationScenarios = configurationScenarios;
-	}
-	public ArrayList<ConfigurationScenario> getConfigurationScenariosPermanent() {
-		return configurationScenariosPermanent;
-	}
-	public void setConfigurationScenariosPermanent(ArrayList<ConfigurationScenario> configurationScenariosPermanent) {
-		this.configurationScenariosPermanent = configurationScenariosPermanent;
 	}
 }

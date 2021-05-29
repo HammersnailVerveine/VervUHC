@@ -11,8 +11,9 @@ public class ScenarioIndiceBreak extends ConfigurationScenario {
 
 	public ScenarioIndiceBreak(Main main) {
 		super(main);
-		this.setName("Indice Reveals Wolf");
+		this.setName("Indice Break");
 		this.enabled = true;
+		this.permanent = true;
 	}
 
 

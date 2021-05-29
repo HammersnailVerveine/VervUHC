@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.Verveine.LGUHC.Main;
 import me.Verveine.LGUHC.Enums.Camp;
+import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Players.Role;
 import me.Verveine.LGUHC.Translations.FR;
 
@@ -46,10 +47,6 @@ public class RoleAssassin extends Role {
 		this.startInventory.add(book3);
 
 	}
-
-	@Override
-	public void setupStart(Player player) {
-	}
 	
 	@Override
 	public void update(Player player) {
@@ -78,5 +75,9 @@ public class RoleAssassin extends Role {
 
 	@Override
 	public void resetPower() {
+	}
+
+	@Override
+	public void updateDeath(Player player, Profile deadProfile) {
 	}
 }

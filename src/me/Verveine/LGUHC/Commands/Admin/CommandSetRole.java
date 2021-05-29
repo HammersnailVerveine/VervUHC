@@ -1,5 +1,8 @@
 package me.Verveine.LGUHC.Commands.Admin;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -36,24 +39,38 @@ public class CommandSetRole extends PluginCommand {
 					}
 					
 					if (roleName.equals(entry) || roleNameAbridged.equals(entry)) {
-						Role role = null;
+						Role role = configRole.getRole();
+						Class<?> clazz;
 						try {
-							role = (Role) configRole.getRole().clone();
-						} catch (CloneNotSupportedException e) {
-							this.getGame().getChatManager().sendSystemMessage("erreur clone CommmandSetRole");
+							clazz = Class.forName(role.getClass().getName());
+							Constructor<?> ctor;
+							try {
+								ctor = clazz.getConstructor(Main.class);
+								Object object;
+								try {
+									object = ctor.newInstance(new Object[] { this.getPlugin() });
+									profile.setRole((Role) object);
+									sender.sendMessage("Le role du joueur " + ChatColor.WHITE + profile.getPlayer().getName() + ChatColor.GOLD + " est désormais " + profile.getRole().getColor() + profile.getRole().getName());
+									this.getGame().getChatManager().sendPrivateMessage("Votre rôle a été changé par un administrateur", profile.getPlayer());
+									this.getGame().getChatManager().sendProfileRole(profile);
+									role.obtain(profile.getPlayer());
+									return;
+								} catch (InstantiationException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (InvocationTargetException e) {
+									e.printStackTrace();
+								}
+							} catch (NoSuchMethodException e) {
+								e.printStackTrace();
+							} catch (SecurityException e) {
+								e.printStackTrace();
+							}
+						} catch (ClassNotFoundException e) {
 							e.printStackTrace();
-							return;
-						}
-						
-						if (role != null) {
-							profile.setRole(role);
-							this.getGame().getChatManager().sendSystemMessage("Le role du joueur " + ChatColor.WHITE + profile.getPlayer().getName() + ChatColor.GOLD + " est désormais " + profile.getRole().getColor() + profile.getRole().getName());
-							this.getGame().getChatManager().sendPrivateMessage("Votre rôle a été changé par un administrateur", profile.getPlayer());
-							this.getGame().getChatManager().sendProfileRole(profile);
-							return;
-						} else {
-							sender.sendMessage(ChatColor.GOLD + "null role");
-							return;
 						}
 					}
 				}

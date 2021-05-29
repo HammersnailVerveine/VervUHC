@@ -1,8 +1,10 @@
 package me.Verveine.LGUHC.Game.Configuration.Scenarios;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
@@ -15,6 +17,7 @@ public abstract class ConfigurationScenario {
 
 	private Main plugin;
 	protected boolean enabled;
+	protected boolean permanent;
 	protected String name;
 	protected String scoreboardName;
 	private ItemStack displayItem;
@@ -22,6 +25,7 @@ public abstract class ConfigurationScenario {
 	public ConfigurationScenario(Main main) {
 		this.setPlugin(main);
 		enabled = false;
+		setPermanent(false);
 		name = "default";
 		setItem(Material.APPLE);
 	}
@@ -37,6 +41,15 @@ public abstract class ConfigurationScenario {
 	public void onBlockBreak(BlockBreakEvent event) {}
 	public void onInventoryClick(InventoryClickEvent event) {}
 	public void onEntityDamage(EntityDamageEvent event) {}
+	public void onEntityDeath(EntityDeathEvent event) {}
+	
+	public Location center(Location location) {
+		Location newLocation = location.clone();
+		newLocation.setX((int)(newLocation.getBlockX()) + 0.5);
+		newLocation.setY((int)(newLocation.getBlockY()) + 0.5);
+		newLocation.setZ((int)(newLocation.getBlockZ()) + 0.5);
+		return newLocation;
+	}
 	
 	public GameLG getGame() {
 		return this.getPlugin().getGameManager().getGame();
@@ -72,5 +85,13 @@ public abstract class ConfigurationScenario {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isPermanent() {
+		return permanent;
+	}
+
+	public void setPermanent(boolean permanent) {
+		this.permanent = permanent;
 	}
 }

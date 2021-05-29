@@ -42,6 +42,7 @@ public class GameLG {
 		new WorldManager(main, this);
 		new ProfilesManager(main, this);
 		new GameObjectManager(main, this);
+		
 		new GamePermissionsManager(main, this);
 
 		new MenusManager(main, this);

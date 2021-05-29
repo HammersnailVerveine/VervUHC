@@ -45,10 +45,6 @@ public class RoleRenard extends Role {
 			return "Flair : " + ChatColor.RED + "✕" + ChatColor.AQUA + " : " + ChatColor.WHITE + this.getPowerUses() + "/3"; 
 		}
 	}
-
-	@Override
-	public void setupStart(Player player) {
-	}
 	
 	@Override
 	public void update(Player player) {
@@ -102,31 +98,39 @@ public class RoleRenard extends Role {
 
 	@Override
 	public void useCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (this.isCanUsePower()) {
-			if (args.length == 2) {
-				Profile profile = this.getGame().getProfilesManager().getProfileFromName(args[1]);
-				if (profile != null) {
-					if (!profile.equals(this.getGame().getProfilesManager().getProfileFromName(sender.getName()))) {
-						this.getGame().getChatManager().sendPrivateMessage("Vous flairez " + ChatColor.WHITE + profile.getPlayer().getName(), (Player) sender);
-						this.setCanUsePower(false);
-						this.setTrackingProgress(0);
-						this.setTrackedProfile(profile);
-						this.setPowerUses(powerUses - 1);
+		if (sender instanceof Player) {
+	    	Profile p = this.getGame().getProfilesManager().getProfileFromUUID(((Player)sender).getUniqueId().toString());
+	    	if (p.isAlive()) {
+				if (this.isCanUsePower()) {
+					if (args.length == 2) {
+						Profile profile = this.getGame().getProfilesManager().getProfileFromName(args[1]);
+						if (profile != null) {
+							if (!profile.equals(this.getGame().getProfilesManager().getProfileFromName(sender.getName()))) {
+								this.getGame().getChatManager().sendPrivateMessage("Vous flairez " + ChatColor.WHITE + profile.getPlayer().getName(), (Player) sender);
+								this.setCanUsePower(false);
+								this.setTrackingProgress(0);
+								this.setTrackedProfile(profile);
+								this.setPowerUses(powerUses - 1);
+							} else {
+								sender.sendMessage(ChatColor.RED + "Vous ne pouvez pas vous flairer vous même.");
+								return;
+							}
+						} else {
+							sender.sendMessage(ChatColor.RED + "Le profil du joueur " + args[1] + " est introuvable.");
+							return;
+						}
 					} else {
-						sender.sendMessage(ChatColor.RED + "Vous ne pouvez pas vous flairer vous même.");
+						sender.sendMessage(ChatColor.RED + "Usage : /lg use pseudo.");
 						return;
 					}
 				} else {
-					sender.sendMessage(ChatColor.RED + "Le profil du joueur " + args[1] + " est introuvable.");
+					sender.sendMessage(ChatColor.RED + "Vous ne pouvez pas flairer un joueur maintenant.");
 					return;
 				}
-			} else {
-				sender.sendMessage(ChatColor.RED + "Usage : /lg use pseudo.");
+	    	} else {
+				sender.sendMessage(ChatColor.RED + "Vous êtes mort(e).");
 				return;
-			}
-		} else {
-			sender.sendMessage(ChatColor.RED + "Vous ne pouvez pas flairer un joueur maintenant.");
-			return;
+	    	}
 		}
 	}
 
@@ -167,4 +171,7 @@ public class RoleRenard extends Role {
 		this.trackedProfile = trackedProfile;
 	}
 
+	@Override
+	public void updateDeath(Player player, Profile deadProfile) {
+	}
 }

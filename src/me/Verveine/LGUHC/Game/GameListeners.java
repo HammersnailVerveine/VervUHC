@@ -5,6 +5,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -24,7 +25,7 @@ public class GameListeners implements Listener {
 	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		for (ConfigurationScenario scenario : this.getConfigurationManager().getConfigurationScenariosAll()) {
+		for (ConfigurationScenario scenario : this.getConfigurationManager().getConfigurationScenarios()) {
 			if (scenario.isEnabled()) {
 				scenario.onPlayerJoin(event);
 			}
@@ -33,7 +34,7 @@ public class GameListeners implements Listener {
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onBlockBreak(BlockBreakEvent event) {
-		for (ConfigurationScenario scenario : this.getConfigurationManager().getConfigurationScenariosAll()) {
+		for (ConfigurationScenario scenario : this.getConfigurationManager().getConfigurationScenarios()) {
 			if (scenario.isEnabled()) {
 				scenario.onBlockBreak(event);
 			}
@@ -42,7 +43,7 @@ public class GameListeners implements Listener {
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onInventoryClick(InventoryClickEvent event) {
-		for (ConfigurationScenario scenario : this.getConfigurationManager().getConfigurationScenariosAll()) {
+		for (ConfigurationScenario scenario : this.getConfigurationManager().getConfigurationScenarios()) {
 			if (scenario.isEnabled()) {
 				scenario.onInventoryClick(event);
 			}
@@ -51,9 +52,18 @@ public class GameListeners implements Listener {
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onEntityDamage(EntityDamageEvent event) {
-		for (ConfigurationScenario scenario : this.getConfigurationManager().getConfigurationScenariosAll()) {
+		for (ConfigurationScenario scenario : this.getConfigurationManager().getConfigurationScenarios()) {
 			if (scenario.isEnabled()) {
 				scenario.onEntityDamage(event);
+			}
+		}
+	}
+
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onEntityDeath(EntityDeathEvent event) {
+		for (ConfigurationScenario scenario : this.getConfigurationManager().getConfigurationScenarios()) {
+			if (scenario.isEnabled()) {
+				scenario.onEntityDeath(event);
 			}
 		}
 	}

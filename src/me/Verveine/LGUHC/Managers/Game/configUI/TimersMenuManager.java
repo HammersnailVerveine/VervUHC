@@ -52,12 +52,12 @@ public class TimersMenuManager extends InternalMenuManager {
 	public void setDefaults() {
 		this.updateTimers();
 		this.setItem(this.getInventory(), 0, Material.BARRIER, ChatColor.RED + "Retour", 1);
-		this.setItem(this.getInventory(), 2, Material.REDSTONE_BLOCK, ChatColor.RED + "Remove 1 minute", 1);
-		this.setItem(this.getInventory(), 3, Material.REDSTONE_BLOCK, ChatColor.RED + "Remove 20 seconds", 1);
+		this.setItem(this.getInventory(), 2, Material.REDSTONE_BLOCK, ChatColor.RED + "Remove 5 minutes", 1);
+		this.setItem(this.getInventory(), 3, Material.REDSTONE_BLOCK, ChatColor.RED + "Remove 1 minute", 1);
 		this.setItem(this.getInventory(), 4, Material.REDSTONE_BLOCK, ChatColor.RED + "Remove 5 seconds", 1);
 		this.setItem(this.getInventory(), 6, Material.EMERALD_BLOCK, ChatColor.GREEN + "Add 5 seconds", 1);
-		this.setItem(this.getInventory(), 7, Material.EMERALD_BLOCK, ChatColor.GREEN + "Add 20 seconds", 1);
-		this.setItem(this.getInventory(), 8, Material.EMERALD_BLOCK, ChatColor.GREEN + "Add 1 minute", 1);
+		this.setItem(this.getInventory(), 7, Material.EMERALD_BLOCK, ChatColor.GREEN + "Add 1 minute", 1);
+		this.setItem(this.getInventory(), 8, Material.EMERALD_BLOCK, ChatColor.GREEN + "Add 5 minutes", 1);
 	}
 
 	@Override
@@ -69,10 +69,10 @@ public class TimersMenuManager extends InternalMenuManager {
 				clickEvent.getWhoClicked().openInventory(this.getGame().getMenusManager().getMainMenuManager().getInventory());
 				break;
 			case 2:
-				this.getSelectedConfiguration().remove(60);
+				this.getSelectedConfiguration().remove(300);
 				break;
 			case 3:
-				this.getSelectedConfiguration().remove(20);
+				this.getSelectedConfiguration().remove(60);
 				break;
 			case 4:
 				this.getSelectedConfiguration().remove(5);
@@ -81,10 +81,10 @@ public class TimersMenuManager extends InternalMenuManager {
 				this.getSelectedConfiguration().add(5);
 				break;
 			case 7:
-				this.getSelectedConfiguration().add(20);
+				this.getSelectedConfiguration().add(60);
 				break;
 			case 8:
-				this.getSelectedConfiguration().add(60);
+				this.getSelectedConfiguration().add(300);
 				break;
 			default:
 				break;

@@ -19,6 +19,7 @@ import me.Verveine.LGUHC.Game.GameLG;
 import me.Verveine.LGUHC.Game.Configuration.ConfigurationTimer;
 import me.Verveine.LGUHC.Players.Profile;
 import me.Verveine.LGUHC.Players.State;
+import me.Verveine.LGUHC.Players.Roles.LG.RoleLoupGarouBlanc;
 import me.Verveine.LGUHC.Players.Roles.Solo.RoleAssassin;
 import net.md_5.bungee.api.ChatColor;
 
@@ -146,6 +147,11 @@ public class UpdateManager extends InternalManager {
 	
 	public void checkWin() {
 		GameLG game = this.getGame();
+		
+		if (!game.getGameState().equals(GameState.STARTED)) {
+			return;
+		}
+		
 		ArrayList<PlayerState> validStates = new ArrayList<PlayerState>();
 		ArrayList<Profile> aliveProfiles = new ArrayList<Profile>();
 		validStates.add(PlayerState.ALIVE);
@@ -189,6 +195,11 @@ public class UpdateManager extends InternalManager {
 				endGame(ChatColor.YELLOW + "Victoire de l'assassin.");
 				return;
 			}
+			
+			if (profile.getRole() instanceof RoleLoupGarouBlanc) {
+				endGame(ChatColor.YELLOW + "Victoire du loup garou blanc.");
+				return;
+			}
 
 			endGame(ChatColor.YELLOW + "Il n'y a plus qu'un joueur en vie : " + aliveProfiles.get(0).getPlayer().getName() + ".");
 			return;
@@ -200,15 +211,7 @@ public class UpdateManager extends InternalManager {
 		GameLG game = this.getGame();
 		ChatManager chatManager = game.getChatManager();
 		chatManager.sendPlayersList();
-		ArrayList<PlayerState> validStates = new ArrayList<PlayerState>();
-		validStates.add(PlayerState.SPECTATOR);
-		validStates.add(PlayerState.DEAD);
-		
-		int nbAlive = 0;
-		for (Profile profile : game.getProfilesManager().getProfiles()) {
-			if (!validStates.contains(profile.getState().getPlayerState()))
-				nbAlive ++;
-		}
+		int nbAlive = game.getProfilesManager().getAliveProfiles().size();
 		
 		for (Profile profile : game.getProfilesManager().getProfiles()) {
 			profile.updateScoreboardEnd(nbAlive);
